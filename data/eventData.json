@@ -1,0 +1,80 @@
+{
+    "events": [
+        {
+            "id": 0,
+            "name": "Pickup Soccer Game",
+            "activity": "",
+            "privacy": 0,
+            "datetime": {
+                "date": "2021-01-22 17:00:00.000000"
+            },
+            "location": "Stadium",
+            "desc": "futbol",
+            "max_cap": 22,
+            "cur_cap": 4,
+            "owner": {},
+            "users": [{}, {}, {}
+            ],
+            "timestamp": {
+                "date": "2021-01-22 17:00:00.000000"
+            }
+        },
+        {
+            "id": 1,
+            "name": "Pickup Basketball Game",
+            "activity": "",
+            "privacy": 0,
+            "datetime": {
+                "date": "2021-01-22 17:00:00.000000"
+            },
+            "location": "SPAC",
+            "desc": "",
+            "max_cap": 10,
+            "cur_cap": 3,
+            "owner": {},
+            "users": [{}, {}
+            ],
+            "timestamp": {
+                "date": "2021-01-22 17:00:00.000000"
+            }
+        },
+        {
+            "id": 2,
+            "name": "Pickup Tennis Game",
+            "activity": "",
+            "privacy": 0,
+            "datetime": {
+                "date": "2021-01-22 17:00:00.000000"
+            },
+            "location": "Tennis Courts",
+            "desc": "",
+            "max_cap": 4,
+            "cur_cap": 4,
+            "owner": {},
+            "users": [{}, {}, {}
+            ],
+            "timestamp": {
+                "date": "2021-01-22 17:00:00.000000"
+            }
+        },
+        {
+            "id": 3,
+            "name": "Valorant Custom Game",
+            "activity": "",
+            "privacy": 0,
+            "datetime": {
+                "date": "2021-01-22 17:00:00.000000"
+            },
+            "location": "Discord",
+            "desc": "",
+            "max_cap": 10,
+            "cur_cap": 7,
+            "owner": {},
+            "users": [{}, {}, {}, {}, {}, {}, {}
+            ],
+            "timestamp": {
+                "date": "2021-01-22 17:00:00.000000"
+            }
+        }
+    ]
+}
