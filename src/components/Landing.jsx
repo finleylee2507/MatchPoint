@@ -1,1 +1,1 @@
-// Landing page goes here
+// Landing Page
