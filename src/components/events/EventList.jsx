@@ -22,13 +22,5 @@ function EventList() {
     )
 }
 
-// const _styles = {
-//     eventList: {
-//         display: "flex",
-//         flexDirection: "column",
-//         alignItems: "center",
-//         paddingTop: '20px',
-//     }
-// }
 
 export default EventList
