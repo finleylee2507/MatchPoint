@@ -25,7 +25,7 @@ const EventCard = ({ cardData }) => {
                                 <br />
                                 Date: {datetime.date}
                             </Card.Text>
-                            <Button variant="primary" style={_styles.button}>Go somewhere</Button>
+                            <Button variant="primary" size='sm'>Go somewhere</Button>
                         </Card.Body>
                     </Col>
                 </Row>
@@ -36,7 +36,7 @@ const EventCard = ({ cardData }) => {
 
 const _styles = {
     card: {
-        margin: '20px',
+        marginTop: '2vh',
         width: '85vw',
     },
     circularImageWrapper: {
@@ -45,14 +45,14 @@ const _styles = {
         alignItems: 'center',
     },
     cardBody: {
-        paddingLeft: '0px',
-        paddingRight: '0px',
+        padding: '10px 0px 10px 0px',
     },
     cardTitle: {
         fontSize: '4vw',
     },
     cardText: {
         fontSize: '2vw',
+        marginBottom: '8px',
     },
     image: {
         width: '20vw',
@@ -61,9 +61,6 @@ const _styles = {
         // adaptive image position
         objectFit: 'cover',
     },
-    button: {
-        fontSize: '1vw'
-    }
 }
 
 export default EventCard
