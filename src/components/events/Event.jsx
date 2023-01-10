@@ -14,21 +14,18 @@ const EventCard = ({ cardData }) => {
                         <img style={_styles.image} src={Basketball} />
                     </Col>
                     <Col xs={8}>
-                        <Card.Body>
-                            <Card.Title>Title: {name}</Card.Title>
-                            <Card.Text>
+                        <Card.Body style={_styles.cardBody}>
+                            <Card.Title style={_styles.cardTitle}>{name}</Card.Title>
+                            <Card.Text style={_styles.cardText}>
                                 Location: {location}
-                            </Card.Text>
-                            <Card.Text>
+                                <br />
                                 Total spots: {max_cap}
-                            </Card.Text>
-                            <Card.Text>
+                                <br />
                                 Spots avaliable: {max_cap - cur_cap}
-                            </Card.Text>
-                            <Card.Text>
+                                <br />
                                 Date: {datetime.date}
                             </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
+                            <Button variant="primary" style={_styles.button}>Go somewhere</Button>
                         </Card.Body>
                     </Col>
                 </Row>
@@ -40,19 +37,32 @@ const EventCard = ({ cardData }) => {
 const _styles = {
     card: {
         margin: '20px',
-        width: '40vw',
+        width: '85vw',
     },
     circularImageWrapper: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
     },
+    cardBody: {
+        paddingLeft: '0px',
+        paddingRight: '0px',
+    },
+    cardTitle: {
+        fontSize: '4vw',
+    },
+    cardText: {
+        fontSize: '2vw',
+    },
     image: {
-        width: '150px',
-        height: '150px',
+        width: '20vw',
+        height: '20vw',
         borderRadius: '50%',
         // adaptive image position
         objectFit: 'cover',
+    },
+    button: {
+        fontSize: '1vw'
     }
 }
 
