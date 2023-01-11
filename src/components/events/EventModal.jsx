@@ -5,15 +5,15 @@ function EventModal({show, handleClose }) {
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Pickup Soccer Game</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Body>
+                <p>Participants: Vedant, Finley, Rawan, Vincent</p>
+                <p>Spots Available: 18</p>
+            </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
                 <Button variant="primary" onClick={handleClose}>
-                    Save Changes
+                    Join Event
                 </Button>
             </Modal.Footer>
         </Modal>

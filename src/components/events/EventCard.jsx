@@ -31,7 +31,7 @@ const EventCard = ({openModal, cardData}) => {
                               </Col>
                             </Row>
                             <Button onClick={openModal} variant="primary" size="sm">
-                              Open Modal
+                              See More
                             </Button>
                         </Card.Body>
                     </Col>
