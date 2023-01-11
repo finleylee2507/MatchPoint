@@ -1,16 +1,13 @@
-import './App.css';
-import NavBar from './components/Navbar';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
+import EventList from './components/events/EventList'
 
 const App = () => {
-  return (
-    <>
-      <NavBar />
-      <div className="App">
-        
-      </div>
-    </>
-  );
-};
+    return (
+        //TODO: these should technically be in event list
+        <div className="App">
+            <EventList/>
+        </div>
+    )
+}
 
-export default App;
+export default App
