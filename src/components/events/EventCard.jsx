@@ -1,9 +1,9 @@
 // Event Card
 import React from 'react'
 import {Button, Card, Col, Container, Row} from 'react-bootstrap'
-import './Event.css'
+import './EventCard.css'
 
-const EventCard = ({cardData}) => {
+const EventCard = ({openModal, cardData}) => {
     const {name, location, max_cap, cur_cap, datetime, img_src} = cardData
 
     return (
@@ -25,7 +25,7 @@ const EventCard = ({cardData}) => {
                                 <br/>
                                 Date: {datetime.date}
                             </Card.Text>
-                            <Button variant="primary" size="sm">Go somewhere</Button>
+                            <Button onClick={openModal} variant="primary" size="sm">Open Modal</Button>
                         </Card.Body>
                     </Col>
                 </Row>
