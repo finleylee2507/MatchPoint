@@ -28,11 +28,11 @@ const EventCard = ({openModal, cardData}) => {
                                 <Card.Text style={bs_styles.cardText}>
                                   {max_cap - cur_cap} / {max_cap} spots available
                                 </Card.Text>
-                                <Button onClick={openModal} variant="primary" size="sm">
-                                  Open Modal
-                                </Button>
                               </Col>
                             </Row>
+                            <Button onClick={openModal} variant="primary" size="sm">
+                              Open Modal
+                            </Button>
                         </Card.Body>
                     </Col>
                 </Row>
