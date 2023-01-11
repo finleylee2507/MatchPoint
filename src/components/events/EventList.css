@@ -4,3 +4,13 @@
     align-items: center;
     padding-top: 20px;
 }
+
+.search-button{
+    color: #271CA1 !important;
+    border-color: #271CA1 !important;
+}
+
+.search-button:hover {
+    background-color: #271CA1 !important;
+    color: white !important;
+}

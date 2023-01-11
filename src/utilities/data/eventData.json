@@ -18,7 +18,7 @@
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
             },
-            "img_src": "./src/assets/Soccer.jpeg"
+            "img_src": "https://www.pointsincase.com/images/atlanta-pickup-soccer.jpg"
         },
         {
             "id": 1,
@@ -38,7 +38,7 @@
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
             },
-            "img_src": "./src/assets/basketball.png"
+            "img_src": "https://cdn.pixabay.com/photo/2013/07/12/14/07/basketball-147794__340.png"
         },
         {
             "id": 2,
@@ -58,7 +58,7 @@
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
             },
-            "img_src": "./src/assets/Tennis.jpg"
+            "img_src": "https://media.istockphoto.com/id/1093339590/photo/tennis-ball-with-racket-on-the-tennis-court-sport-recreation-concept.jpg?s=612x612&w=0&k=20&c=NFPmBLsaWtAET7y_akAkWjBxMVoxhqBmo2WkP_E4nVY="
         },
         {
             "id": 3,
@@ -78,7 +78,7 @@
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
             },
-            "img_src": "./src/assets/Valorant.jpg"
+            "img_src": "https://media.npr.org/assets/img/2020/05/07/valorant_jett_wide-a62d0cdd87d0edffbabda5a6efe7bb62e57554a5.jpg"
         }
     ]
 }

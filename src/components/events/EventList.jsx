@@ -16,11 +16,11 @@ function EventList() {
             <Form className="d-flex">
                 <Form.Control
                     type="search"
-                    placeholder="Search anything"
+                    placeholder="Search for an activity"
                     className="me-2"
                     aria-label="Search"
                 />
-                <Button variant="outline-success">Search</Button>
+                <Button className="search-button" variant="outline-success">Search</Button>
             </Form>
             <EventModal show={show} handleClose={handleClose} />
             {eventData.events.map(e => (<EventCard openModal={handleShow} key={e.id} cardData={e} />))}

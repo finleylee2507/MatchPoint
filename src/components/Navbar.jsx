@@ -1,18 +1,21 @@
 import React from 'react';
 import { Nav, Form, Navbar, NavDropdown, Offcanvas, Button, Container } from 'react-bootstrap';
+import './Navbar.css';
+
 
 function NavBar() {
     return (
         <>
-            <Navbar bg="light" expand="false" className="mb-3">
+            <Navbar expand="false" className="bar">
                 <Container fluid>
                     <Navbar.Toggle aria-controls={`offcanvasNavbar`} />
-                    <Navbar.Brand href="#">MatchPoint</Navbar.Brand>
-                    <Nav.Link href="#action1">Sign in</Nav.Link>
+                    <Navbar.Brand className="logo" href="src/components/events/EventList.jsx">MatchPoint</Navbar.Brand>
+                    <Nav.Link className="nav-link" href="#action1">Sign in</Nav.Link>
                     <Navbar.Offcanvas
                         id={`offcanvasNavbar`}
                         aria-labelledby={`offcanvasNavbarLabel`}
                         placement="start"
+                        className="burger-menu"
                     >
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title id={`offcanvasNavbarLabel`}>

@@ -1,8 +1,14 @@
 .image {
-    width: 20vw;
-    height: 20vw;
+    width: 14.3vw;
+    height: 14.3vw;
     border-radius: 50%;
 
     /*adpative image position*/
     object-fit: cover;
+}
+
+.card-button{
+    background-color: #271CA1 !important;
+    color: white !important;
+    border: none !important;
 }

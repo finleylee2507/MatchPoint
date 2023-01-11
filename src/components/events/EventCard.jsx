@@ -11,10 +11,10 @@ const EventCard = ({openModal, cardData}) => {
             <Container>
                 <Row>
                     <Col xs={4} style={bs_styles.circularImageWrapper}>
-                        <img className="image" src={img_src}/>
+                        <img className="image" src={img_src} alt="image of event"/>
                     </Col>
                     <Col xs={8}>
-                        <Card.Body style={bs_styles.cardBody}>
+                        <Card.Body className='card-body' style={bs_styles.cardBody}>
                             <Card.Title style={bs_styles.cardTitle}>{name}</Card.Title>
                             <Row>
                               <Col>
@@ -30,7 +30,7 @@ const EventCard = ({openModal, cardData}) => {
                                 </Card.Text>
                               </Col>
                             </Row>
-                            <Button onClick={openModal} variant="primary" size="sm">
+                            <Button className="card-button" onClick={openModal} variant="primary" size="lg">
                               See More
                             </Button>
                         </Card.Body>
