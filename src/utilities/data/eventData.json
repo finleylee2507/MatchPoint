@@ -6,7 +6,7 @@
             "activity": "",
             "privacy": 0,
             "datetime": {
-                "date": "2021-01-22 17:00:00.000000"
+                "date": "2021-01-22 17:00"
             },
             "location": "Stadium",
             "desc": "futbol",
@@ -17,7 +17,8 @@
             ],
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
-            }
+            },
+            "img_src": "./src/assets/Soccer.jpeg"
         },
         {
             "id": 1,
@@ -25,7 +26,7 @@
             "activity": "",
             "privacy": 0,
             "datetime": {
-                "date": "2021-01-22 17:00:00.000000"
+                "date": "2021-01-22 17:00"
             },
             "location": "SPAC",
             "desc": "",
@@ -36,7 +37,8 @@
             ],
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
-            }
+            },
+            "img_src": "./src/assets/basketball.png"
         },
         {
             "id": 2,
@@ -44,7 +46,7 @@
             "activity": "",
             "privacy": 0,
             "datetime": {
-                "date": "2021-01-22 17:00:00.000000"
+                "date": "2021-01-22 17:00"
             },
             "location": "Tennis Courts",
             "desc": "",
@@ -55,7 +57,8 @@
             ],
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
-            }
+            },
+            "img_src": "./src/assets/Tennis.jpg"
         },
         {
             "id": 3,
@@ -63,7 +66,7 @@
             "activity": "",
             "privacy": 0,
             "datetime": {
-                "date": "2021-01-22 17:00:00.000000"
+                "date": "2021-01-22 17:00"
             },
             "location": "Discord",
             "desc": "",
@@ -74,7 +77,8 @@
             ],
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
-            }
+            },
+            "img_src": "./src/assets/Valorant.jpg"
         }
     ]
 }
