@@ -2,17 +2,16 @@
 import React from 'react'
 import {Button, Card, Col, Container, Row} from 'react-bootstrap'
 import './Event.css'
-import Basketball from '../../assets/Basketball.png'
 
 const EventCard = ({cardData}) => {
-    const {name, location, max_cap, cur_cap, datetime} = cardData
+    const {name, location, max_cap, cur_cap, datetime, img_src} = cardData
 
     return (
         <Card style={bs_styles.card}>
             <Container>
                 <Row>
                     <Col xs={4} style={bs_styles.circularImageWrapper}>
-                        <img className="image" src={Basketball}/>
+                        <img className="image" src={img_src}/>
                     </Col>
                     <Col xs={8}>
                         <Card.Body style={bs_styles.cardBody}>
@@ -22,7 +21,7 @@ const EventCard = ({cardData}) => {
                                 <br/>
                                 Total spots: {max_cap}
                                 <br/>
-                                Spots avaliable: {max_cap - cur_cap}
+                                Spots available: {max_cap - cur_cap}
                                 <br/>
                                 Date: {datetime.date}
                             </Card.Text>

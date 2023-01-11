@@ -17,7 +17,8 @@
             ],
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
-            }
+            },
+            "img_src": "./src/assets/Soccer.jpeg"
         },
         {
             "id": 1,
@@ -36,7 +37,8 @@
             ],
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
-            }
+            },
+            "img_src": "./src/assets/basketball.png"
         },
         {
             "id": 2,
@@ -55,7 +57,8 @@
             ],
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
-            }
+            },
+            "img_src": "./src/assets/Tennis.jpg"
         },
         {
             "id": 3,
@@ -74,7 +77,8 @@
             ],
             "timestamp": {
                 "date": "2021-01-22 17:00:00.000000"
-            }
+            },
+            "img_src": "./src/assets/Valorant.jpg"
         }
     ]
 }
