@@ -1,0 +1,8 @@
+.image {
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+
+    /*adpative image position*/
+    object-fit: cover;
+}
