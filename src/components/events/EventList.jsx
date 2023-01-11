@@ -9,11 +9,8 @@ import "./EventList.css";
 function EventList() {
   const [open, setOpen] = useState(false);
 
-  const openModal = () => {
-    console.log("Button clicked");
-    setOpen(true);
-    console.log(open);
-  };
+  const openModal = () => setOpen(true);
+
   const closeModal = () => setOpen(false);
 
   return (
@@ -28,7 +25,7 @@ function EventList() {
         <Button variant="outline-success">Search</Button>
       </Form>
 
-      <EventModal open={open} close={closeModal}></EventModal>
+      <EventModal show={open} handleClose={closeModal}></EventModal>
 
       {eventData.events.map((e) => (
         <EventCard key={e.id} openModal={openModal} cardData={e} />
