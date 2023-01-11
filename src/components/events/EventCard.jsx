@@ -16,16 +16,23 @@ const EventCard = ({openModal, cardData}) => {
                     <Col xs={8}>
                         <Card.Body style={bs_styles.cardBody}>
                             <Card.Title style={bs_styles.cardTitle}>{name}</Card.Title>
-                            <Card.Text style={bs_styles.cardText}>
-                                Location: {location}
-                                <br/>
-                                Total spots: {max_cap}
-                                <br/>
-                                Spots available: {max_cap - cur_cap}
-                                <br/>
-                                Date: {datetime.date}
-                            </Card.Text>
-                            <Button onClick={openModal} variant="primary" size="sm">Open Modal</Button>
+                            <Row>
+                              <Col>
+                                <Card.Text style={bs_styles.cardText}>
+                                  Location: {location}
+                                  <br />
+                                  Date: {datetime.date}
+                                </Card.Text>
+                              </Col>
+                              <Col>
+                                <Card.Text style={bs_styles.cardText}>
+                                  {max_cap - cur_cap} / {max_cap} spots available
+                                </Card.Text>
+                                <Button onClick={openModal} variant="primary" size="sm">
+                                  Open Modal
+                                </Button>
+                              </Col>
+                            </Row>
                         </Card.Body>
                     </Col>
                 </Row>
