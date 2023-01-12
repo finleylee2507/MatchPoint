@@ -2,7 +2,7 @@ import React from 'react'
 import {Button, Modal} from 'react-bootstrap'
 
 function EventModal({show, handleClose, data}) {
-    const {name, location, max_cap, cur_cap, datetime, img_src} = data
+    const {name, location, max_cap, cur_cap, users} = data
     return (
         <Modal show={show} onHide={handleClose} info={data} centered>
             <Modal.Header closeButton>
@@ -10,7 +10,8 @@ function EventModal({show, handleClose, data}) {
             </Modal.Header>
             <Modal.Body>
                 <p>Location: {location}</p>
-                <p>Participants: Vedant, Finley, Rawan, Vincent</p>
+                <span>Participants: </span>
+                {users.map(user => <span> user's name,</span>)}
                 <p>Spots Available: {max_cap - cur_cap}</p>
             </Modal.Body>
             <Modal.Footer>
