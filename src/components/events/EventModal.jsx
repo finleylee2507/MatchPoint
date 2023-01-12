@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button, Modal} from 'react-bootstrap'
+import React from 'react'
+import {Button, Modal} from 'react-bootstrap'
 
-function EventModal({show, handleClose }) {
+function EventModal({show, handleClose}) {
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
@@ -17,7 +17,7 @@ function EventModal({show, handleClose }) {
                 </Button>
             </Modal.Footer>
         </Modal>
-    );
+    )
 }
 
-export default EventModal;
+export default EventModal
