@@ -1,6 +1,6 @@
-import React from 'react';
-import { Nav, Form, Navbar, NavDropdown, Offcanvas, Button, Container } from 'react-bootstrap';
-import './Navbar.css';
+import React from 'react'
+import {Container, Nav, Navbar, Offcanvas} from 'react-bootstrap'
+import './Navbar.css'
 
 
 function NavBar() {
@@ -8,7 +8,7 @@ function NavBar() {
         <>
             <Navbar expand="false" className="bar">
                 <Container fluid>
-                    <Navbar.Toggle aria-controls={`offcanvasNavbar`} />
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar`}/>
                     <Navbar.Brand className="logo" href="src/components/events/EventList.jsx">MatchPoint</Navbar.Brand>
                     <Nav.Link className="nav-link" href="#action1">Sign in</Nav.Link>
                     <Navbar.Offcanvas
@@ -32,7 +32,7 @@ function NavBar() {
                 </Container>
             </Navbar>
         </>
-    );
+    )
 }
 
-export default NavBar;
+export default NavBar

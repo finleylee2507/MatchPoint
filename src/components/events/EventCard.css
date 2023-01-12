@@ -7,8 +7,27 @@
     object-fit: cover;
 }
 
-.card-button{
+.card-button {
     background-color: #271CA1 !important;
     color: white !important;
     border: none !important;
+}
+
+.circular-image-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.card-body {
+    padding: 10px 0px 10px 0px !important;
+}
+
+.card-title {
+    font-size: 4vw !important;
+}
+
+.card-text {
+    font-size: 2vw !important;
+    margin-bottom: 8px !important;
 }
