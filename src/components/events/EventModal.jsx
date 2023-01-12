@@ -1,9 +1,9 @@
 import React from 'react'
 import {Button, Modal} from 'react-bootstrap'
 
-function EventModal({show, handleClose}) {
+function EventModal({show, handleClose, data}) {
     return (
-        <Modal show={show} onHide={handleClose} centered>
+        <Modal show={show} onHide={handleClose} info={data} centered>
             <Modal.Header closeButton>
                 <Modal.Title>Pickup Soccer Game</Modal.Title>
             </Modal.Header>

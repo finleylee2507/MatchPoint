@@ -22,7 +22,7 @@ function EventList() {
                 />
                 <Button className="search-button" variant="outline-success">Search</Button>
             </Form>
-            <EventModal show={show} handleClose={handleClose}/>
+            <EventModal show={show} handleClose={handleClose} data={eventData[0]}/>
             {eventData.events.map(e => (<EventCard openModal={handleShow} key={e.id} cardData={e}/>))}
         </div>
     )
