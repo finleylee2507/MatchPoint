@@ -11,9 +11,12 @@
 }
 
 .app-image{
-    height:100vh !important;
+    height:90vh !important;
 }
 
+.col-left{
+    margin:auto;
+}
 .col-right {
     display: flex;
     flex-direction: column;

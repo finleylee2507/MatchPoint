@@ -28,7 +28,6 @@ const Landing = () => {
   ) : (
     <div className="landing-page-container">
         <div className="col-left">
-            {/*try hosting image*/}
             <Image src={appImage} className="app-image"/>
         </div>
         <div className="col-right">
