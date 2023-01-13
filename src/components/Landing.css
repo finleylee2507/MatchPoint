@@ -15,7 +15,8 @@
 }
 
 .col-left{
-    margin:auto;
+    display: flex;
+    align-items: center;
 }
 .col-right {
     display: flex;
