@@ -1,8 +1,5 @@
 event json structure:
-
-
-{
-	"id": 69,
+{event_id}: {
 	"name": "ajoaisjasf",
 	"activity": "",
 	"privacy": 0, // 0 = public, 1 = invite only
@@ -18,5 +15,14 @@ event json structure:
 		{}
 	],
 	"timestamp": {},
+	"img_src": ""
 }
 
+user_profile json stucture:
+{google_account_id}: {
+	"first_name": "",
+	"last_name": "",
+	"bio": "",
+	"teams": [],
+	"date_joined": {},
+}
