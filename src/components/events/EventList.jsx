@@ -4,14 +4,18 @@ import {Button, Form} from 'react-bootstrap';
 import EventCard from './EventCard';
 import eventData from '../../utilities/data/eventData.json';
 import EventModal from './EventModal';
+import AddEventModal from "./AddEventModal";
 import './EventList.css';
 
 function EventList() {
     const [show, setShow] = useState(false);
+    const [showAddEventModal, setShowAddEventModal] = useState(false);
     const [events, setEvents] = useState([]);
     const [searchFilter, setSearchFilter] = useState("");
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleShowAddEventModal=()=>setShowAddEventModal(true);
+    const handleCloseAddEventModal=()=>setShowAddEventModal(false);
     const handleSearch = () => {
         //search events based on filter
         let searchTerms = searchFilter.split(" ").map(word => word.toLowerCase());
@@ -43,8 +47,10 @@ function EventList() {
                     onChange={e => setSearchFilter(e.target.value)}
                 />
                 <Button className="search-button" variant="outline-success" onClick={handleSearch}>Search</Button>
+                <Button className="search-button" variant="outline-success" onClick={handleShowAddEventModal}>Add Event</Button>
             </Form>
             <EventModal show={show} handleClose={handleClose} data={eventData.events[0]}/>
+            <AddEventModal show={showAddEventModal} handleClose={handleCloseAddEventModal}/>
             {events.map(e => (<EventCard openModal={handleShow} key={e.id} cardData={e}/>))}
         </div>
     );
