@@ -3,39 +3,44 @@ import EventList from "./components/events/EventList";
 import NavBar from "./components/Navbar";
 import Landing from "./components/Landing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useAuthState } from "./utilities/firebase";
+import { useAuthState, useDbData } from "./utilities/firebase";
 
 const App = () => {
-  const user = useAuthState();
+    const [events, eventsError] = useDbData("/events");
+    console.log(eventsError);
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <Landing />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="allEvents"
-          element={
-            <div>
-              <NavBar />
-              <EventList />
-            </div>
-          }
-        ></Route>
-      </Routes>
-    </BrowserRouter>
-  );
-  // <div className="App">
-  //   <NavBar />
-  //   <EventList />
-  // </div>
-  //   );
+    const [users, usersError] = useDbData("/users");
+    console.log("Users: ",users);
+    console.log(usersError);
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <div>
+                            <Landing allUsers={users} />
+                        </div>
+                    }
+                ></Route>
+                <Route
+                    path="allEvents"
+                    element={
+                        <div>
+                            <NavBar />
+                            <EventList eventData={events}/>
+                        </div>
+                    }
+                ></Route>
+            </Routes>
+        </BrowserRouter>
+    );
+    // <div className="App">
+    //   <NavBar />
+    //   <EventList />
+    // </div>
+    //   );
 };
 
 export default App;

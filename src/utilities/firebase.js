@@ -3,7 +3,14 @@
 // Import the functions you need from the SDKs you need
 import { useCallback, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, ref, update } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  ref,
+  update,
+  set,
+  push,
+} from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -36,23 +43,34 @@ export const useDbData = (path) => {
   const [error, setError] = useState(null);
 
   useEffect(
-    () =>
-      onValue(
-        ref(database, path),
-        (snapshot) => {
-          setData(snapshot.val());
-        },
-        (error) => {
-          setError(error);
-        }
-      ),
-    [path]
+      () =>
+          onValue(
+              ref(database, path),
+              (snapshot) => {
+                setData(snapshot.val());
+              },
+              (error) => {
+                setError(error);
+              }
+          ),
+      [path]
   );
 
   return [data, error];
 };
 
-// I will add more functions here to add and update the database
+// Add user to database
+export const addNewUser = (newUser, uid) => {
+  set(ref(database, "users/" + uid), newUser);
+};
+
+// Get new event key
+export const getNewEventKey = () => {
+  const eventKey = push(child(ref(database)), "events");
+  return eventKey;
+};
+
+/* USER AUTHENTICATION FUNCTIONS */
 
 export const signInWithGoogle = () => {
   signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
