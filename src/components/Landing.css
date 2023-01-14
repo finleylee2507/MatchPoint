@@ -1,0 +1,40 @@
+.landing-page-container{
+    display:flex;
+    justify-content: space-evenly;
+    background-color: #C3BEFF ;
+    height: 100vh;
+}
+
+.sign-in-button {
+    display: flex;
+    justify-content: center;
+}
+
+.app-image{
+    height:90vh !important;
+}
+
+.col-left{
+    display: flex;
+    align-items: center;
+}
+.col-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+}
+
+.logo-container{
+    display: flex;
+    align-items: center;
+    gap:2rem;
+
+}
+
+.small-logo{
+    height: 100px;
+}
+.blurb{
+font-size: 20px;
+}
