@@ -6,6 +6,7 @@ import eventData from '../../utilities/data/eventData.json';
 import EventModal from './EventModal';
 import './EventList.css';
 
+
 function EventList() {
     const [show, setShow] = useState(false);
     const [events, setEvents] = useState([]);
