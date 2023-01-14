@@ -6,8 +6,8 @@ event json structure:
 	"datetime": {}, // datetime object?
 	"location": "",
 	"desc": "",
-	"max_cap": 69,
-	"cur_cap": 1,
+	"maxCapacity": 69,
+	"currentCapacity": 1,
 	"owner": {}, // user object
 	"users": [ // list of user objects
 		{},
@@ -15,14 +15,13 @@ event json structure:
 		{}
 	],
 	"timestamp": {},
-	"img_src": ""
+	"imgSrc": ""
 }
 
-user_profile json stucture:
+user json stucture:
 {google_account_id}: {
-	"first_name": "",
-	"last_name": "",
+	"displayName": "",
 	"bio": "",
 	"teams": [],
-	"date_joined": {},
+	"dateJoined": {},
 }
