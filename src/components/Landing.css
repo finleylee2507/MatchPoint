@@ -1,7 +1,7 @@
-.landing-page-container{
-    display:flex;
+.landing-page-container {
+    display: flex;
     justify-content: space-evenly;
-    background-color: #C3BEFF ;
+    background-color: #C3BEFF;
     height: 100vh;
 }
 
@@ -10,14 +10,15 @@
     justify-content: center;
 }
 
-.app-image{
-    height:90vh !important;
+.app-image {
+    height: 90vh !important;
 }
 
-.col-left{
+.col-left {
     display: flex;
     align-items: center;
 }
+
 .col-right {
     display: flex;
     flex-direction: column;
@@ -25,16 +26,17 @@
     width: 50%;
 }
 
-.logo-container{
+.logo-container {
     display: flex;
     align-items: center;
-    gap:2rem;
+    gap: 2rem;
 
 }
 
-.small-logo{
+.small-logo {
     height: 100px;
 }
-.blurb{
-font-size: 20px;
+
+.blurb {
+    font-size: 20px;
 }

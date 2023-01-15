@@ -1,16 +1,13 @@
 event json structure:
-
-
-{
-	"id": 69,
+{event_id}: {
 	"name": "ajoaisjasf",
 	"activity": "",
 	"privacy": 0, // 0 = public, 1 = invite only
 	"datetime": {}, // datetime object?
 	"location": "",
 	"desc": "",
-	"max_cap": 69,
-	"cur_cap": 1,
+	"maxCapacity": 69,
+	"currentCapacity": 1,
 	"owner": {}, // user object
 	"users": [ // list of user objects
 		{},
@@ -18,5 +15,13 @@ event json structure:
 		{}
 	],
 	"timestamp": {},
+	"imgSrc": ""
 }
 
+user json stucture:
+{google_account_id}: {
+	"displayName": "",
+	"bio": "",
+	"teams": [],
+	"dateJoined": {},
+}
