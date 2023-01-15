@@ -5,13 +5,12 @@
     padding-top: 20px;
 }
 
-.search-button {
+.search-button, .add-event-button {
     color: #271CA1 !important;
     border-color: #271CA1 !important;
 }
 
-
-.search-button:hover {
+.search-button:hover, .add-event-button:hover {
     background-color: #271CA1 !important;
     color: white !important;
 }

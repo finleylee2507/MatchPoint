@@ -1,8 +1,52 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Modal} from 'react-bootstrap';
 
-function AddEventModal({show, handleClose, data}) {
+
+function AddEventModal({show, handleClose, handleSubmit, data}) {
     // const {name, location, max_cap, cur_cap, users} = data
+    const [formData, setFormData] = useState({ //used to store form data
+        eventName: "",
+        eventLocation: "",
+        teamCapacity: 0
+
+    });
+
+    const handleChange = (event) => {
+        const {name, value, type, checked} = event.target;
+        console.log(name);
+
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [name]: type === "checkbox" ? checked : value
+        }));
+    };
+
+    const createEvent = () => {
+        //create event based on form input
+        const newEvent = {
+            name: formData.eventName,
+            maxCap: formData.teamCapacity,
+            location: formData.eventLocation,
+
+            //uncollected fields that exist in database
+            activity: "",
+            currCap: "",
+
+        };
+
+        //call parent's function to submit event to database
+        handleSubmit(newEvent);
+
+        //clear state
+        setFormData({
+            eventName: "",
+            eventLocation: "",
+            teamCapacity: 0
+        });
+
+        //close modal
+        handleClose();
+    };
     return (
         <Modal show={show} onHide={handleClose} info={data} centered>
             <Modal.Header closeButton>
@@ -15,8 +59,11 @@ function AddEventModal({show, handleClose, data}) {
                         <Form.Label>Event Name</Form.Label>
                         <Form.Control
                             type="text"
-                            name="event-name"
+                            name="eventName"
+                            value={formData.eventName}
+                            onChange={handleChange}
                             autoFocus
+
                         />
                     </Form.Group>
 
@@ -24,7 +71,9 @@ function AddEventModal({show, handleClose, data}) {
                         <Form.Label>Location</Form.Label>
                         <Form.Control
                             type="text"
-                            name="event-location"
+                            name="eventLocation"
+                            value={formData.eventLocation}
+                            onChange={handleChange}
                             autoFocus
                         />
                     </Form.Group>
@@ -32,35 +81,39 @@ function AddEventModal({show, handleClose, data}) {
                     <Form.Group className="mb-3" controlId="team-capacity">
                         <Form.Label>Team Capacity</Form.Label>
                         <Form.Control
-                            type="text"
-                            autoFocus
-                            name="team-capacity"
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="event-date">
-                        <Form.Label>Date</Form.Label>
-                        <Form.Control
-                            type="date"
-                            name="event-date"
+                            type="number"
+                            min="1"
+                            max="100"
+                            name="teamCapacity"
+                            value={formData.teamCapacity}
+                            onChange={handleChange}
                             autoFocus
                         />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="event-time">
-                        <Form.Label>Time</Form.Label>
-                        <Form.Control
-                            type="time"
-                            name="event-time"
-                            autoFocus
-                        />
-                    </Form.Group>
+                    {/*<Form.Group className="mb-3" controlId="event-date">*/}
+                    {/*    <Form.Label>Date</Form.Label>*/}
+                    {/*    <Form.Control*/}
+                    {/*        type="date"*/}
+                    {/*        name="event-date"*/}
+                    {/*        autoFocus*/}
+                    {/*    />*/}
+                    {/*</Form.Group>*/}
+
+                    {/*<Form.Group className="mb-3" controlId="event-time">*/}
+                    {/*    <Form.Label>Time</Form.Label>*/}
+                    {/*    <Form.Control*/}
+                    {/*        type="time"*/}
+                    {/*        name="event-time"*/}
+                    {/*        autoFocus*/}
+                    {/*    />*/}
+                    {/*</Form.Group>*/}
 
 
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={createEvent}>
                     Create Event
                 </Button>
             </Modal.Footer>

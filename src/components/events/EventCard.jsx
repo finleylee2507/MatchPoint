@@ -4,14 +4,14 @@ import {Button, Card, Col, Container, Row} from 'react-bootstrap';
 import './EventCard.css';
 
 const EventCard = ({openModal, cardData}) => {
-    const {name, location, max_cap, cur_cap, img_src} = cardData;
+    const {name, location, maxCap, currCap, imgSrc} = cardData;
 
     return (
         <Card className="card">
             <Container>
                 <Row>
                     <Col xs={4} className="circular-image-wrapper">
-                        <img className="image" src={img_src} alt="image of event"/>
+                        <img className="image" src={imgSrc} alt="image of event"/>
                     </Col>
                     <Col xs={8}>
                         <Card.Body className="card-body">
@@ -26,7 +26,7 @@ const EventCard = ({openModal, cardData}) => {
                                 </Col>
                                 <Col>
                                     <Card.Text className="card-text">
-                                        {max_cap - cur_cap} / {max_cap} spots available
+                                        {maxCap - currCap} / {maxCap} spots available
                                     </Card.Text>
                                 </Col>
                             </Row>

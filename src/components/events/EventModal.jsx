@@ -3,7 +3,7 @@ import {Button, Modal} from 'react-bootstrap';
 
 function EventModal({show, handleClose, data}) {
     console.log("modal data: ", data);
-    const {name, location, max_cap, cur_cap} = data;
+    const {name, location, maxCap, currCap} = data;
     return (
         <Modal show={show} onHide={handleClose} info={data} centered>
             <Modal.Header closeButton>
@@ -14,7 +14,7 @@ function EventModal({show, handleClose, data}) {
                 <span>Participants: </span>
                 Not yet implemented
                 {/*{users.map(user => <span> user's name,</span>)}*/}
-                <p>Spots Available: {max_cap - cur_cap}</p>
+                <p>Spots Available: {maxCap - currCap}</p>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={handleClose}>
