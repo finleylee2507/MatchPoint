@@ -53,12 +53,12 @@ function EventList({eventData}) {
                 <Button className="search-button" variant="outline-success" onClick={handleSearch}>Search</Button>
             </Form>
             <EventModal show={show} handleClose={handleClose} data={modalData}/>
-            {events && events.map(e => (<EventCard openModal={handleShow} key={e.id} cardData={e}/>))}
+            {(!events || events.length === 0) ?
+                <p className="empty-page-message">No events to display...</p> : events.map(e => (
+                    <EventCard openModal={handleShow} key={e.id} cardData={e}/>))}
+            {/*{events && events.map(e => (<EventCard openModal={handleShow} key={e.id} cardData={e}/>))}*/}
         </div>
 
-        // <div>
-        //     {events&&events.map(e => (<EventCard openModal={handleShow} key={e[1].id} cardData={e[1]}/>))}
-        // </div>
     );
 }
 
