@@ -94,7 +94,7 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">
-                        <Form.Label>Upload Image</Form.Label>
+                        <Form.Label>Upload Cover Image</Form.Label>
                         <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
                     </Form.Group>
                     {/*<Form.Group className="mb-3" controlId="event-date">*/}
