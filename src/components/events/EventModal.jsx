@@ -5,7 +5,7 @@ function EventModal({show, handleClose, data}) {
     console.log("modal data: ", data);
     const {name, location, maxCap, currCap} = data;
     return (
-        <Modal show={show} onHide={handleClose} info={data} centered>
+        <Modal show={show} onHide={handleClose} info={data} centered backdrop="static">
             <Modal.Header closeButton>
                 <Modal.Title>{name}</Modal.Title>
             </Modal.Header>

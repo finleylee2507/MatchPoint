@@ -50,7 +50,7 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
         handleClose();
     };
     return (
-        <Modal show={show} onHide={handleClose} info={data} centered>
+        <Modal show={show} onHide={handleClose} info={data} centered backdrop="static">
             <Modal.Header closeButton>
                 <Modal.Title>Add an event</Modal.Title>
             </Modal.Header>
