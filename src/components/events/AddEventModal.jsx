@@ -7,17 +7,16 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
     const [formData, setFormData] = useState({ //used to store form data
         eventName: "",
         eventLocation: "",
-        teamCapacity: 0
+        teamCapacity: 0,
+        imageFile:""
 
     });
 
     const handleChange = (event) => {
-        const {name, value, type, checked} = event.target;
-        console.log(name);
-
+        const {name, value, type, files} = event.target;
         setFormData(prevFormData => ({
             ...prevFormData,
-            [name]: type === "checkbox" ? checked : value
+            [name]: type === "file"?files[0]  : value
         }));
     };
 
@@ -31,11 +30,14 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
             //uncollected fields that exist in database
             activity: "",
             currCap: "",
+            desc: "",
+            imgSrc: "",
+            privacy: 0
 
         };
 
         //call parent's function to submit event to database
-        handleSubmit(newEvent);
+        handleSubmit(newEvent,formData.imageFile);
 
         //clear state
         setFormData({
@@ -91,6 +93,10 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
                         />
                     </Form.Group>
 
+                    <Form.Group className="mb-3" controlId="upload-image">
+                        <Form.Label>Upload Image</Form.Label>
+                        <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
+                    </Form.Group>
                     {/*<Form.Group className="mb-3" controlId="event-date">*/}
                     {/*    <Form.Label>Date</Form.Label>*/}
                     {/*    <Form.Control*/}

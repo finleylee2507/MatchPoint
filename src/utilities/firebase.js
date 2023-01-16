@@ -3,8 +3,9 @@
 // Import the functions you need from the SDKs you need
 import {useEffect, useState} from "react";
 import {initializeApp} from "firebase/app";
-import {getDatabase, onValue, push, ref, set,child} from "firebase/database";
+import {getDatabase, onValue, push, ref, set} from "firebase/database";
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut,} from "firebase/auth";
+import {getDownloadURL, getStorage, ref as sRef, uploadBytes} from "firebase/storage";
 
 // Configuration Data
 const firebaseConfig = {
@@ -21,6 +22,7 @@ const firebaseConfig = {
 // Initialize Firebase and database
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
+const storage = getStorage();
 
 /* DATABASE FUNCTIONS */
 
@@ -62,6 +64,27 @@ export const getNewEventKey = () => {
     return eventKey.key;
 };
 
+//not sure it will work
+export const uploadFile = async (file) => {
+    let fileLink = `images/${file.name}`;
+    let downloadURL = "";
+    let isSuccessful = false;
+    const imageReference = sRef(storage, fileLink);
+
+
+    try {
+        await uploadBytes(imageReference, file);
+        downloadURL = await getDownloadURL(imageReference);
+        console.log('File upload successful');
+        isSuccessful = true;
+    } catch (err) {
+        console.log("Error: " + err);
+    }
+
+
+    return [isSuccessful, downloadURL];
+
+};
 /* USER AUTHENTICATION FUNCTIONS */
 
 export const signInWithGoogle = () => {

@@ -1,6 +1,6 @@
 // Event List
 import React, {useEffect, useState} from 'react';
-import {addNewEvent,getNewEventKey} from "../../utilities/firebase";
+import {addNewEvent, getNewEventKey, uploadFile} from "../../utilities/firebase";
 import {Button, Form} from 'react-bootstrap';
 import EventCard from './EventCard';
 import EventModal from './EventModal';
@@ -25,19 +25,26 @@ function EventList({eventData}) {
     const handleShowAddEventModal = (data) => {
         setShowAddEventModal(true);
     };
-    const handleAddEventSubmit=(newEventData)=>{
-        console.log("submit");
+    const handleAddEventSubmit = async (newEventData, imageFile) => {
+        const acceptedFileTypes = ['image/gif', 'image/jpeg', 'image/png'];
+        if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
+            let [isSuccessful, fileLink] = await uploadFile(imageFile);
+            if (isSuccessful) {
+                newEventData.imgSrc = fileLink;
+            }
+        }
 
-        //submit event to database
-        let newEventKey=getNewEventKey()
+        //get key from database
+        let newEventKey = getNewEventKey();
 
         //append id to new event
-        newEventData.id=newEventKey
+        newEventData.id = newEventKey;
 
-        console.log("new event object: ",newEventData);
+        console.log("new event object: ", newEventData);
 
-        addNewEvent(newEventData,newEventKey)
-    }
+        //submit new event to database
+        addNewEvent(newEventData, newEventKey);
+    };
     const handleSearch = () => {
         //search events based on filter
         let searchTerms = searchFilter.split(" ").map(word => word.toLowerCase());
@@ -75,7 +82,8 @@ function EventList({eventData}) {
                         onClick={handleShowAddEventModal}>Add Event</Button>
             </Form>
             <EventModal show={showSeeMoreModal} handleClose={handleCloseSeeMoreModal} data={modalDataSeeMore}/>
-            <AddEventModal show={showAddEventModal} handleClose={handleCloseAddEventModal} handleSubmit={handleAddEventSubmit}/>
+            <AddEventModal show={showAddEventModal} handleClose={handleCloseAddEventModal}
+                           handleSubmit={handleAddEventSubmit}/>
             {(!events || events.length === 0) ?
                 <p className="empty-page-message">No events to display...</p> : events.map(e => (
                     <EventCard openModal={handleShowSeeMoreModal} key={e.id} cardData={e}/>))}
