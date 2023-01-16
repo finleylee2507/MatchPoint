@@ -72,7 +72,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
         try {
             const submissionResult = await handleSubmit(newEvent, formData.imageFile);
             console.log(submissionResult);
-            setSubmissionStatus(1);
+            setSubmissionStatus(2);
 
             setTimeout(() => {
                 //clear state
