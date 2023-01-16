@@ -1,26 +1,57 @@
 import React, {useState} from 'react';
-import {Button, Form, Modal} from 'react-bootstrap';
+import {Alert, Button, Form, Modal, Spinner} from 'react-bootstrap';
+import "./AddEventModal.css"
 
-
-function AddEventModal({show, handleClose, handleSubmit, data}) {
-    // const {name, location, max_cap, cur_cap, users} = data
+const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
     const [formData, setFormData] = useState({ //used to store form data
         eventName: "",
         eventLocation: "",
         teamCapacity: 0,
-        imageFile:""
+        imageFile: ""
 
     });
+
+    const creatingEventElement = (<div className="creating-event-container">
+            <p className="creating-event-text">
+                Creating Event...
+            </p>
+            <div className="submission-status-icon">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Creating Event...</span>
+                </Spinner>
+            </div>
+        </div>
+    );
+
+    const eventCreationSuccessElement = (
+        <Alert key="success" variant="success">
+            Successfully created event!
+        </Alert>
+    );
+
+    const eventCreationFailureElement = (
+        <Alert key="danger" variant="danger">
+            Hmm something went wrong... Please check and try again.
+        </Alert>
+    );
+
+
+    //0->not submitted, 1-> submitting, 2-> successful, 3 ->unsuccessful
+    let [submissionStatus, setSubmissionStatus] = useState(0);
+
 
     const handleChange = (event) => {
         const {name, value, type, files} = event.target;
         setFormData(prevFormData => ({
             ...prevFormData,
-            [name]: type === "file"?files[0]  : value
+            [name]: type === "file" ? files[0] : value
         }));
     };
 
-    const createEvent = () => {
+    const createEvent = async (e) => {
+        e.preventDefault();
+        setSubmissionStatus(1);
+
         //create event based on form input
         const newEvent = {
             name: formData.eventName,
@@ -36,18 +67,33 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
 
         };
 
+
         //call parent's function to submit event to database
-        handleSubmit(newEvent,formData.imageFile);
+        try {
+            const submissionResult = await handleSubmit(newEvent, formData.imageFile);
+            console.log(submissionResult);
+            setSubmissionStatus(1);
 
-        //clear state
-        setFormData({
-            eventName: "",
-            eventLocation: "",
-            teamCapacity: 0
-        });
+            setTimeout(() => {
+                //clear state
+                setFormData({
+                    eventName: "",
+                    eventLocation: "",
+                    teamCapacity: 0
+                });
+                setSubmissionStatus(0);
 
-        //close modal
-        handleClose();
+                //close modal
+                handleClose();
+            }, 5000);
+
+
+        } catch {
+            setSubmissionStatus(3);
+        }
+
+
+
     };
     return (
         <Modal show={show} onHide={handleClose} info={data} centered backdrop="static">
@@ -56,7 +102,7 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
             </Modal.Header>
             <Modal.Body>
                 <h4>Post new event, recruit your team!</h4>
-                <Form>
+                <Form onSubmit={createEvent} id="create-event-form">
                     <Form.Group className="mb-3" controlId="event-name">
                         <Form.Label>Event Name</Form.Label>
                         <Form.Control
@@ -65,7 +111,7 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
                             value={formData.eventName}
                             onChange={handleChange}
                             autoFocus
-
+                            required
                         />
                     </Form.Group>
 
@@ -76,6 +122,7 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
                             name="eventLocation"
                             value={formData.eventLocation}
                             onChange={handleChange}
+                            required
                             autoFocus
                         />
                     </Form.Group>
@@ -89,6 +136,7 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
                             name="teamCapacity"
                             value={formData.teamCapacity}
                             onChange={handleChange}
+                            required
                             autoFocus
                         />
                     </Form.Group>
@@ -97,6 +145,25 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
                         <Form.Label>Upload Cover Image</Form.Label>
                         <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
                     </Form.Group>
+
+
+                    <div className="submission-status">
+
+                        {
+                            (() => {
+                                switch (submissionStatus) {
+                                    case 1:
+                                        return creatingEventElement;
+                                    case 2:
+                                        return eventCreationSuccessElement;
+                                    case 3:
+                                        return eventCreationFailureElement;
+                                }
+                            })()
+                        }
+                    </div>
+
+
                     {/*<Form.Group className="mb-3" controlId="event-date">*/}
                     {/*    <Form.Label>Date</Form.Label>*/}
                     {/*    <Form.Control*/}
@@ -119,12 +186,12 @@ function AddEventModal({show, handleClose, handleSubmit, data}) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary" onClick={createEvent}>
+                <Button variant="primary" type="submit" form="create-event-form">
                     Create Event
                 </Button>
             </Modal.Footer>
         </Modal>
     );
-}
+};
 
 export default AddEventModal;
