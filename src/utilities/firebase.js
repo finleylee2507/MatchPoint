@@ -60,16 +60,16 @@ export const addNewEvent = (newEvent, eid) => {
 
 // Join an event
 export const joinEvent = async (updatedParticipants, ueid) => {
-  const participantsRef = child(ref(database), `events/${ueid}`);
-  let isJoinSuccessful = false;
-  try {
-    await update(participantsRef, updatedParticipants);
-    isJoinSuccessful = true;
-  } catch (error) {
-    console.log(error);
-  }
+    const participantsRef = child(ref(database), `events/${ueid}`);
+    let isJoinSuccessful = false;
+    try {
+        await update(participantsRef, updatedParticipants);
+        isJoinSuccessful = true;
+    } catch (error) {
+        console.log(error);
+    }
 
-  return isJoinSuccessful
+    return isJoinSuccessful;
 };
 
 // Get new event key
@@ -78,7 +78,7 @@ export const getNewEventKey = () => {
     return eventKey.key;
 };
 
-//not sure it will work
+
 export const uploadFile = async (file) => {
     let fileLink = `images/${file.name}`;
     let downloadURL = "";
@@ -95,6 +95,19 @@ export const uploadFile = async (file) => {
     }
 
     return [isSuccessful, downloadURL];
+};
+
+export const getImageLinkOfExistingImage = async (imageFileName) => {
+    let fileLink = `images/${imageFileName}`;
+    let imageLink = "";
+    const imageReference = sRef(storage, fileLink)
+    try {
+        imageLink = await getDownloadURL(imageReference)
+    } catch (err) {
+        console.log(err);
+    }
+
+    return imageLink
 };
 /* USER AUTHENTICATION FUNCTIONS */
 

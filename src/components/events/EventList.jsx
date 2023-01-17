@@ -1,6 +1,6 @@
 // Event List
 import React, {useEffect, useState} from "react";
-import {addNewEvent, getNewEventKey, joinEvent, uploadFile,} from "../../utilities/firebase";
+import {addNewEvent, getNewEventKey, joinEvent, uploadFile,getImageLinkOfExistingImage} from "../../utilities/firebase";
 import {Button, Form} from "react-bootstrap";
 import EventCard from "./EventCard";
 import EventModal from "./EventModal";
@@ -44,11 +44,16 @@ const EventList = ({eventData, user, allUsers}) => {
     };
     const handleAddEventSubmit = async (newEventData, imageFile) => {
         const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
-        if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
+        if (imageFile && acceptedFileTypes.includes(imageFile.type)) { //if the user uploaded a file
             let [isSuccessful, fileLink] = await uploadFile(imageFile);
+            console.log("Successful? ",isSuccessful);
             if (isSuccessful) {
                 newEventData.imgSrc = fileLink;
             }
+        }
+        else{ //set image link to default image
+            let fileLink=await getImageLinkOfExistingImage("default-cover.png")
+            newEventData.imgSrc=fileLink
         }
 
         //get key from database
