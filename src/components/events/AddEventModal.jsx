@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, Button, Form, Modal, Spinner} from 'react-bootstrap';
-import "./AddEventModal.css"
+import "./AddEventModal.css";
 
 const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
     const [formData, setFormData] = useState({ //used to store form data
@@ -64,7 +64,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             desc: "",
             imgSrc: "",
             privacy: 0,
-            participants:[]
+            participants: []
 
         };
 
@@ -89,11 +89,10 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             }, 5000);
 
 
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             setSubmissionStatus(3);
         }
-
 
 
     };
@@ -188,7 +187,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary" type="submit" form="create-event-form">
+                <Button variant="primary" type="submit" form="create-event-form" disabled={submissionStatus !== 0}>
                     Create Event
                 </Button>
             </Modal.Footer>

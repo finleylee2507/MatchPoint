@@ -1,8 +1,8 @@
-.creating-event-container{
+.creating-event-container {
     display: flex;
-    gap:2rem;
+    gap: 2rem;
 }
 
-.creating-event-text{
+.creating-event-text {
     font-weight: 500;
 }
