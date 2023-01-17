@@ -5,14 +5,14 @@
     padding-top: 20px;
 }
 
-.event-list-tool-bar{
-    display:flex;
-    align-items: center;
-}
-.add-event-button{
-    position: absolute;
-    right: 10%;
-}
+/*.event-list-tool-bar{*/
+/*    display:flex;*/
+/*    align-items: center;*/
+/*}*/
+/*.add-event-button{*/
+/*    position: absolute;*/
+/*    right: 10%;*/
+/*}*/
 
 .add-event-button :hover{
     cursor: pointer;

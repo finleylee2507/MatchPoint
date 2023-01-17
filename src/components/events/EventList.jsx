@@ -114,11 +114,11 @@ const EventList = ({eventData, user, allUsers}) => {
                         Search
                     </Button>
 
-
+                    <FontAwesomeIcon icon={faPlus} className="add-event-button" onClick={handleShowAddEventModal}
+                                     title="add event" size="2x"/>
                 </Form>
 
-                <FontAwesomeIcon icon={faPlus} className="add-event-button" onClick={handleShowAddEventModal}
-                                 title="add event" size="2x"/>
+
             </div>
 
             <EventModal
