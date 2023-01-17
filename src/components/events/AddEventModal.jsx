@@ -6,7 +6,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
     const [formData, setFormData] = useState({ //used to store form data
         eventName: "",
         eventLocation: "",
-        teamCapacity: 0,
+        eventCapacity: 0,
         imageFile: ""
 
     });
@@ -38,6 +38,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
 
     //0->not submitted, 1-> submitting, 2-> successful, 3 ->unsuccessful
     let [submissionStatus, setSubmissionStatus] = useState(0);
+    const [validated, setValidated] = useState(false);
 
 
     const handleChange = (event) => {
@@ -50,13 +51,24 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
 
     const createEvent = async (e) => {
         e.preventDefault();
+        
         setSubmissionStatus(1);
-
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.stopPropagation();
+            setSubmissionStatus(0);
+            setValidated(true);
+            console.log("huh");
+            return;
+        }
+        
+        
         //create event based on form input
         const newEvent = {
             name: formData.eventName,
-            maxCap: formData.teamCapacity,
+            maxCap: formData.eventCapacity,
             location: formData.eventLocation,
+            owner: data.uid,
 
             //uncollected fields that exist in database
             activity: "",
@@ -80,7 +92,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                 setFormData({
                     eventName: "",
                     eventLocation: "",
-                    teamCapacity: 0
+                    eventCapacity: 0
                 });
                 setSubmissionStatus(0);
 
@@ -103,7 +115,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             </Modal.Header>
             <Modal.Body>
                 <h4>Post new event, recruit your team!</h4>
-                <Form onSubmit={createEvent} id="create-event-form">
+                <Form noValidate validated={validated} onSubmit={createEvent} id="create-event-form"> {/*validated={validated} */}
                     <Form.Group className="mb-3" controlId="event-name">
                         <Form.Label>Event Name</Form.Label>
                         <Form.Control
@@ -114,6 +126,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                             autoFocus
                             required
                         />
+                        <Form.Control.Feedback type="invalid">Please provide an event name.</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="event-location">
@@ -126,10 +139,11 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                             required
                             autoFocus
                         />
+                        <Form.Control.Feedback type="invalid">Please provide a location.</Form.Control.Feedback>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="team-capacity">
-                        <Form.Label>Team Capacity</Form.Label>
+                    <Form.Group className="mb-3" controlId="event-capacity">
+                        <Form.Label>Capacity</Form.Label>
                         <Form.Control
                             type="number"
                             min="1"
@@ -140,6 +154,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                             required
                             autoFocus
                         />
+                        <Form.Control.Feedback type="invalid">Please provide a valid number of attendees.</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">
