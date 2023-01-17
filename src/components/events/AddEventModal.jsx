@@ -58,7 +58,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             e.stopPropagation();
             setSubmissionStatus(0);
             setValidated(true);
-            console.log("huh");
+            // console.log("huh");
             return;
         }
         
@@ -69,10 +69,10 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
             owner: data.uid,
+            currCap: 1,
 
             //uncollected fields that exist in database
             activity: "",
-            currCap: "",
             desc: "",
             imgSrc: "",
             privacy: 0,
@@ -84,7 +84,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
         //call parent's function to submit event to database
         try {
             const submissionResult = await handleSubmit(newEvent, formData.imageFile);
-            console.log(submissionResult);
+            // console.log(submissionResult);
             setSubmissionStatus(2);
 
             setTimeout(() => {
@@ -111,11 +111,10 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
     return (
         <Modal show={show} onHide={handleClose} info={data} centered backdrop="static">
             <Modal.Header closeButton>
-                <Modal.Title>Add an event</Modal.Title>
+                <Modal.Title>Create an event</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>Post new event, recruit your team!</h4>
-                <Form noValidate validated={validated} onSubmit={createEvent} id="create-event-form"> {/*validated={validated} */}
+                <Form noValidate validated={validated} onSubmit={createEvent} id="create-event-form">
                     <Form.Group className="mb-3" controlId="event-name">
                         <Form.Label>Event Name</Form.Label>
                         <Form.Control
