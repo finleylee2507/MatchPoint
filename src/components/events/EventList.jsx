@@ -1,5 +1,5 @@
 // Event List
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
     addNewEvent,
     getImageLinkOfExistingImage,
@@ -7,16 +7,16 @@ import {
     joinEvent,
     uploadFile
 } from "../../utilities/firebase";
-import {Button, Form} from "react-bootstrap";
+import { Button, Form, Stack } from "react-bootstrap";
 import EventCard from "./EventCard";
 import EventModal from "./EventModal";
 import AddEventModal from "./AddEventModal";
 import "./EventList.css";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
-const EventList = ({eventData, user, allUsers}) => {
+const EventList = ({ eventData, user, allUsers }) => {
     const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
     const [showAddEventModal, setShowAddEventModal] = useState(false);
     const [events, setEvents] = useState([]);
@@ -98,24 +98,26 @@ const EventList = ({eventData, user, allUsers}) => {
         <div className="event-list">
             <div className="event-list-tool-bar">
                 <Form className="d-flex">
-                    <Form.Control
-                        type="search"
-                        placeholder="Search for an activity"
-                        className="me-2"
-                        aria-label="Search"
-                        value={searchFilter}
-                        onChange={(e) => setSearchFilter(e.target.value)}
-                    />
-                    <Button
-                        className="search-button"
-                        variant="outline-success"
-                        onClick={handleSearch}
-                    >
-                        Search
-                    </Button>
+                    <Stack direction="horizontal" gap={2}>
+                        <Form.Control
+                            type="search"
+                            placeholder="Search for an activity"
+                            className="me-2"
+                            aria-label="Search"
+                            value={searchFilter}
+                            onChange={(e) => setSearchFilter(e.target.value)}
+                        />
+                        <Button
+                            className="search-button"
+                            variant="outline-success"
+                            onClick={handleSearch}
+                        >
+                            Search
+                        </Button>
+                        <FontAwesomeIcon icon={faPlus} className="add-event-button" onClick={handleShowAddEventModal}
+                            title="add event" size="2x" />
+                    </Stack>
 
-                    <FontAwesomeIcon icon={faPlus} className="add-event-button" onClick={handleShowAddEventModal}
-                                     title="add event" size="2x"/>
                 </Form>
 
 
