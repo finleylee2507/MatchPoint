@@ -8,7 +8,7 @@ import AddEventModal from "./AddEventModal";
 import './EventList.css';
 
 
-function EventList({eventData}) {
+function EventList({eventData, user,allUsers}) {
     const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
     const [showAddEventModal, setShowAddEventModal] = useState(false);
     const [events, setEvents] = useState([]);
@@ -39,7 +39,7 @@ function EventList({eventData}) {
 
         //append id to new event
         newEventData.id = newEventKey;
-
+        newEventData.participants.push(user.uid)
         console.log("new event object: ", newEventData);
 
         //submit new event to database
@@ -81,7 +81,7 @@ function EventList({eventData}) {
                 <Button className="add-event-button" variant="outline-success"
                         onClick={handleShowAddEventModal}>Add Event</Button>
             </Form>
-            <EventModal show={showSeeMoreModal} handleClose={handleCloseSeeMoreModal} data={modalDataSeeMore}/>
+            <EventModal show={showSeeMoreModal} handleClose={handleCloseSeeMoreModal} data={modalDataSeeMore} allUsers={allUsers}/>
             <AddEventModal show={showAddEventModal} handleClose={handleCloseAddEventModal}
                            handleSubmit={handleAddEventSubmit}/>
             {(!events || events.length === 0) ?

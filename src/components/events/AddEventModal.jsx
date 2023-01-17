@@ -63,7 +63,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             currCap: "",
             desc: "",
             imgSrc: "",
-            privacy: 0
+            privacy: 0,
+            participants:[]
 
         };
 
@@ -88,7 +89,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             }, 5000);
 
 
-        } catch {
+        } catch(error) {
+            console.log(error);
             setSubmissionStatus(3);
         }
 
@@ -142,7 +144,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">
-                        <Form.Label>Upload Cover Image</Form.Label>
+                        <Form.Label>Upload Cover Image (Optional)</Form.Label>
                         <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
                     </Form.Group>
 

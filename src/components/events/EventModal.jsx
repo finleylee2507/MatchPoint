@@ -1,9 +1,11 @@
 import React from 'react';
 import {Button, Modal} from 'react-bootstrap';
 
-function EventModal({show, handleClose, data}) {
+function EventModal({show, handleClose, data,allUsers}) {
     console.log("modal data: ", data);
-    const {name, location, maxCap, currCap} = data;
+    const {name, location, maxCap, currCap, participants} = data;
+    console.log("participants: ", participants);
+    console.log("All users: ",allUsers);
     return (
         <Modal show={show} onHide={handleClose} info={data} centered backdrop="static">
             <Modal.Header closeButton>
@@ -12,8 +14,10 @@ function EventModal({show, handleClose, data}) {
             <Modal.Body>
                 <p>Location: {location}</p>
                 <span>Participants: </span>
-                Not yet implemented
-                {/*{users.map(user => <span> user's name,</span>)}*/}
+
+               {participants&&participants.map(id =>
+                    allUsers[id].displayName
+                ).join(", ")}
                 <p>Spots Available: {maxCap - currCap}</p>
             </Modal.Body>
             <Modal.Footer>

@@ -3,7 +3,7 @@
 // Import the functions you need from the SDKs you need
 import {useEffect, useState} from "react";
 import {initializeApp} from "firebase/app";
-import {getDatabase, onValue, push, ref, set} from "firebase/database";
+import {getDatabase, onValue, push, ref, set,child} from "firebase/database";
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut,} from "firebase/auth";
 import {getDownloadURL, getStorage, ref as sRef, uploadBytes} from "firebase/storage";
 
@@ -60,7 +60,7 @@ export const addNewEvent = (newEvent, eid) => {
 
 // Get new event key
 export const getNewEventKey = () => {
-    const eventKey = push(ref(database), "events");
+    const eventKey = push(child(ref(database),"events"));
     return eventKey.key;
 };
 

@@ -8,7 +8,7 @@ import { useAuthState, useDbData } from "./utilities/firebase";
 const App = () => {
     const [events, eventsError] = useDbData("/events");
     console.log(eventsError);
-
+    const user=useAuthState();
     const [users, usersError] = useDbData("/users");
     console.log("Users: ",users);
     console.log(usersError);
@@ -29,7 +29,7 @@ const App = () => {
                     element={
                         <div>
                             <NavBar />
-                            <EventList eventData={events}/>
+                            <EventList eventData={events} user={user} allUsers={users}/>
                         </div>
                     }
                 ></Route>
