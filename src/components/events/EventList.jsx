@@ -1,11 +1,20 @@
 // Event List
 import React, {useEffect, useState} from "react";
-import {addNewEvent, getNewEventKey, joinEvent, uploadFile,getImageLinkOfExistingImage} from "../../utilities/firebase";
+import {
+    addNewEvent,
+    getImageLinkOfExistingImage,
+    getNewEventKey,
+    joinEvent,
+    uploadFile
+} from "../../utilities/firebase";
 import {Button, Form} from "react-bootstrap";
 import EventCard from "./EventCard";
 import EventModal from "./EventModal";
 import AddEventModal from "./AddEventModal";
 import "./EventList.css";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+
 
 const EventList = ({eventData, user, allUsers}) => {
     const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
@@ -46,14 +55,13 @@ const EventList = ({eventData, user, allUsers}) => {
         const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
         if (imageFile && acceptedFileTypes.includes(imageFile.type)) { //if the user uploaded a file
             let [isSuccessful, fileLink] = await uploadFile(imageFile);
-            console.log("Successful? ",isSuccessful);
+            console.log("Successful? ", isSuccessful);
             if (isSuccessful) {
                 newEventData.imgSrc = fileLink;
             }
-        }
-        else{ //set image link to default image
-            let fileLink=await getImageLinkOfExistingImage("default-cover.png")
-            newEventData.imgSrc=fileLink
+        } else { //set image link to default image
+            let fileLink = await getImageLinkOfExistingImage("default-cover.png");
+            newEventData.imgSrc = fileLink;
         }
 
         //get key from database
@@ -87,31 +95,32 @@ const EventList = ({eventData, user, allUsers}) => {
     }, [searchFilter, eventData]);
 
     return (
-        <div className="eventList">
-            <Form className="d-flex">
-                <Form.Control
-                    type="search"
-                    placeholder="Search for an activity"
-                    className="me-2"
-                    aria-label="Search"
-                    value={searchFilter}
-                    onChange={(e) => setSearchFilter(e.target.value)}
-                />
-                <Button
-                    className="search-button"
-                    variant="outline-success"
-                    onClick={handleSearch}
-                >
-                    Search
-                </Button>
-                <Button
-                    className="add-event-button"
-                    variant="outline-success"
-                    onClick={handleShowAddEventModal}
-                >
-                    Add Event
-                </Button>
-            </Form>
+        <div className="event-list">
+            <div className="event-list-tool-bar">
+                <Form className="d-flex">
+                    <Form.Control
+                        type="search"
+                        placeholder="Search for an activity"
+                        className="me-2"
+                        aria-label="Search"
+                        value={searchFilter}
+                        onChange={(e) => setSearchFilter(e.target.value)}
+                    />
+                    <Button
+                        className="search-button"
+                        variant="outline-success"
+                        onClick={handleSearch}
+                    >
+                        Search
+                    </Button>
+
+
+                </Form>
+
+                <FontAwesomeIcon icon={faPlus} className="add-event-button" onClick={handleShowAddEventModal}
+                                 title="add event" size="2x"/>
+            </div>
+
             <EventModal
                 show={showSeeMoreModal}
                 handleJoin={handleJoinEvent}

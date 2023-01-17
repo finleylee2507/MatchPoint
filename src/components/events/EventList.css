@@ -1,8 +1,21 @@
-.eventList {
+.event-list {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
+}
+
+.event-list-tool-bar{
+    display:flex;
+    align-items: center;
+}
+.add-event-button{
+    position: absolute;
+    right: 10%;
+}
+
+.add-event-button :hover{
+    cursor: pointer;
 }
 
 .search-button, .add-event-button {
@@ -10,7 +23,8 @@
     border-color: #271CA1 !important;
 }
 
-.search-button:hover, .add-event-button:hover {
+
+.search-button:hover{
     background-color: #271CA1 !important;
     color: white !important;
 }
