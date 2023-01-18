@@ -11,6 +11,15 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
 
     });
 
+    const clearStates=()=>{
+        setFormData({
+            eventName: "",
+            eventLocation: "",
+            eventCapacity: 0
+        });
+        setValidated(false);
+        setSubmissionStatus(0);
+    }
     const creatingEventElement = (<div className="creating-event-container">
             <p className="creating-event-text">
                 Creating Event...
@@ -68,7 +77,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             name: formData.eventName,
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
-            owner: data.uid,
+            // owner: data.uid,
             currCap: 1,
 
             //uncollected fields that exist in database
@@ -88,13 +97,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             setSubmissionStatus(2);
 
             setTimeout(() => {
-                //clear state
-                setFormData({
-                    eventName: "",
-                    eventLocation: "",
-                    eventCapacity: 0
-                });
-                setSubmissionStatus(0);
+               clearStates()
 
                 //close modal
                 handleClose();
@@ -109,7 +112,10 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
 
     };
     return (
-        <Modal show={show} onHide={handleClose} info={data} centered backdrop="static">
+        <Modal show={show} onHide={()=>{
+            clearStates()
+            handleClose()
+        }} info={data} centered backdrop="static">
             <Modal.Header closeButton>
                 <Modal.Title>Create an event</Modal.Title>
             </Modal.Header>
@@ -147,8 +153,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                             type="number"
                             min="1"
                             max="100"
-                            name="teamCapacity"
-                            value={formData.teamCapacity}
+                            name="eventCapacity"
+                            value={formData.eventCapacity}
                             onChange={handleChange}
                             required
                             autoFocus
