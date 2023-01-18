@@ -56,7 +56,7 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
 
                 {participants &&
                     participants.map((id) => allUsers[id].displayName).join(", ")}
-                <p>Spots Available: {maxCap - currCap}</p>
+                <p>Spots Available: {participants?maxCap - participants.length:maxCap}</p>
                 <p>Time: {dateTime.toLocaleString("en-US", {
                             month: "long",
                             day: "numeric",
