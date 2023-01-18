@@ -4,6 +4,7 @@ import NavBar from "./components/Navbar";
 import Landing from "./components/Landing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAuthState } from "./utilities/firebase";
+import TeamList from "./components/teams/TeamList";
 
 const App = () => {
   const user = useAuthState();
@@ -28,6 +29,12 @@ const App = () => {
             </div>
           }
         ></Route>
+        <Route 
+          path="Teams"
+          element={<TeamList/>}>
+
+
+        </Route>
       </Routes>
     </BrowserRouter>
   );
