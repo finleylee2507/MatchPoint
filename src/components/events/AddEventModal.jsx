@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Alert, Button, Form, Modal, Spinner} from 'react-bootstrap';
 import "./AddEventModal.css";
 
-const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
+const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
     const [formData, setFormData] = useState({ //used to store form data
         eventName: "",
         eventLocation: "",
@@ -14,6 +14,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
     });
 
 
+    // console.log("Haha: ",user.uid);
     const clearStates = () => {
         setFormData({
             eventName: "",
@@ -84,7 +85,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             name: formData.eventName,
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
-            // owner: data.uid,
+            owner: user.uid,
             currCap: 1,
 
             //uncollected fields that exist in database
@@ -124,7 +125,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
         <Modal show={show} onHide={() => {
             clearStates();
             handleClose();
-        }} info={data} centered backdrop="static">
+        }} centered backdrop="static">
             <Modal.Header closeButton>
                 <Modal.Title>Create an event</Modal.Title>
             </Modal.Header>

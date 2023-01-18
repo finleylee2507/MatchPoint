@@ -17,16 +17,32 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
         </Alert>
     );
 
-    const joinEventFailureElement = (
+    const joinEventFailureElementGeneric = (
         <Alert key="danger" variant="danger">
             Hmm something went wrong... Please check and try again.
         </Alert>
     );
+
+    const joinEventFailureElementOwnEvent = (
+        <Alert key="danger" variant="danger">
+            Error: you can't join an event that you created!
+        </Alert>
+    );
+
     const handleJoinEvent = async () => {
         let joinResult = await handleJoin(data);
         console.log("Join result: ", joinResult);
+        switch (joinResult){
+            case 1:
+                setStatusMsg(joinEventSuccessElement)
+                break
+            case 2:
+                setStatusMsg(joinEventFailureElementGeneric)
+                break
+            case 3:
+                setStatusMsg(joinEventFailureElementOwnEvent)
 
-        setStatusMsg(joinResult ? joinEventSuccessElement : joinEventFailureElement);
+        }
         setShouldDisplayStatusMsg(true);
 
         setTimeout(() => {
