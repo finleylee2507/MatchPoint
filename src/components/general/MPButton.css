@@ -1,0 +1,27 @@
+.MPButton-container{
+    background-color: #7b4cfc;
+    color:white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 10vw;
+    border-radius: 2vw;
+    padding: 7px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 1.2vw;
+}
+
+.MPButton-container:Hover{
+    background-color: white;
+    color:#7b4cfc;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 10vw;
+    border-radius: 2vw;
+    padding: 7px;
+    border: 2px solid #7b4cfc;
+    font-weight: 2vw;
+}
+

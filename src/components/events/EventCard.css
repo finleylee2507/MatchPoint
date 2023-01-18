@@ -16,7 +16,9 @@
     background-color: #271CA1 !important;
     color: white !important;
     border: none !important;
+    transform: scale(1);
 }
+
 
 .circular-image-wrapper {
     display: flex !important;
