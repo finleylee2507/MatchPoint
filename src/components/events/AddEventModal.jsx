@@ -188,7 +188,9 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                             name="dateString"
                             onChange={handleChange}
                             autoFocus
+                            required
                         />
+                        <Form.Control.Feedback type="invalid">Please provide a valid date.</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="event-time">
@@ -198,7 +200,9 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                             name="timeString"
                             onChange={handleChange}
                             autoFocus
+                            required
                         />
+                        <Form.Control.Feedback type="invalid">Please provide a valid time.</Form.Control.Feedback>
                     </Form.Group>
                     <div className="submission-status">
 

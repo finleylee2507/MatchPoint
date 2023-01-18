@@ -62,7 +62,7 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
                             day: "numeric",
                             hour: "numeric",
                             minute: "numeric",
-                            hour12: true,
+                            hour12: false,
                             timeZone: 'CST'
                         })} CST
                 </p>
