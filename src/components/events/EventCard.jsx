@@ -1,6 +1,7 @@
 // Event Card
 import React from 'react'
 import {Button, Card, Col, Container, Row} from 'react-bootstrap'
+import MPButton from '../general/MPButton'
 import './EventCard.css'
 
 const EventCard = ({openModal, cardData}) => {
@@ -30,9 +31,9 @@ const EventCard = ({openModal, cardData}) => {
                                     </Card.Text>
                                 </Col>
                             </Row>
-                            <Button className="card-button" onClick={openModal} variant="primary" size="lg">
+                            <MPButton onClick={openModal} variant="primary" size="lg">
                                 See More
-                            </Button>
+                            </MPButton>
                         </Card.Body>
                     </Col>
                 </Row>
