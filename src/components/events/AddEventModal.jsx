@@ -10,11 +10,11 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
         imageFile: "",
         dateString: "",
         timeString: "",
-        
+
     });
 
 
-    const clearStates=()=>{
+    const clearStates = () => {
         setFormData({
             eventName: "",
             eventLocation: "",
@@ -22,7 +22,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
         });
         setValidated(false);
         setSubmissionStatus(0);
-    }
+    };
     const creatingEventElement = (<div className="creating-event-container">
             <p className="creating-event-text">
                 Creating Event...
@@ -55,8 +55,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
 
     const handleChange = (event) => {
         const {name, value, type, files} = event.target;
-        
-        console.log(formData)
+
+        console.log(formData);
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: type === "file" ? files[0] : value
@@ -65,7 +65,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
 
     const createEvent = async (e) => {
         e.preventDefault();
-        
+
         setSubmissionStatus(1);
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
@@ -75,11 +75,11 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             // console.log("huh");
             return;
         }
-        
-        
+
+
         //create event based on form input
-        const eventDateTime = new Date(`${formData.dateString} ${formData.timeString}`)
-        const dateTimeString = eventDateTime.toUTCString()
+        const eventDateTime = new Date(`${formData.dateString} ${formData.timeString}`);
+        const dateTimeString = eventDateTime.toUTCString();
         const newEvent = {
             name: formData.eventName,
             maxCap: formData.eventCapacity,
@@ -96,7 +96,6 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             dateTimeString: dateTimeString,
 
 
-
         };
 
 
@@ -107,7 +106,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             setSubmissionStatus(2);
 
             setTimeout(() => {
-               clearStates()
+                clearStates();
 
                 //close modal
                 handleClose();
@@ -122,9 +121,9 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
 
     };
     return (
-        <Modal show={show} onHide={()=>{
-            clearStates()
-            handleClose()
+        <Modal show={show} onHide={() => {
+            clearStates();
+            handleClose();
         }} info={data} centered backdrop="static">
             <Modal.Header closeButton>
                 <Modal.Title>Create an event</Modal.Title>
@@ -169,21 +168,14 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                             required
                             autoFocus
                         />
-                        <Form.Control.Feedback type="invalid">Please provide a valid number of attendees.</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">Please provide a valid number of
+                            attendees.</Form.Control.Feedback>
                     </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="upload-image">
-                        <Form.Label>Upload Cover Image (Optional)</Form.Label>
-                        <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
-                    </Form.Group>
-
-
-
 
 
                     <Form.Group className="mb-3" controlId="event-date">
-                       <Form.Label>Date</Form.Label>
-                       <Form.Control
+                        <Form.Label>Date</Form.Label>
+                        <Form.Control
                             type="date"
                             name="dateString"
                             onChange={handleChange}
@@ -194,8 +186,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="event-time">
-                       <Form.Label>Time</Form.Label>
-                       <Form.Control
+                        <Form.Label>Time</Form.Label>
+                        <Form.Control
                             type="time"
                             name="timeString"
                             onChange={handleChange}
@@ -204,6 +196,12 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                         />
                         <Form.Control.Feedback type="invalid">Please provide a valid time.</Form.Control.Feedback>
                     </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="upload-image">
+                        <Form.Label>Upload Cover Image (Optional)</Form.Label>
+                        <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
+                    </Form.Group>
+
                     <div className="submission-status">
 
                         {
