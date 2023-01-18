@@ -1,16 +1,36 @@
-.eventList {
+.event-list {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
 }
 
-.search-button {
+/*.event-list-tool-bar{*/
+/*    display:flex;*/
+/*    align-items: center;*/
+/*}*/
+/*.add-event-button{*/
+/*    position: absolute;*/
+/*    right: 10%;*/
+/*}*/
+
+.add-event-button :hover{
+    cursor: pointer;
+}
+
+.search-button, .add-event-button {
     color: #271CA1 !important;
     border-color: #271CA1 !important;
 }
 
-.search-button:hover {
+
+.search-button:hover{
     background-color: #271CA1 !important;
     color: white !important;
+}
+
+
+.empty-page-message {
+    margin-top: 100px;
+    font-size: 20px;
 }
