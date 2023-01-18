@@ -21,7 +21,7 @@ const EventList = ({eventData, user, allUsers}) => {
     const [showAddEventModal, setShowAddEventModal] = useState(false);
     const [events, setEvents] = useState([]);
     const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
-    console.log("events: ", events);
+    //console.log("events: ", events);
     const [searchFilter, setSearchFilter] = useState("");
 
     const handleJoinEvent = async (data) => {
@@ -73,9 +73,10 @@ const EventList = ({eventData, user, allUsers}) => {
         const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
         if (imageFile && acceptedFileTypes.includes(imageFile.type)) { //if the user uploaded a file
             let [isSuccessful, fileLink] = await uploadFile(imageFile);
-            console.log("Successful? ", isSuccessful);
+            //console.log("Successful? ", isSuccessful);
             if (isSuccessful) {
                 newEventData.imgSrc = fileLink;
+                newEventData.owner = user.uid;
             }
         } else { //set image link to default image
             let fileLink = await getImageLinkOfExistingImage("default-cover.png");
@@ -88,7 +89,7 @@ const EventList = ({eventData, user, allUsers}) => {
         //append id to new event
         newEventData.id = newEventKey;
         newEventData.participants.push(user.uid);
-        console.log("new event object: ", newEventData);
+        //console.log("new event object: ", newEventData);
 
         //submit new event to database
         addNewEvent(newEventData, newEventKey);
@@ -96,7 +97,7 @@ const EventList = ({eventData, user, allUsers}) => {
     const handleSearch = () => {
         //search events based on filter
         let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
-        console.log("search terms:", searchTerms);
+        // console.log("search terms:", searchTerms);
         let newEventList = events.filter((event) => {
             let eventName = event.name.toLowerCase();
 

@@ -57,7 +57,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
     const handleChange = (event) => {
         const {name, value, type, files} = event.target;
 
-        console.log(formData);
+        //console.log(formData);
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: type === "file" ? files[0] : value

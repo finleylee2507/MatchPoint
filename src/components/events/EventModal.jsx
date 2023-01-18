@@ -2,13 +2,13 @@ import React, {useState} from "react";
 import {Alert, Button, Modal} from "react-bootstrap";
 
 function EventModal({show, handleJoin, handleClose, data, allUsers}) {
-    console.log("modal data: ", data);
+    //console.log("modal data: ", data);
     const {name, location, maxCap, currCap, participants, id, imgSrc, dateTimeString} = data;
     const [shouldDisplayStatusMsg, setShouldDisplayStatusMsg] = useState(false);
     const [statusMsg, setStatusMsg] = useState(null);
     const dateTime = new Date(dateTimeString)
-    console.log("participants: ", participants);
-    console.log("All users: ", allUsers);
+    //console.log("participants: ", participants);
+    //console.log("All users: ", allUsers);
 
 
     const joinEventSuccessElement = (

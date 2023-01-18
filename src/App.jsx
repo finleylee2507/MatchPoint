@@ -11,7 +11,7 @@ const App = () => {
     console.log(eventsError);
     const user=useAuthState();
     const [users, usersError] = useDbData("/users");
-    console.log("Users: ",users);
+    //console.log("Users: ",users);
     console.log(usersError);
 
     return (
