@@ -17,16 +17,51 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
         </Alert>
     );
 
-    const joinEventFailureElement = (
+    const joinEventFailureElementGeneric = (
         <Alert key="danger" variant="danger">
             Hmm something went wrong... Please check and try again.
         </Alert>
     );
+
+    const joinEventFailureElementOwnEvent = (
+        <Alert key="danger" variant="danger">
+            Error: you can't join an event that you created!
+        </Alert>
+    );
+
+    const joinEventFailureElementParticipants = (
+        <Alert key="danger" variant="danger">
+            Error: you can't join an event that you're already a part of!
+        </Alert>
+    );
+
+    const joinEventFailureElementEventFull = (
+        <Alert key="danger" variant="danger">
+            Sorry the event has no available spots left...
+        </Alert>
+    );
+
     const handleJoinEvent = async () => {
         let joinResult = await handleJoin(data);
-        console.log("Join result: ", joinResult);
+        // console.log("Join result: ", joinResult);
+        switch (joinResult){
+            case 1:
+                setStatusMsg(joinEventSuccessElement)
+                break
+            case 2:
+                setStatusMsg(joinEventFailureElementGeneric)
+                break
+            case 3:
+                setStatusMsg(joinEventFailureElementOwnEvent)
+                break
+            case 4:
+                setStatusMsg(joinEventFailureElementParticipants)
+                break
+            case 5:
+                setStatusMsg(joinEventFailureElementEventFull)
+                break
 
-        setStatusMsg(joinResult ? joinEventSuccessElement : joinEventFailureElement);
+        }
         setShouldDisplayStatusMsg(true);
 
         setTimeout(() => {
