@@ -26,7 +26,8 @@ const EventList = ({eventData, user, allUsers}) => {
 
     const handleJoinEvent = async (data) => {
         //returns status code:
-        // 1->success, 2->generic failure, 3->failure trying to join own event, 4->failure trying to join an event the user is part of
+        // 1->success, 2->generic failure, 3->failure trying to join own event
+        // 4->failure trying to join an event the user is part of, 5->failure trying to join an event with no available spot
 
         /*
             1. Make sure we cannot join our own event
@@ -39,8 +40,14 @@ const EventList = ({eventData, user, allUsers}) => {
             return 3;
         }
 
+        //make sure not joining an event the user is already part of
         if (data.participants.includes(user.uid)) {
             return 4;
+        }
+
+        //make sure not joining an event that's full
+        if(data.participants.length===data.maxCap){
+            return 5;
         }
         const ueid = data.id;
         const updatedParticipants = {

@@ -35,6 +35,12 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
         </Alert>
     );
 
+    const joinEventFailureElementEventFull = (
+        <Alert key="danger" variant="danger">
+            Sorry the event has no available spots left...
+        </Alert>
+    );
+
     const handleJoinEvent = async () => {
         let joinResult = await handleJoin(data);
         // console.log("Join result: ", joinResult);
@@ -49,6 +55,8 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
                 setStatusMsg(joinEventFailureElementOwnEvent)
             case 4:
                 setStatusMsg(joinEventFailureElementParticipants)
+            case 5:
+                setStatusMsg(joinEventFailureElementEventFull)
 
         }
         setShouldDisplayStatusMsg(true);
