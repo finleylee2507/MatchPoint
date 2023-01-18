@@ -36,7 +36,14 @@ const App = () => {
                 ></Route>
               <Route 
           path="Teams"
-          element={<TeamList/>}>
+          element={
+            <div>
+              <NavBar/>
+              <TeamList/>
+            </div>
+          
+        }
+          >
 
 
         </Route>
