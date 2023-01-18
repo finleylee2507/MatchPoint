@@ -4,8 +4,7 @@ import {Button, Card, Col, Container, Row} from 'react-bootstrap';
 import './EventCard.css';
 
 const EventCard = ({openModal, cardData}) => {
-    const {name, location, maxCap, currCap, imgSrc} = cardData;
-
+    const {name, location, maxCap, imgSrc,participants} = cardData;
     return (
         <Card className="card">
             <Container>
@@ -26,7 +25,7 @@ const EventCard = ({openModal, cardData}) => {
                                 </Col>
                                 <Col>
                                     <Card.Text className="card-text">
-                                        {maxCap - currCap} / {maxCap} spots available
+                                        {maxCap - participants.length} / {maxCap} spots available
                                     </Card.Text>
                                 </Col>
                             </Row>
