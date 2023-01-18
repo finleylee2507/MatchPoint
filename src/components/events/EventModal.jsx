@@ -53,10 +53,13 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
                 break
             case 3:
                 setStatusMsg(joinEventFailureElementOwnEvent)
+                break
             case 4:
                 setStatusMsg(joinEventFailureElementParticipants)
+                break
             case 5:
                 setStatusMsg(joinEventFailureElementEventFull)
+                break
 
         }
         setShouldDisplayStatusMsg(true);
