@@ -29,9 +29,15 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
         </Alert>
     );
 
+    const joinEventFailureElementParticipants = (
+        <Alert key="danger" variant="danger">
+            Error: you can't join an event that you're already a part of!
+        </Alert>
+    );
+
     const handleJoinEvent = async () => {
         let joinResult = await handleJoin(data);
-        console.log("Join result: ", joinResult);
+        // console.log("Join result: ", joinResult);
         switch (joinResult){
             case 1:
                 setStatusMsg(joinEventSuccessElement)
@@ -41,6 +47,8 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
                 break
             case 3:
                 setStatusMsg(joinEventFailureElementOwnEvent)
+            case 4:
+                setStatusMsg(joinEventFailureElementParticipants)
 
         }
         setShouldDisplayStatusMsg(true);

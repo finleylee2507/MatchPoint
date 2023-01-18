@@ -26,7 +26,7 @@ const EventList = ({eventData, user, allUsers}) => {
 
     const handleJoinEvent = async (data) => {
         //returns status code:
-        // 1->success, 2->generic failure, 3->failure trying to join own event
+        // 1->success, 2->generic failure, 3->failure trying to join own event, 4->failure trying to join an event the user is part of
 
         /*
             1. Make sure we cannot join our own event
@@ -38,13 +38,17 @@ const EventList = ({eventData, user, allUsers}) => {
         if (data.owner === user.uid) {
             return 3;
         }
+
+        if (data.participants.includes(user.uid)) {
+            return 4;
+        }
         const ueid = data.id;
         const updatedParticipants = {
             participants: [...data.participants, user.uid],
         };
 
         let joinResult = await joinEvent(updatedParticipants, ueid);
-        return joinResult?1:0;
+        return joinResult ? 1 : 0;
     };
 
     const handleCloseSeeMoreModal = () => {
