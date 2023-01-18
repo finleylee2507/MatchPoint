@@ -7,9 +7,12 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
         eventName: "",
         eventLocation: "",
         eventCapacity: 0,
-        imageFile: ""
-
+        imageFile: "",
+        dateString: "",
+        timeString: "",
+        
     });
+
 
     const clearStates=()=>{
         setFormData({
@@ -52,6 +55,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
 
     const handleChange = (event) => {
         const {name, value, type, files} = event.target;
+        
+        console.log(formData)
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: type === "file" ? files[0] : value
@@ -73,6 +78,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
         
         
         //create event based on form input
+        const eventDateTime = new Date(`${formData.dateString} ${formData.timeString}`)
+        const dateTimeString = eventDateTime.toUTCString()
         const newEvent = {
             name: formData.eventName,
             maxCap: formData.eventCapacity,
@@ -85,7 +92,10 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
             desc: "",
             imgSrc: "",
             privacy: 0,
-            participants: []
+            participants: [],
+            dateTimeString: dateTimeString,
+
+
 
         };
 
@@ -168,6 +178,28 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                     </Form.Group>
 
 
+
+
+
+                    <Form.Group className="mb-3" controlId="event-date">
+                       <Form.Label>Date</Form.Label>
+                       <Form.Control
+                            type="date"
+                            name="dateString"
+                            onChange={handleChange}
+                            autoFocus
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="event-time">
+                       <Form.Label>Time</Form.Label>
+                       <Form.Control
+                            type="time"
+                            name="timeString"
+                            onChange={handleChange}
+                            autoFocus
+                        />
+                    </Form.Group>
                     <div className="submission-status">
 
                         {
@@ -183,25 +215,6 @@ const AddEventModal = ({show, handleClose, handleSubmit, data}) => {
                             })()
                         }
                     </div>
-
-
-                    {/*<Form.Group className="mb-3" controlId="event-date">*/}
-                    {/*    <Form.Label>Date</Form.Label>*/}
-                    {/*    <Form.Control*/}
-                    {/*        type="date"*/}
-                    {/*        name="event-date"*/}
-                    {/*        autoFocus*/}
-                    {/*    />*/}
-                    {/*</Form.Group>*/}
-
-                    {/*<Form.Group className="mb-3" controlId="event-time">*/}
-                    {/*    <Form.Label>Time</Form.Label>*/}
-                    {/*    <Form.Control*/}
-                    {/*        type="time"*/}
-                    {/*        name="event-time"*/}
-                    {/*        autoFocus*/}
-                    {/*    />*/}
-                    {/*</Form.Group>*/}
 
 
                 </Form>
