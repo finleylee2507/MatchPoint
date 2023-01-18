@@ -5,7 +5,7 @@
     height: 100vh;
     flex-direction: row;
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .landing-page-container {
       flex-direction: column;
       height: auto;
@@ -33,7 +33,7 @@
     width: 50%;
 
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .col-right {
       width: auto;
       padding: 20px;
@@ -55,7 +55,7 @@
     font-size: 20px;
 }
 
-@media (max-width:1000px) {
+/* @media (max-width:1000px) {
     .blurb {
         font-size:15px;
     }
@@ -64,11 +64,11 @@
         display: none;
     }
 
-}
+} */
 
-@media (max-width:500px) {
+/* @media (max-width:500px) {
     .app-image {
         display:none;
     }
 
-}
+} */
