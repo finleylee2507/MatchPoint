@@ -8,7 +8,6 @@
 @media (max-width: 1000px) {
     .landing-page-container {
       flex-direction: column;
-      height: auto;
     }
 }
 
@@ -43,16 +42,25 @@
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    /* gap: 2rem; */
 
 }
 
 .small-logo {
-    height: 100px;
+    height: 160px;
 }
 
 .blurb {
-    font-size: 20px;
+    font-size: 18px;
+}
+
+.app-name{
+    font-family: 'Graduate', cursive;
+    font-weight: bold;
+    font-weight: bold;
+    color: #4e2780;
+    font-size: 5vw;
+    font-family: 'Graduate', cursive;
 }
 
 /* @media (max-width:1000px) {
@@ -66,9 +74,9 @@
 
 } */
 
-/* @media (max-width:500px) {
+@media (max-width:1000px) {
     .app-image {
         display:none;
     }
 
-} */
+}

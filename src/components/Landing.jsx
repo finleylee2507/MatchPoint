@@ -6,7 +6,7 @@ import {Navigate} from "react-router-dom";
 import "./Landing.css";
 import Image from "react-bootstrap/Image";
 import appImage from "../assets/app.png";
-import smallLogo from "../assets/small-logo.png";
+import smallLogo from "../assets/MatchPoint.png";
 
 const SignInButton = () => {
     return (
@@ -42,7 +42,7 @@ const Landing = (allUsers) => {
             <div className="col-right">
                 <div className="logo-container">
                     <Image src={smallLogo} className="small-logo"/>
-                    <h1>MatchPoint</h1>
+                    <h1 className="app-name">MatchPoint</h1>
                 </div>
 
                 <h3>Find open events, join teams, and much more.</h3>
