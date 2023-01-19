@@ -46,7 +46,8 @@ const EventList = ({eventData, user, allUsers}) => {
         }
 
         //make sure not joining an event that's full
-        if(data.participants.length===data.maxCap){
+        if(data.participants.length>=data.maxCap) {
+
             return 5;
         }
         const ueid = data.id;
