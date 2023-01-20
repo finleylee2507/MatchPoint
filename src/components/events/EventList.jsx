@@ -110,6 +110,13 @@ const EventList = ({eventData, user, allUsers}) => {
         setEvents(newEventList);
     };
 
+    const handleKeyPress = (e) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+            console.log("Enter pressed");
+        }
+    }
+
     useEffect(() => {
         eventData && setEvents(Object.values(eventData));
     }, [searchFilter, eventData]);
@@ -125,6 +132,7 @@ const EventList = ({eventData, user, allUsers}) => {
                             className="me-2"
                             aria-label="Search"
                             value={searchFilter}
+                            onKeyPress={(e) => handleKeyPress(e)}
                             onChange={(e) => setSearchFilter(e.target.value)}
                         />
                         <Button
