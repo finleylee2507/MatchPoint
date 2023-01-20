@@ -197,6 +197,7 @@ const EventList = ({eventData, user, allUsers}) => {
                         handleSetEventToDelete={handleSetEventToDelete}
                         key={e.id}
                         cardData={e}
+                        user={user}
                     />
                 ))
             )}

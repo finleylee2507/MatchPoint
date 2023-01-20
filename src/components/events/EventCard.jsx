@@ -3,9 +3,8 @@ import React from 'react';
 import {Button, Card, Col, Container, Row} from 'react-bootstrap';
 import './EventCard.css';
 
-const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToDelete}) => {
-    const {name, location, maxCap, imgSrc, participants, id} = cardData;
-
+const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToDelete, user}) => {
+    const {name, location, maxCap, imgSrc, participants, owner} = cardData;
     const handleDelete = () => {
         //show modal
         openDeleteEventModal();
@@ -44,7 +43,10 @@ const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToD
                             }} variant="primary" size="lg">
                                 See More
                             </Button>
-                            <Button onClick={handleDelete}>Delete Event</Button>
+                            {
+                                (owner === user.uid) && <Button onClick={handleDelete}>Delete Event</Button>
+                            }
+
                         </Card.Body>
                     </Col>
                 </Row>
