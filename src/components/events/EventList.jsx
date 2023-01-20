@@ -112,8 +112,8 @@ const EventList = ({eventData, user, allUsers}) => {
 
     const handleKeyPress = (e) => {
         if (event.key === 'Enter') {
+            e.preventDefault();
             handleSearch();
-            console.log("Enter pressed");
         }
     }
 
