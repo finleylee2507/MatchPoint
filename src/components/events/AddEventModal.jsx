@@ -111,7 +111,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
 
                 //close modal
                 handleClose();
-            }, 5000);
+            }, 2000);
 
 
         } catch (error) {

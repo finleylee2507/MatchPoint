@@ -8,11 +8,11 @@ import TeamList from "./components/teams/TeamList";
 
 const App = () => {
     const [events, eventsError] = useDbData("/events");
-    console.log(eventsError);
+    // console.log(eventsError);
     const user=useAuthState();
     const [users, usersError] = useDbData("/users");
     //console.log("Users: ",users);
-    console.log(usersError);
+    // console.log(usersError);
 
     return (
         <BrowserRouter>

@@ -1,17 +1,19 @@
 // Event Card
 import React from 'react';
 import {Button, Card, Col, Container, Row} from 'react-bootstrap';
-import {deleteEvent} from "../../utilities/firebase";
-import MPButton from '../general/MPButton'
 import './EventCard.css';
 
-const EventCard = ({openModal, cardData}) => {
-    const {name, location, maxCap, imgSrc,participants,id} = cardData;
+const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToDelete}) => {
+    const {name, location, maxCap, imgSrc, participants, id} = cardData;
 
-    const handleDelete=()=>{
-        deleteEvent(id)
+    const handleDelete = () => {
+        //show modal
+        openDeleteEventModal();
 
-    }
+        //set pass to-be-deleted event to the parent component
+        handleSetEventToDelete(cardData);
+
+    };
 
     return (
         <Card className="card">

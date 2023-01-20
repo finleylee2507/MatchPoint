@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from "react";
 import {
     addNewEvent,
+    deleteEvent,
     getImageLinkOfExistingImage,
     getNewEventKey,
     joinEvent,
@@ -14,14 +15,17 @@ import AddEventModal from "./AddEventModal";
 import "./EventList.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import DeleteEventModal from "./DeleteEventModal";
 
 
 const EventList = ({eventData, user, allUsers}) => {
     const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
     const [showAddEventModal, setShowAddEventModal] = useState(false);
+    const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);
     const [events, setEvents] = useState([]);
     const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
-    //console.log("events: ", events);
+    const [eventToDelete, setEventToDelete] = useState(null);
+    console.log("events: ", events);
     const [searchFilter, setSearchFilter] = useState("");
 
     const handleJoinEvent = async (data) => {
@@ -46,7 +50,7 @@ const EventList = ({eventData, user, allUsers}) => {
         }
 
         //make sure not joining an event that's full
-        if(data.participants.length>=data.maxCap) {
+        if (data.participants.length >= data.maxCap) {
 
             return 5;
         }
@@ -69,6 +73,25 @@ const EventList = ({eventData, user, allUsers}) => {
     const handleCloseAddEventModal = () => setShowAddEventModal(false);
     const handleShowAddEventModal = (data) => {
         setShowAddEventModal(true);
+    };
+    const handleCloseDeleteEventModal = () => setShowDeleteEventModal(false);
+    const handleShowDeleteEventModal = () => {
+        setShowDeleteEventModal(true);
+    };
+
+    const handleSetEventToDelete = (event) => {
+        setEventToDelete(event);
+    };
+    const handleDeleteEvent = async () => {
+        let deleteResult = await deleteEvent(eventToDelete.id);
+
+        //NOTE: for whatever reason, the UI won't update with firebase when the only item in the list gets deleted,
+        // so we handle the edge case by doing this:
+        if (events.length === 1) {
+            setEvents([]);
+        }
+        return deleteResult;
+
     };
     const handleAddEventSubmit = async (newEventData, imageFile) => {
         const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
@@ -98,19 +121,19 @@ const EventList = ({eventData, user, allUsers}) => {
     const handleSearch = () => {
         //search events based on filter
         let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
-        // console.log("search terms:", searchTerms);
-        let newEventList = events.filter((event) => {
-            let eventName = event.name.toLowerCase();
+        setEvents(prevState => {
+            return prevState.filter((event) => {
+                let eventName = event.name.toLowerCase();
 
-            let isMatch = searchTerms.some((term) => eventName.includes(term));
+                let isMatch = searchTerms.some((term) => eventName.includes(term));
 
-            return isMatch;
+                return isMatch;
+            });
         });
-
-        setEvents(newEventList);
     };
 
     useEffect(() => {
+        console.log("Use effect runs");
         eventData && setEvents(Object.values(eventData));
     }, [searchFilter, eventData]);
 
@@ -158,12 +181,20 @@ const EventList = ({eventData, user, allUsers}) => {
                 handleSubmit={handleAddEventSubmit}
                 user={user}
             />
+
+            <DeleteEventModal
+                show={showDeleteEventModal}
+                handleClose={handleCloseDeleteEventModal}
+                handleDelete={handleDeleteEvent}
+            />
             {!events || events.length === 0 ? (
                 <p className="empty-page-message">No events to display...</p>
             ) : (
                 events.map((e) => (
                     <EventCard
                         openModal={handleShowSeeMoreModal}
+                        openDeleteEventModal={handleShowDeleteEventModal}
+                        handleSetEventToDelete={handleSetEventToDelete}
                         key={e.id}
                         cardData={e}
                     />

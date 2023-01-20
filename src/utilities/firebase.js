@@ -28,6 +28,7 @@ const storage = getStorage();
 
 // Use this function to get data from a path
 export const useDbData = (path) => {
+    console.log("Fetching data");
     const [data, setData] = useState();
     const [error, setError] = useState(null);
 
@@ -58,13 +59,17 @@ export const addNewEvent = (newEvent, eid) => {
     set(ref(database, "events/" + eid), newEvent);
 };
 
-export const deleteEvent=(eid)=>{
-    try{
-        remove(ref(database,"events/"+eid))
+export const deleteEvent=async (eid) => {
+    let isSuccessful = false
+    try {
+        await remove(ref(database, "events/" + eid))
+        isSuccessful = true
+    } catch (error) {
+        console.log(error);
     }
-   catch (error) {
-       console.log(error);
-   }
+
+    return isSuccessful
+
 }
 
 // Join an event
