@@ -49,7 +49,7 @@ const DeleteEventModal = ({show, handleClose, handleDelete}) => {
                     Yes
                 </Button>
                 <Button variant="primary" onClick={handleClose}>
-                    No
+                    Cancel
                 </Button>
             </Modal.Footer>
 
