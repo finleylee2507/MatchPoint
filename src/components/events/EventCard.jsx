@@ -38,14 +38,25 @@ const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToD
                                     </Card.Text>
                                 </Col>
                             </Row>
-                            <Button className="card-button" onClick={() => {
-                                openModal(cardData);
-                            }} variant="primary" size="lg">
-                                See More
-                            </Button>
-                            {
-                                (owner === user.uid) && <Button onClick={handleDelete}>Delete Event</Button>
-                            }
+                            <Row>
+                                <Col xs={6}>
+                                    <Button className="card-button" onClick={() => {
+                                        openModal(cardData);
+                                    }} variant="primary" size="lg">
+                                        See More
+                                    </Button>
+                                </Col>
+
+                                <Col xs={6}>
+                                    {
+                                        (owner === user.uid) &&
+                                        <Button onClick={handleDelete} variant="danger" size="lg"
+                                                className="delete-event-button">Delete Event</Button>
+                                    }
+                                </Col>
+
+                            </Row>
+
 
                         </Card.Body>
                     </Col>
