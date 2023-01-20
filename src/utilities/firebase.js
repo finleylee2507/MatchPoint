@@ -3,7 +3,7 @@
 // Import the functions you need from the SDKs you need
 import {useEffect, useState} from "react";
 import {initializeApp} from "firebase/app";
-import {child, getDatabase, onValue, push, ref, set, update,} from "firebase/database";
+import {child, getDatabase, onValue, push, ref, set, update,remove} from "firebase/database";
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut,} from "firebase/auth";
 import {getDownloadURL, getStorage, ref as sRef, uploadBytes,} from "firebase/storage";
 
@@ -57,6 +57,15 @@ export const addNewUser = (newUser, uid) => {
 export const addNewEvent = (newEvent, eid) => {
     set(ref(database, "events/" + eid), newEvent);
 };
+
+export const deleteEvent=(eid)=>{
+    try{
+        remove(ref(database,"events/"+eid))
+    }
+   catch (error) {
+       console.log(error);
+   }
+}
 
 // Join an event
 export const joinEvent = async (updatedParticipants, ueid) => {
