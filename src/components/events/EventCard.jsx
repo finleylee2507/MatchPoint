@@ -30,7 +30,7 @@ const EventCard = ({openModal, cardData}) => {
                                     </Card.Text>
                                 </Col>
                             </Row>
-                            <Button className="card-button" onClick={() => {
+                            <Button className="card-button" aria-label="Event details" onClick={() => {
                                 openModal(cardData);
                             }} variant="primary" size="lg">
                                 See More

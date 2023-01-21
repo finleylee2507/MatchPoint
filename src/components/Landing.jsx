@@ -11,7 +11,7 @@ import smallLogo from "../assets/MatchPoint.png";
 const SignInButton = () => {
     return (
         <div className="sign-in-button">
-            <Button variant="light" size="lg" onClick={signInWithGoogle}>
+            <Button variant="light" size="lg" aria-label="Sign in" onClick={signInWithGoogle}>
                 Sign In
             </Button>
         </div>
@@ -37,11 +37,11 @@ const Landing = (allUsers) => {
     ) : (
         <div className="landing-page-container">
             <div className="col-left">
-                <Image src={appImage} className="app-image"/>
+                <Image src={appImage} className="app-image" alt="MatchPoint app image"/>
             </div>
             <div className="col-right">
                 <div className="logo-container">
-                    <Image src={smallLogo} className="small-logo"/>
+                    <Image src={smallLogo} className="small-logo" alt="small MatchPoint app image"/>
                     <h1 className="app-name">MatchPoint</h1>
                 </div>
 
