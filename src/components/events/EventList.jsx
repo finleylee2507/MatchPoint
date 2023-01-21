@@ -137,12 +137,13 @@ const EventList = ({eventData, user, allUsers}) => {
                         />
                         <Button
                             className="search-button"
+                            aria-label="Search"
                             variant="outline-success"
                             onClick={handleSearch}
                         >
                             Search
                         </Button>
-                        <Button className="add-event-button" onClick={handleShowAddEventModal}>
+                        <Button className="add-event-button" aria-label="Add event" onClick={handleShowAddEventModal}>
                             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                             Add Event
                         </Button>
