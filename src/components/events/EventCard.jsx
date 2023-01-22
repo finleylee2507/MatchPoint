@@ -1,11 +1,19 @@
 // Event Card
 import React from 'react';
 import {Button, Card, Col, Container, Row} from 'react-bootstrap';
-import MPButton from '../general/MPButton'
 import './EventCard.css';
 
-const EventCard = ({openModal, cardData}) => {
-    const {name, location, maxCap, imgSrc,participants} = cardData;
+const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToDelete, user}) => {
+    const {name, location, maxCap, imgSrc, participants, owner} = cardData;
+    const handleDelete = () => {
+        //show modal
+        openDeleteEventModal();
+
+        //set pass to-be-deleted event to the parent component
+        handleSetEventToDelete(cardData);
+
+    };
+
     return (
         <Card className="card">
             <Container>
@@ -30,11 +38,26 @@ const EventCard = ({openModal, cardData}) => {
                                     </Card.Text>
                                 </Col>
                             </Row>
-                            <Button className="card-button" aria-label="Event details" onClick={() => {
-                                openModal(cardData);
-                            }} variant="primary" size="lg">
-                                See More
-                            </Button>
+                            <Row>
+                                <Col xs={6} sm={5} md={4} lg={3} xl={2}>
+                                    <Button className="card-button" onClick={() => {
+                                        openModal(cardData);
+                                    }} variant="primary" size="lg">
+                                        See More
+                                    </Button>
+                                </Col>
+
+                                <Col xs={6}>
+                                    {
+                                        (owner === user.uid) &&
+                                        <Button onClick={handleDelete} variant="danger" size="lg"
+                                                className="delete-event-button">Delete Event</Button>
+                                    }
+                                </Col>
+
+                            </Row>
+
+
                         </Card.Body>
                     </Col>
                 </Row>
@@ -45,4 +68,3 @@ const EventCard = ({openModal, cardData}) => {
 
 
 export default EventCard;
-

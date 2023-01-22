@@ -3,9 +3,9 @@
 // Import the functions you need from the SDKs you need
 import {useEffect, useState} from "react";
 import {initializeApp} from "firebase/app";
-import {child, getDatabase, onValue, push, ref, set, update,} from "firebase/database";
+import {child, getDatabase, onValue, push, ref, set, update,remove} from "firebase/database";
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut,} from "firebase/auth";
-import {getDownloadURL, getStorage, ref as sRef, uploadBytes,} from "firebase/storage";
+import {getDownloadURL, getStorage, ref as sRef, uploadBytes,deleteObject} from "firebase/storage";
 
 // Configuration Data
 const firebaseConfig = {
@@ -28,6 +28,7 @@ const storage = getStorage();
 
 // Use this function to get data from a path
 export const useDbData = (path) => {
+    console.log("Fetching data");
     const [data, setData] = useState();
     const [error, setError] = useState(null);
 
@@ -57,6 +58,19 @@ export const addNewUser = (newUser, uid) => {
 export const addNewEvent = (newEvent, eid) => {
     set(ref(database, "events/" + eid), newEvent);
 };
+
+export const deleteEvent=async (eid) => {
+    let isSuccessful = false
+    try {
+        await remove(ref(database, "events/" + eid))
+        isSuccessful = true
+    } catch (error) {
+        console.log(error);
+    }
+
+    return isSuccessful
+
+}
 
 // Join an event
 export const joinEvent = async (updatedParticipants, ueid) => {
@@ -96,6 +110,19 @@ export const uploadFile = async (file) => {
 
     return [isSuccessful, downloadURL];
 };
+
+export const deleteFile=async (url) => {
+    let fileRef = sRef(storage,url)
+    try{
+        let deleteResult = await deleteObject(fileRef)
+        console.log(deleteResult);
+    }
+    catch (error) {
+        console.log(error);
+    }
+
+
+}
 
 export const getImageLinkOfExistingImage = async (imageFileName) => {
     let fileLink = `images/${imageFileName}`;

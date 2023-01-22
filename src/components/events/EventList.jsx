@@ -2,6 +2,8 @@
 import React, {useEffect, useState} from "react";
 import {
     addNewEvent,
+    deleteEvent,
+    deleteFile,
     getImageLinkOfExistingImage,
     getNewEventKey,
     joinEvent,
@@ -14,16 +16,30 @@ import AddEventModal from "./AddEventModal";
 import "./EventList.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import DeleteEventModal from "./DeleteEventModal";
 
 
 const EventList = ({eventData, user, allUsers}) => {
     const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
     const [showAddEventModal, setShowAddEventModal] = useState(false);
+    const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);
     const [events, setEvents] = useState([]);
     const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
-    //console.log("events: ", events);
-    const [searchFilter, setSearchFilter] = useState("");
+    const [eventToDelete, setEventToDelete] = useState(null);
+    console.log("events: ", events);
 
+    const [searchFilter, setSearchFilter] = useState("");
+    const [defaultCoverURL, setDefaultCoverURL] = useState("");
+    console.log("default cover: ",defaultCoverURL);
+    useEffect(() => {
+        getImageLinkOfExistingImage("default-cover.png")
+            .then((url) => {
+                setDefaultCoverURL(url);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
     const handleJoinEvent = async (data) => {
         //returns status code:
         // 1->success, 2->generic failure, 3->failure trying to join own event
@@ -46,7 +62,7 @@ const EventList = ({eventData, user, allUsers}) => {
         }
 
         //make sure not joining an event that's full
-        if(data.participants.length>=data.maxCap) {
+        if (data.participants.length >= data.maxCap) {
 
             return 5;
         }
@@ -70,6 +86,29 @@ const EventList = ({eventData, user, allUsers}) => {
     const handleShowAddEventModal = (data) => {
         setShowAddEventModal(true);
     };
+    const handleCloseDeleteEventModal = () => setShowDeleteEventModal(false);
+    const handleShowDeleteEventModal = () => {
+        setShowDeleteEventModal(true);
+    };
+
+    const handleSetEventToDelete = (event) => {
+        setEventToDelete(event);
+    };
+    const handleDeleteEvent = async () => {
+        let deleteResult = await deleteEvent(eventToDelete.id);
+
+        if (eventToDelete.imgSrc !== defaultCoverURL) { //make sure we don't delete the default image cover in storage
+            await deleteFile(eventToDelete.imgSrc);
+        }
+
+        //NOTE: for whatever reason, the UI won't update with firebase when the only item in the list gets deleted,
+        // so we handle the edge case by doing this:
+        if (events.length === 1) {
+            setEvents([]);
+        }
+        return deleteResult;
+
+    };
     const handleAddEventSubmit = async (newEventData, imageFile) => {
         const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
         if (imageFile && acceptedFileTypes.includes(imageFile.type)) { //if the user uploaded a file
@@ -80,7 +119,7 @@ const EventList = ({eventData, user, allUsers}) => {
                 newEventData.owner = user.uid;
             }
         } else { //set image link to default image
-            let fileLink = await getImageLinkOfExistingImage("default-cover.png");
+            let fileLink = defaultCoverURL;
             newEventData.imgSrc = fileLink;
         }
 
@@ -98,16 +137,15 @@ const EventList = ({eventData, user, allUsers}) => {
     const handleSearch = () => {
         //search events based on filter
         let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
-        // console.log("search terms:", searchTerms);
-        let newEventList = events.filter((event) => {
-            let eventName = event.name.toLowerCase();
+        setEvents(prevState => {
+            return prevState.filter((event) => {
+                let eventName = event.name.toLowerCase();
 
-            let isMatch = searchTerms.some((term) => eventName.includes(term));
+                let isMatch = searchTerms.some((term) => eventName.includes(term));
 
-            return isMatch;
+                return isMatch;
+            });
         });
-
-        setEvents(newEventList);
     };
 
     const handleKeyPress = (e) => {
@@ -118,6 +156,7 @@ const EventList = ({eventData, user, allUsers}) => {
     }
 
     useEffect(() => {
+        console.log("Use effect runs");
         eventData && setEvents(Object.values(eventData));
     }, [searchFilter, eventData]);
 
@@ -167,14 +206,23 @@ const EventList = ({eventData, user, allUsers}) => {
                 handleSubmit={handleAddEventSubmit}
                 user={user}
             />
+
+            <DeleteEventModal
+                show={showDeleteEventModal}
+                handleClose={handleCloseDeleteEventModal}
+                handleDelete={handleDeleteEvent}
+            />
             {!events || events.length === 0 ? (
                 <p className="empty-page-message">No events to display...</p>
             ) : (
                 events.map((e) => (
                     <EventCard
                         openModal={handleShowSeeMoreModal}
+                        openDeleteEventModal={handleShowDeleteEventModal}
+                        handleSetEventToDelete={handleSetEventToDelete}
                         key={e.id}
                         cardData={e}
+                        user={user}
                     />
                 ))
             )}

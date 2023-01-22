@@ -2,13 +2,14 @@ import React, {useState} from "react";
 import {Alert, Button, Modal} from "react-bootstrap";
 
 function EventModal({show, handleJoin, handleClose, data, allUsers}) {
-    //console.log("modal data: ", data);
-    const {name, location, maxCap, currCap, participants, id, imgSrc, dateTimeString} = data;
+    // console.log("modal data: ", data);
+    const {name, location, maxCap, participants,dateTimeString,owner} = data;
     const [shouldDisplayStatusMsg, setShouldDisplayStatusMsg] = useState(false);
     const [statusMsg, setStatusMsg] = useState(null);
-    const dateTime = new Date(dateTimeString)
+    const dateTime = new Date(dateTimeString);
     //console.log("participants: ", participants);
-    //console.log("All users: ", allUsers);
+    // console.log("All users: ", allUsers);
+    // console.log("Owner:",owner);
 
 
     const joinEventSuccessElement = (
@@ -44,22 +45,22 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
     const handleJoinEvent = async () => {
         let joinResult = await handleJoin(data);
         // console.log("Join result: ", joinResult);
-        switch (joinResult){
+        switch (joinResult) {
             case 1:
-                setStatusMsg(joinEventSuccessElement)
-                break
+                setStatusMsg(joinEventSuccessElement);
+                break;
             case 2:
-                setStatusMsg(joinEventFailureElementGeneric)
-                break
+                setStatusMsg(joinEventFailureElementGeneric);
+                break;
             case 3:
-                setStatusMsg(joinEventFailureElementOwnEvent)
-                break
+                setStatusMsg(joinEventFailureElementOwnEvent);
+                break;
             case 4:
-                setStatusMsg(joinEventFailureElementParticipants)
-                break
+                setStatusMsg(joinEventFailureElementParticipants);
+                break;
             case 5:
-                setStatusMsg(joinEventFailureElementEventFull)
-                break
+                setStatusMsg(joinEventFailureElementEventFull);
+                break;
 
         }
         setShouldDisplayStatusMsg(true);
@@ -86,20 +87,23 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
                 <Modal.Title>{name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>Location: {location}</p>
+                <span>Location:{location}</span>
+                <br/>
+                {owner&&<span>Owner: {allUsers[owner].displayName}</span>}
+                <br/>
                 <span>Participants: </span>
 
                 {participants &&
                     participants.map((id) => allUsers[id].displayName).join(", ")}
-                <p>Spots Available: {participants?maxCap - participants.length:maxCap}</p>
+                <p>Spots Available: {participants ? maxCap - participants.length : maxCap}</p>
                 <p>Time: {dateTime.toLocaleString("en-US", {
-                            month: "long",
-                            day: "numeric",
-                            hour: "numeric",
-                            minute: "numeric",
-                            hour12: false,
-                            timeZone: 'CST'
-                        })} CST
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: false,
+                    timeZone: 'CST'
+                })} CST
                 </p>
                 {shouldDisplayStatusMsg && statusMsg}
             </Modal.Body>
