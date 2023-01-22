@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import {initializeApp} from "firebase/app";
 import {child, getDatabase, onValue, push, ref, set, update,remove} from "firebase/database";
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut,} from "firebase/auth";
-import {getDownloadURL, getStorage, ref as sRef, uploadBytes,} from "firebase/storage";
+import {getDownloadURL, getStorage, ref as sRef, uploadBytes,deleteObject} from "firebase/storage";
 
 // Configuration Data
 const firebaseConfig = {
@@ -110,6 +110,19 @@ export const uploadFile = async (file) => {
 
     return [isSuccessful, downloadURL];
 };
+
+export const deleteFile=async (url) => {
+    let fileRef = sRef(storage,url)
+    try{
+        let deleteResult = await deleteObject(fileRef)
+        console.log(deleteResult);
+    }
+    catch (error) {
+        console.log(error);
+    }
+
+
+}
 
 export const getImageLinkOfExistingImage = async (imageFileName) => {
     let fileLink = `images/${imageFileName}`;

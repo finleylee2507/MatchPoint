@@ -45,10 +45,10 @@ const DeleteEventModal = ({show, handleClose, handleDelete}) => {
             </Modal.Body>
 
             <Modal.Footer>
-                <Button variant="primary" onClick={yesButtonHandler}>
+                <Button variant="primary" onClick={yesButtonHandler} disabled={deletionStatus !== 0}>
                     Yes
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={handleClose} disabled={deletionStatus !== 0}>
                     Cancel
                 </Button>
             </Modal.Footer>

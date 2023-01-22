@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {
     addNewEvent,
     deleteEvent,
+    deleteFile,
     getImageLinkOfExistingImage,
     getNewEventKey,
     joinEvent,
@@ -26,8 +27,19 @@ const EventList = ({eventData, user, allUsers}) => {
     const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
     const [eventToDelete, setEventToDelete] = useState(null);
     console.log("events: ", events);
-    const [searchFilter, setSearchFilter] = useState("");
 
+    const [searchFilter, setSearchFilter] = useState("");
+    const [defaultCoverURL, setDefaultCoverURL] = useState("");
+    console.log("default cover: ",defaultCoverURL);
+    useEffect(() => {
+        getImageLinkOfExistingImage("default-cover.png")
+            .then((url) => {
+                setDefaultCoverURL(url);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
     const handleJoinEvent = async (data) => {
         //returns status code:
         // 1->success, 2->generic failure, 3->failure trying to join own event
@@ -85,6 +97,10 @@ const EventList = ({eventData, user, allUsers}) => {
     const handleDeleteEvent = async () => {
         let deleteResult = await deleteEvent(eventToDelete.id);
 
+        if (eventToDelete.imgSrc !== defaultCoverURL) { //make sure we don't delete the default image cover in storage
+            await deleteFile(eventToDelete.imgSrc);
+        }
+
         //NOTE: for whatever reason, the UI won't update with firebase when the only item in the list gets deleted,
         // so we handle the edge case by doing this:
         if (events.length === 1) {
@@ -103,7 +119,7 @@ const EventList = ({eventData, user, allUsers}) => {
                 newEventData.owner = user.uid;
             }
         } else { //set image link to default image
-            let fileLink = await getImageLinkOfExistingImage("default-cover.png");
+            let fileLink = defaultCoverURL;
             newEventData.imgSrc = fileLink;
         }
 
