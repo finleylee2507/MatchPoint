@@ -148,6 +148,13 @@ const EventList = ({eventData, user, allUsers}) => {
         });
     };
 
+    const handleKeyPress = (e) => {
+        if (event.key === 'Enter') {
+            e.preventDefault();
+            handleSearch();
+        }
+    }
+
     useEffect(() => {
         console.log("Use effect runs");
         eventData && setEvents(Object.values(eventData));
@@ -164,16 +171,18 @@ const EventList = ({eventData, user, allUsers}) => {
                             className="me-2"
                             aria-label="Search"
                             value={searchFilter}
+                            onKeyPress={(e) => handleKeyPress(e)}
                             onChange={(e) => setSearchFilter(e.target.value)}
                         />
                         <Button
                             className="search-button"
+                            aria-label="Search"
                             variant="outline-success"
                             onClick={handleSearch}
                         >
                             Search
                         </Button>
-                        <Button className="add-event-button" onClick={handleShowAddEventModal}>
+                        <Button className="add-event-button" aria-label="Add event" onClick={handleShowAddEventModal}>
                             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                             Add Event
                         </Button>

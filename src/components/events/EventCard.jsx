@@ -68,4 +68,3 @@ const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToD
 
 
 export default EventCard;
-
