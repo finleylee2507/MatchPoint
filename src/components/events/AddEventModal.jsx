@@ -88,8 +88,6 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
             owner: user.uid,
-            currCap: 1,
-
             //uncollected fields that exist in database
             activity: "",
             desc: "",

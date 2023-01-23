@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Button, Form, Modal, Spinner} from 'react-bootstrap';
 import "./AddEventModal.css";
 
+
 const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
     const [formData, setFormData] = useState({ //used to store form data
         eventName: "haha",
@@ -13,65 +14,61 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
 
     });
 
-    console.log("Form data: ", formData);
     useEffect(() => {
+        initializeForm();
+    }, [data]);
 
+
+    const initializeForm = () => {
         if (data) {
-            console.log("Date: ", data.dateTimeString);
+            // console.log("Date: ", data.dateTimeString);
             let dateTimeObject = new Date(data.dateTimeString);
-            let date = dateTimeObject.toISOString().substring(0, 10);
-            let time = dateTimeObject.toISOString().substring(11, 19);
-            // setFormData(prevState => {
-            //
-            //     return {
-            //         eventName: `${data.name}`,
-            //         eventLocation: `${data.location}`,
-            //         eventCapacity: `${data.maxCap}`,
-            //         dateString: `${dateTimeObject.toLocaleDateString("en-US")}`,
-            //         timeString: `${dateTimeObject.toLocaleTimeString("en-US")}`,
-            //         ...prevState
-            //     };
-            // });
+
+            //convert GMT time to CST
+            let test = dateTimeObject.toLocaleString('en-US', {timeZone: 'CST', hour12: false});
+            const [first, second] = test.split(',').map(item => item.trim());
+            let [month, day, year] = first.split('/');
+            let [hours, minutes, seconds] = second.split(':');
+
+            //0 padding
+            month = month.padStart(2, '0');
+            day = day.padStart(2, '0');
+            hours = hours.padStart(2, '0');
+
             setFormData(prevFormData => ({
                 ...prevFormData,
                 eventName: `${data.name}`,
                 eventLocation: `${data.location}`,
                 eventCapacity: `${data.maxCap}`,
-                dateString: `${date}`,
-                timeString: `${time}`,
+                dateString: `${year}-${month}-${day}`,
+                timeString: `${hours}:${minutes}:${seconds}`,
             }));
         }
-    }, [data]);
-
-    // console.log("Haha: ",user.uid);
+    };
     const clearStates = () => {
-        setFormData({
-            eventName: "",
-            eventLocation: "",
-            eventCapacity: 0
-        });
+        initializeForm();
         setValidated(false);
         setSubmissionStatus(0);
     };
-    const creatingEventElement = (<div className="creating-event-container">
-            <p className="creating-event-text">
-                Creating Event...
+    const editingEventElement = (<div className="editing-event-container">
+            <p className="editing-event-text">
+                Editing Event...
             </p>
             <div className="submission-status-icon">
                 <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Creating Event...</span>
+                    <span className="visually-hidden">Editing Event...</span>
                 </Spinner>
             </div>
         </div>
     );
 
-    const eventCreationSuccessElement = (
+    const eventEditSuccessElement = (
         <Alert key="success" variant="success">
-            Successfully created event!
+            Successfully edited event!
         </Alert>
     );
 
-    const eventCreationFailureElement = (
+    const eventEditFailureElement = (
         <Alert key="danger" variant="danger">
             Hmm something went wrong... Please check and try again.
         </Alert>
@@ -102,7 +99,6 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
             e.stopPropagation();
             setSubmissionStatus(0);
             setValidated(true);
-            // console.log("huh");
             return;
         }
 
@@ -111,28 +107,21 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
         const eventDateTime = new Date(`${formData.dateString} ${formData.timeString}`);
         const dateTimeString = eventDateTime.toUTCString();
         const newEvent = {
+            ...data,
             name: formData.eventName,
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
-            owner: user.uid,
-            currCap: 1,
-
-            //uncollected fields that exist in database
-            activity: "",
-            desc: "",
-            imgSrc: "",
-            privacy: 0,
-            participants: [],
             dateTimeString: dateTimeString,
 
-
         };
+
+        console.log("new event: ",newEvent);
 
 
         //call parent's function to submit event to database
         try {
             const submissionResult = await handleSubmit(newEvent, formData.imageFile);
-            // console.log(submissionResult);
+            console.log(submissionResult);
             setSubmissionStatus(2);
 
             setTimeout(() => {
@@ -230,7 +219,7 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">
-                        <Form.Label>Upload Cover Image (Optional)</Form.Label>
+                        <Form.Label>Update Cover Image (Optional)</Form.Label>
                         <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
                     </Form.Group>
 
@@ -240,11 +229,11 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                             (() => {
                                 switch (submissionStatus) {
                                     case 1:
-                                        return creatingEventElement;
+                                        return editingEventElement;
                                     case 2:
-                                        return eventCreationSuccessElement;
+                                        return eventEditSuccessElement;
                                     case 3:
-                                        return eventCreationFailureElement;
+                                        return eventEditFailureElement;
                                 }
                             })()
                         }

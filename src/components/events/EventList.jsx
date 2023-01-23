@@ -150,6 +150,22 @@ const EventList = ({eventData, user, allUsers}) => {
         //submit new event to database
         addNewEvent(newEventData, newEventKey);
     };
+
+    const handleEditEventSubmit=async (newEventData, imageFile) => {
+        const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
+
+        if (imageFile && acceptedFileTypes.includes(imageFile.type)) { //if the user uploaded a file
+            let [isSuccessful, fileLink] = await uploadFile(imageFile);
+            //console.log("Successful? ", isSuccessful);
+            if (isSuccessful) {
+                newEventData.imgSrc = fileLink;
+            }
+        }
+
+        //update event
+        joinEvent(newEventData,newEventData.id);
+
+    }
     const handleSearch = () => {
         //search events based on filter
         let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
@@ -232,6 +248,7 @@ const EventList = ({eventData, user, allUsers}) => {
             <EditEventModal
             show={showEditEventModal}
             handleClose={handleCloseEditEventModal}
+            handleSubmit={handleEditEventSubmit}
             data={eventToEdit}
             />
             {!events || events.length === 0 ? (
