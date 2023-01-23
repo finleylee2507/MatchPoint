@@ -24,7 +24,7 @@ const EventList = ({eventData, user, allUsers}) => {
     const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
     const [showAddEventModal, setShowAddEventModal] = useState(false);
     const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);
-    const[showEditEventModal,setShowEditEventModal]=useState(false);
+    const [showEditEventModal, setShowEditEventModal] = useState(false);
     const [events, setEvents] = useState([]);
     const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
     const [eventToDelete, setEventToDelete] = useState(null);
@@ -99,13 +99,13 @@ const EventList = ({eventData, user, allUsers}) => {
         setEventToDelete(event);
     };
 
-    const handleShowEditEventModal=()=>{
+    const handleShowEditEventModal = () => {
         setShowEditEventModal(true);
-    }
+    };
 
-    const handleCloseEditEventModal=()=>{
+    const handleCloseEditEventModal = () => {
         setShowEditEventModal(false);
-    }
+    };
 
     const handleSetEventToEdit = (event) => {
         setEventToEdit(event);
@@ -151,7 +151,7 @@ const EventList = ({eventData, user, allUsers}) => {
         addNewEvent(newEventData, newEventKey);
     };
 
-    const handleEditEventSubmit=async (newEventData, imageFile) => {
+    const handleEditEventSubmit = async (newEventData, imageFile) => {
         const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
 
         if (imageFile && acceptedFileTypes.includes(imageFile.type)) { //if the user uploaded a file
@@ -163,9 +163,9 @@ const EventList = ({eventData, user, allUsers}) => {
         }
 
         //update event
-        joinEvent(newEventData,newEventData.id);
+        joinEvent(newEventData, newEventData.id);
 
-    }
+    };
     const handleSearch = () => {
         //search events based on filter
         let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
@@ -246,10 +246,10 @@ const EventList = ({eventData, user, allUsers}) => {
             />
 
             <EditEventModal
-            show={showEditEventModal}
-            handleClose={handleCloseEditEventModal}
-            handleSubmit={handleEditEventSubmit}
-            data={eventToEdit}
+                show={showEditEventModal}
+                handleClose={handleCloseEditEventModal}
+                handleSubmit={handleEditEventSubmit}
+                data={eventToEdit}
             />
             {!events || events.length === 0 ? (
                 <p className="empty-page-message">No events to display...</p>

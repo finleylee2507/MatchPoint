@@ -116,7 +116,7 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
 
         };
 
-        console.log("new event: ",newEvent);
+        console.log("new event: ", newEvent);
 
 
         //call parent's function to submit event to database

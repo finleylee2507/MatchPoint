@@ -3,7 +3,15 @@ import React from 'react';
 import {Button, Card, Col, Container, Row} from 'react-bootstrap';
 import './EventCard.css';
 
-const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToDelete, handleSetEventToEdit,openEditEventModal, user}) => {
+const EventCard = ({
+                       openModal,
+                       cardData,
+                       openDeleteEventModal,
+                       handleSetEventToDelete,
+                       handleSetEventToEdit,
+                       openEditEventModal,
+                       user
+                   }) => {
     const {name, location, maxCap, imgSrc, participants, owner} = cardData;
     const handleDelete = () => {
 
@@ -12,7 +20,6 @@ const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToD
 
         //show modal
         openDeleteEventModal();
-
 
 
     };
@@ -51,7 +58,7 @@ const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToD
                                 </Col>
                             </Row>
                             <Row>
-                                <Col xs={6} sm={5} md={4} lg={3} xl={2}>
+                                <Col xl={2} lg={3} md={4}>
                                     <Button className="card-button" onClick={() => {
                                         openModal(cardData);
                                     }} variant="primary" size="lg">
@@ -59,14 +66,14 @@ const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToD
                                     </Button>
                                 </Col>
 
-                                <Col>
+                                <Col xl={2} lg={3} md={4}>
                                     {
                                         (owner === user.uid) &&
                                         <Button onClick={handleEdit} variant="warning" size="lg"
                                                 className="edit-event-button">Edit Event</Button>
                                     }
                                 </Col>
-                                <Col xs={6}>
+                                <Col>
                                     {
                                         (owner === user.uid) &&
                                         <Button onClick={handleDelete} variant="danger" size="lg"
