@@ -19,7 +19,10 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         setFormData({
             eventName: "",
             eventLocation: "",
-            eventCapacity: 0
+            eventCapacity: 0,
+            imageFile:"",
+            dateString: "",
+            timeString: ""
         });
         setValidated(false);
         setSubmissionStatus(0);
@@ -180,6 +183,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             type="date"
                             name="dateString"
                             onChange={handleChange}
+                            value={formData.dateString}
                             autoFocus
                             required
                         />
@@ -192,6 +196,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             type="time"
                             name="timeString"
                             onChange={handleChange}
+                            value={formData.timeString}
                             autoFocus
                             required
                         />
