@@ -3,14 +3,26 @@ import React from 'react';
 import {Button, Card, Col, Container, Row} from 'react-bootstrap';
 import './EventCard.css';
 
-const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToDelete, user}) => {
+const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToDelete, handleSetEventToEdit,openEditEventModal, user}) => {
     const {name, location, maxCap, imgSrc, participants, owner} = cardData;
     const handleDelete = () => {
+
+        //pass to-be-deleted event to the parent component
+        handleSetEventToDelete(cardData);
+
         //show modal
         openDeleteEventModal();
 
-        //set pass to-be-deleted event to the parent component
-        handleSetEventToDelete(cardData);
+
+
+    };
+
+    const handleEdit = () => {
+        //pass to-be-updated event to the parent component
+        handleSetEventToEdit(cardData);
+
+        //open modal
+        openEditEventModal();
 
     };
 
@@ -47,6 +59,13 @@ const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToD
                                     </Button>
                                 </Col>
 
+                                <Col>
+                                    {
+                                        (owner === user.uid) &&
+                                        <Button onClick={handleEdit} variant="danger" size="lg"
+                                                className="edit-event-button">Edit Event</Button>
+                                    }
+                                </Col>
                                 <Col xs={6}>
                                     {
                                         (owner === user.uid) &&

@@ -17,20 +17,24 @@ import "./EventList.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import DeleteEventModal from "./DeleteEventModal";
+import EditEventModal from "./EditEventModal";
 
 
 const EventList = ({eventData, user, allUsers}) => {
     const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
     const [showAddEventModal, setShowAddEventModal] = useState(false);
     const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);
+    const[showEditEventModal,setShowEditEventModal]=useState(false);
     const [events, setEvents] = useState([]);
     const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
     const [eventToDelete, setEventToDelete] = useState(null);
+    const [eventToEdit, setEventToEdit] = useState(null);
+
     console.log("events: ", events);
 
     const [searchFilter, setSearchFilter] = useState("");
     const [defaultCoverURL, setDefaultCoverURL] = useState("");
-    console.log("default cover: ",defaultCoverURL);
+    console.log("default cover: ", defaultCoverURL);
     useEffect(() => {
         getImageLinkOfExistingImage("default-cover.png")
             .then((url) => {
@@ -94,6 +98,18 @@ const EventList = ({eventData, user, allUsers}) => {
     const handleSetEventToDelete = (event) => {
         setEventToDelete(event);
     };
+
+    const handleShowEditEventModal=()=>{
+        setShowEditEventModal(true);
+    }
+
+    const handleCloseEditEventModal=()=>{
+        setShowEditEventModal(false);
+    }
+
+    const handleSetEventToEdit = (event) => {
+        setEventToEdit(event);
+    };
     const handleDeleteEvent = async () => {
         let deleteResult = await deleteEvent(eventToDelete.id);
 
@@ -153,7 +169,7 @@ const EventList = ({eventData, user, allUsers}) => {
             e.preventDefault();
             handleSearch();
         }
-    }
+    };
 
     useEffect(() => {
         console.log("Use effect runs");
@@ -212,6 +228,12 @@ const EventList = ({eventData, user, allUsers}) => {
                 handleClose={handleCloseDeleteEventModal}
                 handleDelete={handleDeleteEvent}
             />
+
+            <EditEventModal
+            show={showEditEventModal}
+            handleClose={handleCloseEditEventModal}
+            data={eventToEdit}
+            />
             {!events || events.length === 0 ? (
                 <p className="empty-page-message">No events to display...</p>
             ) : (
@@ -220,6 +242,8 @@ const EventList = ({eventData, user, allUsers}) => {
                         openModal={handleShowSeeMoreModal}
                         openDeleteEventModal={handleShowDeleteEventModal}
                         handleSetEventToDelete={handleSetEventToDelete}
+                        handleSetEventToEdit={handleSetEventToEdit}
+                        openEditEventModal={handleShowEditEventModal}
                         key={e.id}
                         cardData={e}
                         user={user}

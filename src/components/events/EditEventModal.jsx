@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Button, Form, Modal, Spinner} from 'react-bootstrap';
 import "./AddEventModal.css";
 
-const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
+const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
     const [formData, setFormData] = useState({ //used to store form data
-        eventName: "",
+        eventName: "haha",
         eventLocation: "",
         eventCapacity: 0,
         imageFile: "",
@@ -13,15 +13,42 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
 
     });
 
+    console.log("Form data: ", formData);
+    useEffect(() => {
+
+        if (data) {
+            console.log("Date: ", data.dateTimeString);
+            let dateTimeObject = new Date(data.dateTimeString);
+            let date = dateTimeObject.toISOString().substring(0, 10);
+            let time = dateTimeObject.toISOString().substring(11, 19);
+            // setFormData(prevState => {
+            //
+            //     return {
+            //         eventName: `${data.name}`,
+            //         eventLocation: `${data.location}`,
+            //         eventCapacity: `${data.maxCap}`,
+            //         dateString: `${dateTimeObject.toLocaleDateString("en-US")}`,
+            //         timeString: `${dateTimeObject.toLocaleTimeString("en-US")}`,
+            //         ...prevState
+            //     };
+            // });
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                eventName: `${data.name}`,
+                eventLocation: `${data.location}`,
+                eventCapacity: `${data.maxCap}`,
+                dateString: `${date}`,
+                timeString: `${time}`,
+            }));
+        }
+    }, [data]);
 
     // console.log("Haha: ",user.uid);
     const clearStates = () => {
         setFormData({
             eventName: "",
             eventLocation: "",
-            eventCapacity: 0,
-            dateString: "",
-            timeString: "",
+            eventCapacity: 0
         });
         setValidated(false);
         setSubmissionStatus(0);
@@ -59,7 +86,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
     const handleChange = (event) => {
         const {name, value, type, files} = event.target;
 
-        console.log(formData);
+        //console.log(formData);
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: type === "file" ? files[0] : value
@@ -129,7 +156,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             handleClose();
         }} centered backdrop="static">
             <Modal.Header closeButton>
-                <Modal.Title>Create an event</Modal.Title>
+                <Modal.Title>Edit the event</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form noValidate validated={validated} onSubmit={createEvent} id="create-event-form">
@@ -228,11 +255,11 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" type="submit" form="create-event-form" disabled={submissionStatus !== 0}>
-                    Create Event
+                    Update Event
                 </Button>
             </Modal.Footer>
         </Modal>
     );
 };
 
-export default AddEventModal;
+export default EditEventModal;

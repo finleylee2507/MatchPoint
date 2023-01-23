@@ -73,8 +73,8 @@ export const deleteEvent=async (eid) => {
 }
 
 // Join an event
-export const joinEvent = async (updatedParticipants, ueid) => {
-    const participantsRef = child(ref(database), `events/${ueid}`);
+export const joinEvent = async (updatedParticipants, eid) => {
+    const participantsRef = child(ref(database), `events/${eid}`);
     let isJoinSuccessful = false;
     try {
         await update(participantsRef, updatedParticipants);
@@ -85,6 +85,20 @@ export const joinEvent = async (updatedParticipants, ueid) => {
 
     return isJoinSuccessful;
 };
+
+// //Update an event
+// export const updateEvent=async (newEvent, eid) => {
+//     const eventRef = child(ref(database), `events/${eid}`);
+//     let isUpdateSuccessful = false;
+//     try {
+//         await update(eventRef, newEvent);
+//         isUpdateSuccessful = true;
+//     } catch (error) {
+//         console.log(error);
+//     }
+//
+//     return isUpdateSuccessful;
+// }
 
 // Get new event key
 export const getNewEventKey = () => {
