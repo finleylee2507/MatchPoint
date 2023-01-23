@@ -62,7 +62,7 @@ const EventCard = ({openModal, cardData, openDeleteEventModal, handleSetEventToD
                                 <Col>
                                     {
                                         (owner === user.uid) &&
-                                        <Button onClick={handleEdit} variant="danger" size="lg"
+                                        <Button onClick={handleEdit} variant="warning" size="lg"
                                                 className="edit-event-button">Edit Event</Button>
                                     }
                                 </Col>

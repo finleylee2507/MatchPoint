@@ -42,6 +42,7 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                 eventCapacity: `${data.maxCap}`,
                 dateString: `${year}-${month}-${day}`,
                 timeString: `${hours}:${minutes}:${seconds}`,
+                imageFile: null
             }));
         }
     };
