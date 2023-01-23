@@ -18,11 +18,15 @@
 
 .app-image {
     height: 90vh !important;
+
 }
 
 .col-left {
     display: flex;
     align-items: center;
+    animation-name: app-image-animation;
+    animation-duration: 0.5s;
+
 }
 
 .col-right {
@@ -31,7 +35,20 @@
     justify-content: center;
     width: 50%;
 
+    animation-name: col-right-animation;
+    animation-duration: 0.5s;
+
 }
+
+@keyframes col-right-animation {
+    from {padding-top: 1000px;}
+    to {padding-top:0px;}
+}
+@keyframes app-image-animation {
+    from {display:none; padding-bottom:1000px;}
+    to {display:flex; padding-bottom:0px;}
+}
+
 @media (max-width: 1000px) {
     .col-right {
       width: auto;
