@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Button, Form, Modal, Spinner} from 'react-bootstrap';
 import "./AddEventModal.css";
 
-const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
+
+const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
     const [formData, setFormData] = useState({ //used to store form data
-        eventName: "",
+        eventName: "haha",
         eventLocation: "",
         eventCapacity: 0,
         imageFile: "",
@@ -13,38 +14,62 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
 
     });
 
+    useEffect(() => {
+        initializeForm();
+    }, [data]);
 
-    // console.log("Haha: ",user.uid);
+
+    const initializeForm = () => {
+        if (data) {
+            // console.log("Date: ", data.dateTimeString);
+            let dateTimeObject = new Date(data.dateTimeString);
+
+            //convert GMT time to CST
+            let test = dateTimeObject.toLocaleString('en-US', {timeZone: 'CST', hour12: false});
+            const [first, second] = test.split(',').map(item => item.trim());
+            let [month, day, year] = first.split('/');
+            let [hours, minutes, seconds] = second.split(':');
+
+            //0 padding
+            month = month.padStart(2, '0');
+            day = day.padStart(2, '0');
+            hours = hours.padStart(2, '0');
+
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                eventName: `${data.name}`,
+                eventLocation: `${data.location}`,
+                eventCapacity: `${data.maxCap}`,
+                dateString: `${year}-${month}-${day}`,
+                timeString: `${hours}:${minutes}:${seconds}`,
+                imageFile: null
+            }));
+        }
+    };
     const clearStates = () => {
-        setFormData({
-            eventName: "",
-            eventLocation: "",
-            eventCapacity: 0,
-            dateString: "",
-            timeString: "",
-        });
+        initializeForm();
         setValidated(false);
         setSubmissionStatus(0);
     };
-    const creatingEventElement = (<div className="creating-event-container">
-            <p className="creating-event-text">
-                Creating Event...
+    const editingEventElement = (<div className="editing-event-container">
+            <p className="editing-event-text">
+                Editing Event...
             </p>
             <div className="submission-status-icon">
                 <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Creating Event...</span>
+                    <span className="visually-hidden">Editing Event...</span>
                 </Spinner>
             </div>
         </div>
     );
 
-    const eventCreationSuccessElement = (
+    const eventEditSuccessElement = (
         <Alert key="success" variant="success">
-            Successfully created event!
+            Successfully edited event!
         </Alert>
     );
 
-    const eventCreationFailureElement = (
+    const eventEditFailureElement = (
         <Alert key="danger" variant="danger">
             Hmm something went wrong... Please check and try again.
         </Alert>
@@ -59,7 +84,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
     const handleChange = (event) => {
         const {name, value, type, files} = event.target;
 
-        console.log(formData);
+        //console.log(formData);
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: type === "file" ? files[0] : value
@@ -75,7 +100,6 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             e.stopPropagation();
             setSubmissionStatus(0);
             setValidated(true);
-            // console.log("huh");
             return;
         }
 
@@ -84,26 +108,21 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         const eventDateTime = new Date(`${formData.dateString} ${formData.timeString}`);
         const dateTimeString = eventDateTime.toUTCString();
         const newEvent = {
+            ...data,
             name: formData.eventName,
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
-            owner: user.uid,
-            //uncollected fields that exist in database
-            activity: "",
-            desc: "",
-            imgSrc: "",
-            privacy: 0,
-            participants: [],
             dateTimeString: dateTimeString,
 
-
         };
+
+        console.log("new event: ", newEvent);
 
 
         //call parent's function to submit event to database
         try {
             const submissionResult = await handleSubmit(newEvent, formData.imageFile);
-            // console.log(submissionResult);
+            console.log(submissionResult);
             setSubmissionStatus(2);
 
             setTimeout(() => {
@@ -127,7 +146,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             handleClose();
         }} centered backdrop="static">
             <Modal.Header closeButton>
-                <Modal.Title>Create an event</Modal.Title>
+                <Modal.Title>Edit the event</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form noValidate validated={validated} onSubmit={createEvent} id="create-event-form">
@@ -201,7 +220,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">
-                        <Form.Label>Upload Cover Image (Optional)</Form.Label>
+                        <Form.Label>Update Cover Image (Optional)</Form.Label>
                         <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
                     </Form.Group>
 
@@ -211,11 +230,11 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             (() => {
                                 switch (submissionStatus) {
                                     case 1:
-                                        return creatingEventElement;
+                                        return editingEventElement;
                                     case 2:
-                                        return eventCreationSuccessElement;
+                                        return eventEditSuccessElement;
                                     case 3:
-                                        return eventCreationFailureElement;
+                                        return eventEditFailureElement;
                                 }
                             })()
                         }
@@ -226,11 +245,11 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" type="submit" form="create-event-form" disabled={submissionStatus !== 0}>
-                    Create Event
+                    Update Event
                 </Button>
             </Modal.Footer>
         </Modal>
     );
 };
 
-export default AddEventModal;
+export default EditEventModal;

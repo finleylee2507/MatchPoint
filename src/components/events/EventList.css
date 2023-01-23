@@ -25,14 +25,14 @@
     border-color: #271CA1 !important;
 }
 
-.add-event-button:hover{
+.add-event-button:hover {
     cursor: pointer;
     background-color: #271CA1 !important;
     color: white !important;
 }
 
 
-.search-button:hover{
+.search-button:hover {
     background-color: #271CA1 !important;
     color: white !important;
 }

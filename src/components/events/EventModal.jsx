@@ -3,7 +3,7 @@ import {Alert, Button, Modal} from "react-bootstrap";
 
 function EventModal({show, handleJoin, handleClose, data, allUsers}) {
     // console.log("modal data: ", data);
-    const {name, location, maxCap, participants,dateTimeString,owner} = data;
+    const {name, location, maxCap, participants, dateTimeString, owner} = data;
     const [shouldDisplayStatusMsg, setShouldDisplayStatusMsg] = useState(false);
     const [statusMsg, setStatusMsg] = useState(null);
     const dateTime = new Date(dateTimeString);
@@ -89,7 +89,7 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
             <Modal.Body>
                 <span>Location:{location}</span>
                 <br/>
-                {owner&&<span>Owner: {allUsers[owner].displayName}</span>}
+                {owner && <span>Owner: {allUsers[owner].displayName}</span>}
                 <br/>
                 <span>Participants: </span>
 
