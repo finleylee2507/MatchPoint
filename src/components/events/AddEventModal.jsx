@@ -29,6 +29,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         setValidated(false);
         setSubmissionStatus(0);
     };
+
     const creatingEventElement = (<div className="creating-event-container">
             <p className="creating-event-text">
                 Creating Event...
