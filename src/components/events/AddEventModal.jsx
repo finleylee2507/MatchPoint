@@ -10,7 +10,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         imageFile: "",
         dateString: "",
         timeString: "",
-
+        currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
+        currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
     });
 
 
@@ -22,6 +23,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             eventCapacity: 0,
             dateString: "",
             timeString: "",
+            currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
+            currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
         });
         setValidated(false);
         setSubmissionStatus(0);
@@ -181,6 +184,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             name="dateString"
                             onChange={handleChange}
                             value={formData.dateString}
+                            min={formData.currentDate}
                             autoFocus
                             required
                         />
@@ -194,6 +198,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             name="timeString"
                             onChange={handleChange}
                             value={formData.timeString}
+
+                            min={formData.dateString === formData.currentDate ? formData.currentTime : "00:00"}
                             autoFocus
                             required
                         />
