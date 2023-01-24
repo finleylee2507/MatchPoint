@@ -11,7 +11,8 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
         imageFile: "",
         dateString: "",
         timeString: "",
-
+        currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
+        currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
     });
 
     useEffect(() => {
@@ -200,6 +201,7 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                             name="dateString"
                             onChange={handleChange}
                             value={formData.dateString}
+                            min={formData.currentDate}
                             autoFocus
                             required
                         />
@@ -213,6 +215,7 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                             name="timeString"
                             onChange={handleChange}
                             value={formData.timeString}
+                            min={formData.dateString === formData.currentDate ? formData.currentTime : "00:00"}
                             autoFocus
                             required
                         />
