@@ -55,8 +55,11 @@ export const addNewUser = (newUser, uid) => {
 };
 
 //Add new event to database
-export const addNewEvent = (newEvent, eid) => {
+export const addNewEvent = (newEvent, eid, updatedUserEvents, uid) => {
     set(ref(database, "events/" + eid), newEvent);
+
+    const userEventsRef = child(ref(database), `users/${uid}`);
+    update(userEventsRef, updatedUserEvents); // add event to user's list of events
 };
 
 export const deleteEvent=async (eid) => {
@@ -73,11 +76,20 @@ export const deleteEvent=async (eid) => {
 }
 
 // Join an event
-export const joinEvent = async (updatedParticipants, eid) => {
-    const participantsRef = child(ref(database), `events/${eid}`);
+export const joinEvent = async (
+    updatedParticipants,
+    updatedUserEvents,
+    ueid,
+    uid
+) => {
+    const participantsRef = child(ref(database), `events/${ueid}`);
+    const userEventsRef = child(ref(database), `users/${uid}`);
+
     let isJoinSuccessful = false;
     try {
-        await update(participantsRef, updatedParticipants);
+        await update(participantsRef, updatedParticipants); // join event
+        await update(userEventsRef, updatedUserEvents); // add event to user's list of events
+
         isJoinSuccessful = true;
     } catch (error) {
         console.log(error);
