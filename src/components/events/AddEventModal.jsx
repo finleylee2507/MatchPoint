@@ -92,9 +92,9 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
             owner: user.uid,
+            desc: formData.eventDescription,
             //uncollected fields that exist in database
             activity: "",
-            desc: "",
             imgSrc: "",
             privacy: 0,
             participants: [],
@@ -146,6 +146,19 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             required
                         />
                         <Form.Control.Feedback type="invalid">Please provide an event name.</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="event-description">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control
+                            type="text"
+                            as="textarea"
+                            rows={3}
+                            name="eventDescription"
+                            value={formData.eventDescription}
+                            onChange={handleChange}
+                            autoFocus
+                        />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="event-location">
