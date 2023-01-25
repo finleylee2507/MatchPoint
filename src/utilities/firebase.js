@@ -3,9 +3,9 @@
 // Import the functions you need from the SDKs you need
 import {useEffect, useState} from "react";
 import {initializeApp} from "firebase/app";
-import {child, getDatabase, onValue, push, ref, set, update,remove} from "firebase/database";
+import {child, getDatabase, onValue, push, ref, remove, set, update} from "firebase/database";
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut,} from "firebase/auth";
-import {getDownloadURL, getStorage, ref as sRef, uploadBytes,deleteObject} from "firebase/storage";
+import {deleteObject, getDownloadURL, getStorage, ref as sRef, uploadBytes} from "firebase/storage";
 
 // Configuration Data
 const firebaseConfig = {
@@ -62,18 +62,18 @@ export const addNewEvent = (newEvent, eid, updatedUserEvents, uid) => {
     update(userEventsRef, updatedUserEvents); // add event to user's list of events
 };
 
-export const deleteEvent=async (eid) => {
-    let isSuccessful = false
+export const deleteEvent = async (eid) => {
+    let isSuccessful = false;
     try {
-        await remove(ref(database, "events/" + eid))
-        isSuccessful = true
+        await remove(ref(database, "events/" + eid));
+        isSuccessful = true;
     } catch (error) {
         console.log(error);
     }
 
-    return isSuccessful
+    return isSuccessful;
 
-}
+};
 
 // Join an event
 export const joinEvent = async (
@@ -98,8 +98,26 @@ export const joinEvent = async (
     return isJoinSuccessful;
 };
 
+export const deleteEventFromUsers=async (listOfUserIds, listOfNewEvents) => {
+
+    let isDeleteSuccessful = true
+    //iterate over user list
+    for (const uid of listOfUserIds) {
+        const i = listOfUserIds.indexOf(uid);
+        const userEventsRef = child(ref(database), `users/${uid}`);
+
+        try {
+            await update(userEventsRef, listOfNewEvents[i])
+        } catch (error) {
+            console.log(error);
+            isDeleteSuccessful=false
+        }
+    }
+
+    return isDeleteSuccessful
+}
 // //Update an event
-export const updateEvent=async (newEvent, eid) => {
+export const updateEvent = async (newEvent, eid) => {
     const eventRef = child(ref(database), `events/${eid}`);
     let isUpdateSuccessful = false;
     try {
@@ -110,7 +128,7 @@ export const updateEvent=async (newEvent, eid) => {
     }
 
     return isUpdateSuccessful;
-}
+};
 
 // Get new event key
 export const getNewEventKey = () => {
@@ -137,30 +155,29 @@ export const uploadFile = async (file) => {
     return [isSuccessful, downloadURL];
 };
 
-export const deleteFile=async (url) => {
-    let fileRef = sRef(storage,url)
-    try{
-        let deleteResult = await deleteObject(fileRef)
+export const deleteFile = async (url) => {
+    let fileRef = sRef(storage, url);
+    try {
+        let deleteResult = await deleteObject(fileRef);
         console.log(deleteResult);
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
     }
 
 
-}
+};
 
 export const getImageLinkOfExistingImage = async (imageFileName) => {
     let fileLink = `images/${imageFileName}`;
     let imageLink = "";
-    const imageReference = sRef(storage, fileLink)
+    const imageReference = sRef(storage, fileLink);
     try {
-        imageLink = await getDownloadURL(imageReference)
+        imageLink = await getDownloadURL(imageReference);
     } catch (err) {
         console.log(err);
     }
 
-    return imageLink
+    return imageLink;
 };
 /* USER AUTHENTICATION FUNCTIONS */
 

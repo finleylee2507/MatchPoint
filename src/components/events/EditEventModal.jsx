@@ -13,6 +13,8 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
         timeString: "",
         currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
         currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
+        skillLevel:"",
+        eventDescription:""
     });
 
     useEffect(() => {
@@ -43,7 +45,9 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                 eventCapacity: `${data.maxCap}`,
                 dateString: `${year}-${month}-${day}`,
                 timeString: `${hours}:${minutes}:${seconds}`,
-                imageFile: null
+                imageFile: null,
+                skillLevel: data.skillLevel,
+                eventDescription: data.desc
             }));
         }
     };
@@ -66,7 +70,7 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
 
     const eventEditSuccessElement = (
         <Alert key="success" variant="success">
-            Successfully edited event!
+            Successfully updated event!
         </Alert>
     );
 
@@ -114,6 +118,8 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
             dateTimeString: dateTimeString,
+            skillLevel: formData.skillLevel,
+            desc:formData.eventDescription
 
         };
 
@@ -162,6 +168,19 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                             required
                         />
                         <Form.Control.Feedback type="invalid">Please provide an event name.</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="event-description">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control
+                            type="text"
+                            as="textarea"
+                            rows={3}
+                            name="eventDescription"
+                            value={formData.eventDescription}
+                            onChange={handleChange}
+                            autoFocus
+                        />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="event-location">
@@ -220,6 +239,18 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                             required
                         />
                         <Form.Control.Feedback type="invalid">Please provide a valid time.</Form.Control.Feedback>
+                    </Form.Group>
+
+
+                    <Form.Group className="mb-3" controlId="event-time">
+                        <Form.Label>Skill Level:</Form.Label>
+                        <Form.Select aria-label="Default select example" value={formData.skillLevel} onChange={handleChange} name="skillLevel" required>
+                            <option value="">-- choose a skill level --</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">Please select a skill level</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">

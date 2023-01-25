@@ -12,6 +12,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         timeString: "",
         currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
         currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
+        skillLevel:"",
+        eventDescription:""
     });
 
 
@@ -25,6 +27,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             timeString: "",
             currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
             currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
+            skillLevel: "",
+            eventDescription: ""
         });
         setValidated(false);
         setSubmissionStatus(0);
@@ -68,6 +72,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             ...prevFormData,
             [name]: type === "file" ? files[0] : value
         }));
+
     };
 
     const createEvent = async (e) => {
@@ -92,12 +97,13 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             maxCap: formData.eventCapacity,
             location: formData.eventLocation,
             owner: user.uid,
+            desc: formData.eventDescription,
             //uncollected fields that exist in database
             activity: "",
-            desc: "",
             imgSrc: "",
             privacy: 0,
             participants: [],
+            skillLevel:formData.skillLevel,
             dateTimeString: dateTimeString,
 
 
@@ -146,6 +152,19 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             required
                         />
                         <Form.Control.Feedback type="invalid">Please provide an event name.</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="event-description">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control
+                            type="text"
+                            as="textarea"
+                            rows={3}
+                            name="eventDescription"
+                            value={formData.eventDescription}
+                            onChange={handleChange}
+                            autoFocus
+                        />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="event-location">
@@ -199,12 +218,23 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             name="timeString"
                             onChange={handleChange}
                             value={formData.timeString}
-
                             min={formData.dateString === formData.currentDate ? formData.currentTime : "00:00"}
                             autoFocus
                             required
                         />
                         <Form.Control.Feedback type="invalid">Please provide a valid time.</Form.Control.Feedback>
+                    </Form.Group>
+
+
+                    <Form.Group className="mb-3" controlId="event-time">
+                        <Form.Label>Skill Level:</Form.Label>
+                        <Form.Select aria-label="Default select example" value={formData.skillLevel} onChange={handleChange} name="skillLevel" required>
+                            <option value="">-- choose a skill level --</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">Please select a skill level</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">

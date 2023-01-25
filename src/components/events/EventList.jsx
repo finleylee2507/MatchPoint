@@ -1,9 +1,8 @@
 // Event List
 import React, {useEffect, useState} from "react";
 import {
-    addNewEvent,
-    deleteEvent,
-    deleteFile,
+    addNewEvent, deleteEvent,
+    deleteEventFromUsers, deleteFile,
     getImageLinkOfExistingImage,
     getNewEventKey,
     joinEvent,
@@ -129,6 +128,17 @@ const EventList = ({eventData, user, allUsers}) => {
         setEventToEdit(event);
     };
     const handleDeleteEvent = async () => {
+        //get the list of event participants
+        console.log("Event participants: ", eventToDelete.participants);
+        let newParticipantsEvent = eventToDelete.participants.map((participantId) => {
+            let userCurrentEvents = allUsers[participantId].events;
+            let userNewEvents = userCurrentEvents.filter((eventId) => eventId !== eventToDelete.id);
+            return {events: userNewEvents};
+
+        });
+
+        console.log("New participants events: ", newParticipantsEvent);
+        await deleteEventFromUsers(eventToDelete.participants, newParticipantsEvent);
         let deleteResult = await deleteEvent(eventToDelete.id);
 
         if (eventToDelete.imgSrc !== defaultCoverURL) { //make sure we don't delete the default image cover in storage
@@ -193,7 +203,7 @@ const EventList = ({eventData, user, allUsers}) => {
         }
 
         //update event
-        updateEvent(newEventData, newEventData.id);
+        await updateEvent(newEventData, newEventData.id);
 
     };
     const handleSearch = () => {
@@ -219,6 +229,7 @@ const EventList = ({eventData, user, allUsers}) => {
 
     useEffect(() => {
         console.log("Use effect runs");
+        console.log("Event data: ", eventData);
         eventData && setEvents(Object.values(eventData));
     }, [searchFilter, eventData]);
 
