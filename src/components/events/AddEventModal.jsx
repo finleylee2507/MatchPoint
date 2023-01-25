@@ -234,7 +234,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             <option value="intermediate">Intermediate</option>
                             <option value="advanced">Advanced</option>
                         </Form.Select>
-                        <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">Please select a skill level</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">
