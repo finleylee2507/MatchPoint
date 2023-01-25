@@ -7,6 +7,7 @@ import {
     getImageLinkOfExistingImage,
     getNewEventKey,
     joinEvent,
+    updateEvent,
     uploadFile
 } from "../../utilities/firebase";
 import {Button, Form, Stack} from "react-bootstrap";
@@ -74,7 +75,6 @@ const EventList = ({eventData, user, allUsers}) => {
         const updatedParticipants = {
             participants: [...data.participants, user.uid],
         };
-
 
 
         let updatedUserEvents;
@@ -193,7 +193,7 @@ const EventList = ({eventData, user, allUsers}) => {
         }
 
         //update event
-        joinEvent(newEventData, newEventData.id);
+        updateEvent(newEventData, newEventData.id);
 
     };
     const handleSearch = () => {

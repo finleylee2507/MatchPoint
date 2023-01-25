@@ -99,18 +99,18 @@ export const joinEvent = async (
 };
 
 // //Update an event
-// export const updateEvent=async (newEvent, eid) => {
-//     const eventRef = child(ref(database), `events/${eid}`);
-//     let isUpdateSuccessful = false;
-//     try {
-//         await update(eventRef, newEvent);
-//         isUpdateSuccessful = true;
-//     } catch (error) {
-//         console.log(error);
-//     }
-//
-//     return isUpdateSuccessful;
-// }
+export const updateEvent=async (newEvent, eid) => {
+    const eventRef = child(ref(database), `events/${eid}`);
+    let isUpdateSuccessful = false;
+    try {
+        await update(eventRef, newEvent);
+        isUpdateSuccessful = true;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return isUpdateSuccessful;
+}
 
 // Get new event key
 export const getNewEventKey = () => {
