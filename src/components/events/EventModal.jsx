@@ -3,7 +3,7 @@ import {Alert, Button, Modal} from "react-bootstrap";
 
 function EventModal({show, handleJoin, handleClose, data, allUsers}) {
     // console.log("modal data: ", data);
-    const {name, location, maxCap, participants, dateTimeString, owner} = data;
+    const {name, location, maxCap, participants, dateTimeString, owner, desc} = data;
     const [shouldDisplayStatusMsg, setShouldDisplayStatusMsg] = useState(false);
     const [statusMsg, setStatusMsg] = useState(null);
     const dateTime = new Date(dateTimeString);
@@ -105,6 +105,11 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
                     timeZone: 'CST'
                 })} CST
                 </p>
+                <div>
+                    <p>Event Description:</p>
+                    <p>{desc}</p>
+
+                </div>
                 {shouldDisplayStatusMsg && statusMsg}
             </Modal.Body>
             <Modal.Footer>
