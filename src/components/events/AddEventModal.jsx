@@ -12,6 +12,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         timeString: "",
         currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
         currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
+        skillLevel:""
     });
 
 
@@ -25,6 +26,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             timeString: "",
             currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
             currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
+            skillLevel: ""
         });
         setValidated(false);
         setSubmissionStatus(0);
@@ -68,6 +70,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             ...prevFormData,
             [name]: type === "file" ? files[0] : value
         }));
+
     };
 
     const createEvent = async (e) => {
@@ -98,6 +101,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             imgSrc: "",
             privacy: 0,
             participants: [],
+            skillLevel:formData.skillLevel,
             dateTimeString: dateTimeString,
 
 
@@ -199,12 +203,23 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             name="timeString"
                             onChange={handleChange}
                             value={formData.timeString}
-
                             min={formData.dateString === formData.currentDate ? formData.currentTime : "00:00"}
                             autoFocus
                             required
                         />
                         <Form.Control.Feedback type="invalid">Please provide a valid time.</Form.Control.Feedback>
+                    </Form.Group>
+
+
+                    <Form.Group className="mb-3" controlId="event-time">
+                        <Form.Label>Skill Level:</Form.Label>
+                        <Form.Select aria-label="Default select example" value={formData.skillLevel} onChange={handleChange} name="skillLevel" required>
+                            <option value="default">-- choose a skill level --</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="upload-image">
