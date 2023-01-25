@@ -219,6 +219,7 @@ const EventList = ({eventData, user, allUsers}) => {
 
     useEffect(() => {
         console.log("Use effect runs");
+        console.log("Event data: ",eventData);
         eventData && setEvents(Object.values(eventData));
     }, [searchFilter, eventData]);
 

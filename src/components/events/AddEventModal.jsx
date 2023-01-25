@@ -12,7 +12,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         timeString: "",
         currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
         currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
-        skillLevel:""
+        skillLevel:"",
+        eventDescription:""
     });
 
 
@@ -26,7 +27,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             timeString: "",
             currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
             currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
-            skillLevel: ""
+            skillLevel: "",
+            eventDescription: ""
         });
         setValidated(false);
         setSubmissionStatus(0);
@@ -227,7 +229,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                     <Form.Group className="mb-3" controlId="event-time">
                         <Form.Label>Skill Level:</Form.Label>
                         <Form.Select aria-label="Default select example" value={formData.skillLevel} onChange={handleChange} name="skillLevel" required>
-                            <option value="default">-- choose a skill level --</option>
+                            <option value="">-- choose a skill level --</option>
                             <option value="beginner">Beginner</option>
                             <option value="intermediate">Intermediate</option>
                             <option value="advanced">Advanced</option>

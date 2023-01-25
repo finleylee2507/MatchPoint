@@ -89,7 +89,7 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
             <Modal.Body>
                 <span>Location:{location}</span>
                 <br/>
-                {owner && <span>Owner: {allUsers[owner].displayName}</span>}
+                {owner && <span>Host: {allUsers[owner].displayName}</span>}
                 <br/>
                 <span>Participants: </span>
 

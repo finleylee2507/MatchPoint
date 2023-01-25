@@ -56,6 +56,8 @@ const EventCard = ({
                                         {maxCap - participants.length} / {maxCap} spots available
                                     </Card.Text>
                                 </Col>
+
+
                             </Row>
                             <Row>
                                 <Col xl={2} lg={3} md={4}>
