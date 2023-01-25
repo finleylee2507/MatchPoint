@@ -75,7 +75,25 @@ const EventList = ({eventData, user, allUsers}) => {
             participants: [...data.participants, user.uid],
         };
 
-        let joinResult = await joinEvent(updatedParticipants, ueid);
+
+
+        let updatedUserEvents;
+        if (!allUsers[user.uid].events) {
+            updatedUserEvents = {
+                events: [ueid],
+            };
+        } else {
+            updatedUserEvents = {
+                events: [...allUsers[user.uid].events, ueid],
+            };
+        }
+
+        let joinResult = await joinEvent(
+            updatedParticipants,
+            updatedUserEvents,
+            ueid,
+            user.uid
+        );
         return joinResult ? 1 : 0;
     };
 
@@ -147,8 +165,20 @@ const EventList = ({eventData, user, allUsers}) => {
         newEventData.participants.push(user.uid);
         //console.log("new event object: ", newEventData);
 
+
+        let updatedUserEvents;
+        if (!allUsers[user.uid].events) {
+            updatedUserEvents = {
+                events: [newEventKey],
+            };
+        } else {
+            updatedUserEvents = {
+                events: [...allUsers[user.uid].events, newEventKey],
+            };
+        }
+
         //submit new event to database
-        addNewEvent(newEventData, newEventKey);
+        addNewEvent(newEventData, newEventKey, updatedUserEvents, user.uid);
     };
 
     const handleEditEventSubmit = async (newEventData, imageFile) => {
