@@ -7,54 +7,50 @@ import { useAuthState, useDbData } from "./utilities/firebase";
 import TeamList from "./components/teams/TeamList";
 
 const App = () => {
-    const [events, eventsError] = useDbData("/events");
-    // console.log(eventsError);
-    const user=useAuthState();
-    const [users, usersError] = useDbData("/users");
-    //console.log("Users: ",users);
-    // console.log(usersError);
+  const [events, eventsError] = useDbData("/events");
+  // console.log(eventsError);
+  const user = useAuthState();
+  const [users, usersError] = useDbData("/users");
+  //console.log("Users: ",users);
+  // console.log(usersError);
 
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <div>
-                            <Landing allUsers={users} />
-                        </div>
-                    }
-                ></Route>
-                <Route
-                    path="allEvents"
-                    element={
-                        <div>
-                            <NavBar />
-                            <EventList eventData={events} user={user} allUsers={users}/>
-                        </div>
-                    }
-                ></Route>
-              <Route 
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <Landing allUsers={users} />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="allEvents"
+          element={
+            <div>
+              <NavBar />
+              <EventList eventData={events} user={user} allUsers={users} />
+            </div>
+          }
+        ></Route>
+        <Route
           path="Teams"
           element={
             <div>
-              <NavBar/>
-              <TeamList/>
+              <NavBar />
+              <TeamList />
             </div>
-          
-        }
-          >
-
-
-        </Route>
+          }
+        ></Route>
       </Routes>
-        </BrowserRouter>
-    );
-    // <div className="App">
-    //   <NavBar />
-    //   <EventList />
-    // </div>
-    //   );
+    </BrowserRouter>
+  );
+  // <div className="App">
+  //   <NavBar />
+  //   <EventList />
+  // </div>
+  //   );
 };
 
 export default App;
