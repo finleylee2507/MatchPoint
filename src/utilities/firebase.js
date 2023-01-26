@@ -28,7 +28,7 @@ const storage = getStorage();
 
 // Use this function to get data from a path
 export const useDbData = (path) => {
-    console.log("Fetching data");
+    //console.log("Fetching data");
     const [data, setData] = useState();
     const [error, setError] = useState(null);
 

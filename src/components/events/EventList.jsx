@@ -264,6 +264,7 @@ const EventList = ({eventData, user, allUsers}) => {
                         key={e.id}
                         cardData={e}
                         user={user}
+                        allUsers={allUsers}
                     />
                 ))
             )}

@@ -7,6 +7,15 @@
     object-fit: cover;
 }
 
+.profile-image {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+
+    /*adpative image position*/
+    object-fit: cover;
+}
+
 .card {
     width: 85vw;
     margin-top: 20px;
@@ -22,12 +31,6 @@
 
 
 .circular-image-wrapper {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
-.organizer-image-wrapper {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -98,9 +101,6 @@ hr.solid {
     font-size: 1.2vw;
 }
 
-.card-bottom{
-    padding-top: 1vw;
-    padding-bottom: 1vw;
-    padding-left: 3vw;
-    padding-right: 3vw;
+.footer-padding{
+    padding: 1vw;
 }
