@@ -1,7 +1,7 @@
 import React from "react";
-import {Container, Nav, Navbar, Offcanvas} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
-import {signOut} from "../utilities/firebase";
+import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "../utilities/firebase";
 import "./Navbar.css";
 
 const SignOutButton = () => {
@@ -20,7 +20,7 @@ const SignOutButton = () => {
 };
 
 const AuthButton = () => {
-    return <SignOutButton/>;
+    return <SignOutButton />;
 };
 
 const NavBar = () => {
@@ -28,7 +28,7 @@ const NavBar = () => {
         <>
             <Navbar expand="false" className="bar">
                 <Container fluid>
-                    <Navbar.Toggle aria-controls={`offcanvasNavbar`}/>
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar`} />
                     <Navbar.Brand
                         className="logo"
                         href="src/components/events/EventList.jsx"
@@ -36,7 +36,7 @@ const NavBar = () => {
                         MatchPoint
                     </Navbar.Brand>
                     {/* <Nav.Link className="nav-link" href="#action1">Sign in</Nav.Link> */}
-                    <AuthButton/>
+                    <AuthButton />
                     <Navbar.Offcanvas
                         id={`offcanvasNavbar`}
                         aria-labelledby={`offcanvasNavbarLabel`}
@@ -52,9 +52,9 @@ const NavBar = () => {
                             <Nav className="justify-content-end flex-grow-1 pe-3">
                                 {/* <Nav.Link href="#action1">Profile</Nav.Link> */}
                                 <Nav.Link href="/allEvents">All Events</Nav.Link>
-                              {/* <Nav.Link href='/teams'>Teams</Nav.Link> */}
-                              <Nav.Link href="/messages">Inbox</Nav.Link>
-              </Nav>
+                                {/* <Nav.Link href='/teams'>Teams</Nav.Link> */}
+                                <Nav.Link href="/messages">Inbox</Nav.Link>
+                            </Nav>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
                 </Container>
