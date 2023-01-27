@@ -14,6 +14,10 @@ const UserEventCard = ({ event }) => {
                 </Card.Title>
 
                 <Card.Text>
+                    date: something 
+                </Card.Text>
+
+                <Card.Text>
                     owner: { event.owner }
                 </Card.Text>
 
@@ -24,6 +28,7 @@ const UserEventCard = ({ event }) => {
                 <Card.Text>
                     max capacity: { event.maxCap }
                 </Card.Text>
+                
             </Card.Body>
 
         </Card>
