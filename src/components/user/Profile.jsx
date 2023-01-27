@@ -9,15 +9,12 @@ const Profile = ({ allUsers, user, allEvents }) => {
     return "";
   }
 
-  const currUser = allUsers[user.uid];
-  //console.log(currUser["events"])
-
-  if (currUser["events"]) {
-    return currUser["events"].map((e) => (
+  if (allUsers[user.uid]["events"]) {
+    return allUsers[user.uid]["events"].map((e) => (
       <UserEventCard key={e} event={allEvents[e]} />
     ));
   } else {
-    console.log("no events")
+    console.log("no events");
     return (
       <p className="empty-page-message">You are not a part of any events ...</p>
     );
