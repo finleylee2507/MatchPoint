@@ -3,10 +3,12 @@ import React, {useEffect, useState} from "react";
 import {
     addNewEvent,
     deleteEvent,
+    deleteEventFromUsers,
     deleteFile,
     getImageLinkOfExistingImage,
     getNewEventKey,
     joinEvent,
+    updateEvent,
     uploadFile
 } from "../../utilities/firebase";
 import {Button, Form, Stack} from "react-bootstrap";
@@ -46,34 +48,87 @@ const EventList = ({eventData, user, allUsers}) => {
                 console.log(error);
             });
     }, []);
+
+
     const handleJoinEvent = async (data) => {
 
+        console.log("Joining");
         //make sure not joining an event that's full
         if (data.participants.length >= data.maxCap) {
-           toast.error("Sorry the event is full!",{
-               position:toast.POSITION.TOP_RIGHT
-           })
-            return
+            toast.error("Sorry the event is full!", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            return;
         }
         const ueid = data.id;
         const updatedParticipants = {
             participants: [...data.participants, user.uid],
         };
 
-        let joinResult = await joinEvent(updatedParticipants, ueid);
-
-        if(!joinResult){
-            toast.error("Hmm...Something went wrong. Please try again or contact the dev team.",{
-                position:toast.POSITION.TOP_RIGHT
-            })
-
-            return
+        console.log("Updated participants: ", updatedParticipants);
+        let updatedUserEvents;
+        if (!allUsers[user.uid].events) {
+            updatedUserEvents = {
+                events: [ueid],
+            };
+        } else {
+            updatedUserEvents = {
+                events: [...allUsers[user.uid].events, ueid],
+            };
         }
 
-        toast.success("Successfully joined event!",{
-            position:toast.POSITION.TOP_RIGHT
-        })
+        let joinResult = await joinEvent(
+            updatedParticipants,
+            updatedUserEvents,
+            ueid,
+            user.uid
+        );
 
+        if (!joinResult) {
+            toast.error("Hmm...Something went wrong. Please try again or contact the dev team.", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+
+            return;
+        }
+
+        toast.success("Successfully joined event!", {
+            position: toast.POSITION.TOP_RIGHT
+        });
+
+    };
+
+    const handleLeaveEvent = async (data) => {
+        let currParticipants = data.participants;
+        let currUserEvents = allUsers[user.uid].events;
+        console.log("Curr user events: ", currUserEvents);
+        console.log("Curr participants: ", currParticipants);
+        let ueid = data.id;
+
+
+        //TODO: what happens if the creator of the event tries to leave the event, and he's the only participant
+        let updatedParticipants = {participants: currParticipants.filter((participant) => participant !== user.uid)}; //remove current user from the list
+        let updatedUserEvents = {events: currUserEvents.filter((eventId) => eventId !== ueid)}; //remove current event from user's event list
+
+        console.log("Updated participants: ", updatedParticipants);
+        console.log("Updated events: ", updatedUserEvents);
+        let leaveResult = await joinEvent(
+            updatedParticipants,
+            updatedUserEvents,
+            ueid,
+            user.uid
+        );
+
+        if (leaveResult) {
+            toast.success("Successfully left event!", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+
+        } else {
+            toast.error("Hmm...Something went wrong. Please try again or contact the dev team.", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
     };
 
     const handleCloseSeeMoreModal = () => {
@@ -108,6 +163,17 @@ const EventList = ({eventData, user, allUsers}) => {
         setEventToEdit(event);
     };
     const handleDeleteEvent = async () => {
+        //get the list of event participants
+        console.log("Event participants: ", eventToDelete.participants);
+        let newParticipantsEvent = eventToDelete.participants.map((participantId) => {
+            let userCurrentEvents = allUsers[participantId].events;
+            let userNewEvents = userCurrentEvents.filter((eventId) => eventId !== eventToDelete.id);
+            return {events: userNewEvents};
+
+        });
+
+        console.log("New participants events: ", newParticipantsEvent);
+        await deleteEventFromUsers(eventToDelete.participants, newParticipantsEvent);
         let deleteResult = await deleteEvent(eventToDelete.id);
 
         if (eventToDelete.imgSrc !== defaultCoverURL) { //make sure we don't delete the default image cover in storage
@@ -119,7 +185,17 @@ const EventList = ({eventData, user, allUsers}) => {
         if (events.length === 1) {
             setEvents([]);
         }
-        return deleteResult;
+
+        if (deleteResult) {
+            toast.success("Successfully deleted event!", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        } else {
+            toast.error("Hmm...Something went wrong. Please try again or contact the dev team.", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
+
 
     };
     const handleAddEventSubmit = async (newEventData, imageFile) => {
@@ -144,8 +220,32 @@ const EventList = ({eventData, user, allUsers}) => {
         newEventData.participants.push(user.uid);
         //console.log("new event object: ", newEventData);
 
+
+        let updatedUserEvents;
+        if (!allUsers[user.uid].events) {
+            updatedUserEvents = {
+                events: [newEventKey],
+            };
+        } else {
+            updatedUserEvents = {
+                events: [...allUsers[user.uid].events, newEventKey],
+            };
+        }
+
         //submit new event to database
-        addNewEvent(newEventData, newEventKey);
+        try {
+            addNewEvent(newEventData, newEventKey, updatedUserEvents, user.uid);
+            toast.success("Successfully created event!", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        } catch (error) {
+            console.log(error);
+            toast.error("Hmm...Something went wrong. Please try again or contact the dev team.", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+
+        }
+
     };
 
     const handleEditEventSubmit = async (newEventData, imageFile) => {
@@ -160,7 +260,17 @@ const EventList = ({eventData, user, allUsers}) => {
         }
 
         //update event
-        joinEvent(newEventData, newEventData.id);
+        let editResult=await updateEvent(newEventData, newEventData.id);
+        if(editResult){
+            toast.success("Successfully edited event!", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
+        else{
+            toast.error("Hmm...Something went wrong. Please try again or contact the dev team.", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
 
     };
     const handleSearch = () => {
@@ -259,6 +369,7 @@ const EventList = ({eventData, user, allUsers}) => {
                         handleSetEventToDelete={handleSetEventToDelete}
                         handleSetEventToEdit={handleSetEventToEdit}
                         openEditEventModal={handleShowEditEventModal}
+                        handleLeave={handleLeaveEvent}
                         handleJoin={handleJoinEvent}
                         key={e.id}
                         cardData={e}

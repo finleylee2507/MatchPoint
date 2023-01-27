@@ -12,6 +12,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         timeString: "",
         currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
         currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
+        skillLevel: "",
+        eventDescription: ""
     });
 
 
@@ -25,6 +27,8 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             timeString: "",
             currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
             currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
+            skillLevel: "",
+            eventDescription: ""
         });
         setValidated(false);
         setSubmissionStatus(0);
@@ -42,20 +46,9 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
         </div>
     );
 
-    const eventCreationSuccessElement = (
-        <Alert key="success" variant="success">
-            Successfully created event!
-        </Alert>
-    );
-
-    const eventCreationFailureElement = (
-        <Alert key="danger" variant="danger">
-            Hmm something went wrong... Please check and try again.
-        </Alert>
-    );
 
 
-    //0->not submitted, 1-> submitting, 2-> successful, 3 ->unsuccessful
+    //0->not submitted, 1-> submitting
     let [submissionStatus, setSubmissionStatus] = useState(0);
     const [validated, setValidated] = useState(false);
 
@@ -94,33 +87,31 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
             owner: user.uid,
             //uncollected fields that exist in database
             activity: "",
-            desc: "",
+            desc: formData.eventDescription,
             imgSrc: "",
             privacy: 0,
             participants: [],
             dateTimeString: dateTimeString,
-
+            skillLevel:formData.skillLevel,
 
         };
 
 
         //call parent's function to submit event to database
         try {
-            const submissionResult = await handleSubmit(newEvent, formData.imageFile);
-            // console.log(submissionResult);
-            setSubmissionStatus(2);
+            await handleSubmit(newEvent, formData.imageFile);
 
             setTimeout(() => {
                 clearStates();
 
                 //close modal
                 handleClose();
-            }, 2000);
+            }, 1000);
 
 
         } catch (error) {
             console.log(error);
-            setSubmissionStatus(3);
+            setSubmissionStatus(0);
         }
 
 
@@ -146,6 +137,19 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                             required
                         />
                         <Form.Control.Feedback type="invalid">Please provide an event name.</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="event-description">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control
+                            type="text"
+                            as="textarea"
+                            rows={3}
+                            name="eventDescription"
+                            value={formData.eventDescription}
+                            onChange={handleChange}
+                            autoFocus
+                        />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="event-location">
@@ -207,6 +211,17 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                         <Form.Control.Feedback type="invalid">Please provide a valid time.</Form.Control.Feedback>
                     </Form.Group>
 
+                    <Form.Group className="mb-3" controlId="event-time">
+                        <Form.Label>Skill Level:</Form.Label>
+                        <Form.Select aria-label="Default select example" value={formData.skillLevel} onChange={handleChange} name="skillLevel" required>
+                            <option value="">-- choose a skill level --</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">Please select a skill level</Form.Control.Feedback>
+                    </Form.Group>
+
                     <Form.Group className="mb-3" controlId="upload-image">
                         <Form.Label>Upload Cover Image (Optional)</Form.Label>
                         <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
@@ -215,16 +230,7 @@ const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
                     <div className="submission-status">
 
                         {
-                            (() => {
-                                switch (submissionStatus) {
-                                    case 1:
-                                        return creatingEventElement;
-                                    case 2:
-                                        return eventCreationSuccessElement;
-                                    case 3:
-                                        return eventCreationFailureElement;
-                                }
-                            })()
+                           submissionStatus===1&&creatingEventElement
                         }
                     </div>
 

@@ -5,17 +5,6 @@ const DeleteEventModal = ({show, handleClose, handleDelete}) => {
 
     //0->initial state (deletion not triggered), 1->delete successful, 2->delete failed
     const [deletionStatus, setDeletionStatus] = useState(0);
-    const eventDeletionSuccessElement = (
-        <Alert key="success" variant="success" className="mt-3">
-            Successfully deleted event!
-        </Alert>
-    );
-
-    const eventDeletionFailureElement = (
-        <Alert key="danger" variant="danger" className="mt-3">
-            Hmm something went wrong... Please check and try again.
-        </Alert>
-    );
 
     const yesButtonHandler = async () => {
 
@@ -39,9 +28,6 @@ const DeleteEventModal = ({show, handleClose, handleDelete}) => {
         <Modal show={show} centered backdrop="static" onHide={handleClose}>
             <Modal.Body>
                 <p>Are you sure you want to delete this event?</p>
-                <div>
-                    {deletionStatus !== 0 && (deletionStatus === 1 ? eventDeletionSuccessElement : eventDeletionFailureElement)}
-                </div>
             </Modal.Body>
 
             <Modal.Footer>

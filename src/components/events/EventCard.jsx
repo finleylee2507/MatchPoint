@@ -15,9 +15,11 @@ const EventCard = ({
                        openEditEventModal,
                        user,
                        allUsers,
-                       handleJoin
+                       handleJoin,
+                       handleLeave
                    }) => {
     const {name, location, maxCap, imgSrc, participants, owner} = cardData;
+    console.log("All users: ",allUsers);
     const handleDelete = () => {
         //pass to-be-deleted event to the parent component
         handleSetEventToDelete(cardData);
@@ -91,7 +93,7 @@ const EventCard = ({
                                     <FontAwesomeIcon icon={faAward}></FontAwesomeIcon>
                                 </div>
                                 <div className="right">
-                                    <h3 className="details-text">Beginner</h3>
+                                    <h3 className="details-text">{cardData.skillLevel}</h3>
                                 </div>
                             </div>
                         </Col>
@@ -168,6 +170,20 @@ const EventCard = ({
                                 </Col>
 
                             )}
+
+                            {
+                                (cardData.participants.includes(user.uid) && cardData.owner !== user.uid) &&
+                                (
+                                    <Col>
+                                        <Button size="lg" onClick={() => {
+                                            handleLeave(cardData);
+                                        }
+                                        }>Leave Event</Button>
+                                    </Col>
+
+                                )
+
+                            }
 
 
                         </Row>
