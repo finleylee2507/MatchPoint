@@ -13,15 +13,11 @@ const DeleteEventModal = ({show, handleClose, handleDelete}) => {
 
         setDeletionStatus(deleteResult ? 1 : 2);
 
+        //clear states
+        setDeletionStatus(0);
 
-        setTimeout(() => {
-            //clear states
-            setDeletionStatus(0);
-
-            //close modal
-            handleClose();
-        }, 1000);
-
+        //close modal
+        handleClose();
 
     };
     return (

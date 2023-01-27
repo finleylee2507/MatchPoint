@@ -119,12 +119,10 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
             console.log(submissionResult);
             setSubmissionStatus(0);
 
-            setTimeout(() => {
-                clearStates();
+            clearStates();
 
-                //close modal
-                handleClose();
-            }, 1000);
+            //close modal
+            handleClose();
 
 
         } catch (error) {
