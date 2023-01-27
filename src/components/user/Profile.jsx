@@ -10,7 +10,7 @@ const Profile = ({ allUsers, user, allEvents }) => {
   }
 
   const currUser = allUsers[user.uid];
-  console.log(currUser["events"])
+  //console.log(currUser["events"])
 
   if (currUser["events"]) {
     return currUser["events"].map((e) => (

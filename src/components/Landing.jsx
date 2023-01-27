@@ -29,7 +29,7 @@ const SignInButton = () => {
 
 const Landing = (allUsers) => {
   const user = useAuthState();
-  if (user && allUsers && allUsers["allEvents"]) {
+  if (user && allUsers && allUsers["allUsers"]) {
     console.log("user id");
     console.log(user.uid);
     console.log("all users");
@@ -38,6 +38,7 @@ const Landing = (allUsers) => {
     console.log(allUsers["allUsers"][user.uid]);
 
     if (!allUsers["allUsers"][user.uid]) {
+      console.log("time to create new user")
       const newUser = {
         displayName: user.displayName,
         email: user.email,
