@@ -29,7 +29,7 @@ const SignInButton = () => {
 
 const Landing = (allUsers) => {
   const user = useAuthState();
-  if (user && allUsers) {
+  if (user && allUsers && allUsers["allEvents"]) {
     console.log("user id");
     console.log(user.uid);
     console.log("all users");
