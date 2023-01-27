@@ -4,7 +4,7 @@ import NavBar from "./components/Navbar";
 import Landing from "./components/Landing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAuthState, useDbData } from "./utilities/firebase";
-import TeamList from "./components/teams/TeamList";
+import MessageList from "./components/messages/MessageList";
 
 const App = () => {
   const [events, eventsError] = useDbData("/events");
@@ -26,7 +26,7 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="allEvents"
+          path="/allEvents"
           element={
             <div>
               <NavBar />
@@ -35,11 +35,11 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="Teams"
+          path="/messages"
           element={
             <div>
               <NavBar />
-              <TeamList />
+              <MessageList />
             </div>
           }
         ></Route>
