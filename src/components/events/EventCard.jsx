@@ -54,7 +54,7 @@ const EventCard = ({
                             <h2 className="text-muted">Date . Time</h2>
                             <Card.Title className="card-title">{name}</Card.Title>
                             <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
-                            <a href="#" class="subheader">
+                            <a href={`https://maps.google.com/?q=${cardData.location}`} class="subheader" target="_blank">
                                 {" "}
                                 Location: {cardData.location}
                             </a>

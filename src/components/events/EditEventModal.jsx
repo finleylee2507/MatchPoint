@@ -229,9 +229,9 @@ const EditEventModal = ({show, handleClose, handleSubmit, user, data}) => {
                         <Form.Label>Skill Level:</Form.Label>
                         <Form.Select aria-label="Default select example" value={formData.skillLevel} onChange={handleChange} name="skillLevel" required>
                             <option value="">-- choose a skill level --</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
                         </Form.Select>
                         <Form.Control.Feedback type="invalid">Please select a skill level</Form.Control.Feedback>
                     </Form.Group>
