@@ -18,6 +18,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import DeleteEventModal from "./DeleteEventModal";
 import EditEventModal from "./EditEventModal";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const EventList = ({eventData, user, allUsers}) => {
@@ -45,30 +47,13 @@ const EventList = ({eventData, user, allUsers}) => {
             });
     }, []);
     const handleJoinEvent = async (data) => {
-        //returns status code:
-        // 1->success, 2->generic failure, 3->failure trying to join own event
-        // 4->failure trying to join an event the user is part of, 5->failure trying to join an event with no available spot
-
-        /*
-            1. Make sure we cannot join our own event
-            2. Make sure we cannot join an event we are already a part of
-            3. Update spots available after joining it
-        */
-
-        //make sure not joining our own event
-        if (data.owner === user.uid) {
-            return 3;
-        }
-
-        //make sure not joining an event the user is already part of
-        if (data.participants.includes(user.uid)) {
-            return 4;
-        }
 
         //make sure not joining an event that's full
         if (data.participants.length >= data.maxCap) {
-
-            return 5;
+           toast.error("Sorry the event is full!",{
+               position:toast.POSITION.TOP_RIGHT
+           })
+            return
         }
         const ueid = data.id;
         const updatedParticipants = {
@@ -76,7 +61,19 @@ const EventList = ({eventData, user, allUsers}) => {
         };
 
         let joinResult = await joinEvent(updatedParticipants, ueid);
-        return joinResult ? 1 : 0;
+
+        if(!joinResult){
+            toast.error("Hmm...Something went wrong. Please try again or contact the dev team.",{
+                position:toast.POSITION.TOP_RIGHT
+            })
+
+            return
+        }
+
+        toast.success("Successfully joined event!",{
+            position:toast.POSITION.TOP_RIGHT
+        })
+
     };
 
     const handleCloseSeeMoreModal = () => {
@@ -194,6 +191,7 @@ const EventList = ({eventData, user, allUsers}) => {
 
     return (
         <div className="event-list">
+            <ToastContainer/>
             <div className="event-list-tool-bar">
                 <Form className="d-flex">
                     <Stack direction="horizontal" gap={2}>
@@ -261,6 +259,7 @@ const EventList = ({eventData, user, allUsers}) => {
                         handleSetEventToDelete={handleSetEventToDelete}
                         handleSetEventToEdit={handleSetEventToEdit}
                         openEditEventModal={handleShowEditEventModal}
+                        handleJoin={handleJoinEvent}
                         key={e.id}
                         cardData={e}
                         user={user}

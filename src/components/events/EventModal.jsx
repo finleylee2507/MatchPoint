@@ -42,39 +42,7 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
         </Alert>
     );
 
-    const handleJoinEvent = async () => {
-        let joinResult = await handleJoin(data);
-        // console.log("Join result: ", joinResult);
-        switch (joinResult) {
-            case 1:
-                setStatusMsg(joinEventSuccessElement);
-                break;
-            case 2:
-                setStatusMsg(joinEventFailureElementGeneric);
-                break;
-            case 3:
-                setStatusMsg(joinEventFailureElementOwnEvent);
-                break;
-            case 4:
-                setStatusMsg(joinEventFailureElementParticipants);
-                break;
-            case 5:
-                setStatusMsg(joinEventFailureElementEventFull);
-                break;
 
-        }
-        setShouldDisplayStatusMsg(true);
-
-        setTimeout(() => {
-
-            //clear states
-            setShouldDisplayStatusMsg(false);
-            setStatusMsg(null);
-            //close modal
-            handleClose();
-        }, 2000);
-
-    };
     return (
         <Modal
             show={show}
@@ -105,15 +73,13 @@ function EventModal({show, handleJoin, handleClose, data, allUsers}) {
                     timeZone: 'CST'
                 })} CST
                 </p>
-                {shouldDisplayStatusMsg && statusMsg}
+
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="primary" onClick={handleJoinEvent} disabled={shouldDisplayStatusMsg}>
-                    Join Event
-                </Button>
+            {/*<Modal.Footer>*/}
+            {/*  */}
 
 
-            </Modal.Footer>
+            {/*</Modal.Footer>*/}
         </Modal>
     );
 }
