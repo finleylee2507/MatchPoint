@@ -11,10 +11,10 @@ const MessageList = ({ allUsers, user, allMessages }) => {
     return "";
   }
 
-  if (allUsers[user.uid]["messages"]) {
+  if (allUsers[user.uid]["unreadMessages"]) {
     return (
       <div className="event-list">
-        {Object.entries(allUsers[user.uid]["messages"]).map(([id, m]) => (
+        {Object.entries(allUsers[user.uid]["unreadMessages"]).map(([id, m]) => (
           <Message key={id} message={allMessages[m]} />
         ))}
       </div>

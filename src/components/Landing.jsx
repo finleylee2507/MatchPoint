@@ -1,7 +1,6 @@
 // Landing Page
 
 import {
-  addNewMessage,
   addNewUser,
   getNewMessageKey,
   signInWithGoogle,
@@ -47,7 +46,7 @@ const Landing = (allUsers) => {
       const newUser = {
         displayName: user.displayName,
         email: user.email,
-        messages: ["welcome"],
+        unreadMessages: ["welcome"],
         photoURL: user.photoURL,
       };
 

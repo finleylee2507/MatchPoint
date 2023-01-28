@@ -83,8 +83,27 @@ export const addNewEvent = (newEvent, eid, updatedUserEvents, uid) => {
   update(userEventsRef, updatedUserEvents); // add event to user's list of events
 };
 
-export const addNewMessage = (newMessage, mid) => {
+export const createEventMessage = (newUserMessage, newMessage, mid, uid) => {
   set(ref(database, "messages/" + mid), newMessage);
+  const userUnreadMessagesRef = child(ref(database), `users/${uid}`);
+  update(userUnreadMessagesRef, newUserMessage);
+};
+
+export const joinEventMessage = (
+  newMessage,
+  ownerUnreadMessages,
+  userUnreadMessages,
+  mid,
+  oid,
+  uid
+) => {
+  set(ref(database, "messages/" + mid), newMessage); // add to general messages table
+
+  const ownerUnreadMessagesRef = child(ref(database), `users/${oid}`);
+  update(ownerUnreadMessagesRef, ownerUnreadMessages); // updates owners unread messages
+
+  const userUnreadMessagesRef = child(ref(database), `users/${uid}`);
+  update(userUnreadMessagesRef, userUnreadMessages); // updates users unread messages
 };
 
 export const deleteEvent = async (eid) => {

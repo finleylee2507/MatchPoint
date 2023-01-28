@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Alert, Button, Form, Modal, Spinner } from "react-bootstrap";
 import "./AddEventModal.css";
+import { getNewMessageKey } from "../../utilities/firebase";
 
 const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
   const [formData, setFormData] = useState({
@@ -102,9 +103,14 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
       skillLevel: formData.skillLevel,
     };
 
+    const newMessage = {
+      content: `You have successfully created the event '${formData.eventName}'`,
+      title: "Event Successfully Created",
+    };
+
     //call parent's function to submit event to database
     try {
-      await handleSubmit(newEvent, formData.imageFile);
+      await handleSubmit(newEvent, newMessage, formData.imageFile);
 
       clearStates();
 

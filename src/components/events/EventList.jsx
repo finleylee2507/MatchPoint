@@ -7,6 +7,9 @@ import {
   deleteFile,
   getImageLinkOfExistingImage,
   getNewEventKey,
+  getNewMessageKey,
+  createEventMessage,
+  joinEventMessage,
   joinEvent,
   updateEvent,
   uploadFile,
@@ -78,10 +81,38 @@ const EventList = ({ eventData, user, allUsers }) => {
       };
     }
 
+    // Message logic
+    let newMessageKey = getNewMessageKey();
+    let newJoinMessage = {
+      title: "New Event Participant",
+      id: newMessageKey,
+      content: `${allUsers[user.uid].displayName} has joined the event '${
+        data.name
+      }.`,
+    };
+
+    let userUpdatedUnreadMessages = [
+      ...allUsers[user.uid].unreadMessages,
+      newMessageKey,
+    ];
+    let ownerUpdatedUnreadMessages = [
+      ...allUsers[data.owner].unreadMessages,
+      newMessageKey,
+    ];
+
     let joinResult = await joinEvent(
       updatedParticipants,
       updatedUserEvents,
       ueid,
+      user.uid
+    );
+
+    joinEventMessage(
+      newJoinMessage,
+      ownerUpdatedUnreadMessages,
+      userUpdatedUnreadMessages,
+      newMessageKey,
+      data.owner,
       user.uid
     );
 
@@ -216,7 +247,11 @@ const EventList = ({ eventData, user, allUsers }) => {
       );
     }
   };
-  const handleAddEventSubmit = async (newEventData, imageFile) => {
+  const handleAddEventSubmit = async (
+    newEventData,
+    newMessageData,
+    imageFile
+  ) => {
     const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
     if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
       //if the user uploaded a file
@@ -235,10 +270,14 @@ const EventList = ({ eventData, user, allUsers }) => {
     //get key from database
     let newEventKey = getNewEventKey();
 
+    let newMessageKey = getNewMessageKey();
+
     //append id to new event
     newEventData.id = newEventKey;
     newEventData.participants.push(user.uid);
     //console.log("new event object: ", newEventData);
+
+    newMessageData.id = newMessageKey;
 
     let updatedUserEvents;
     if (!allUsers[user.uid].events) {
@@ -251,9 +290,19 @@ const EventList = ({ eventData, user, allUsers }) => {
       };
     }
 
+    let updatedUserMessage = {
+      unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+    };
+
     //submit new event to database
     try {
       addNewEvent(newEventData, newEventKey, updatedUserEvents, user.uid);
+      createEventMessage(
+        updatedUserMessage,
+        newMessageData,
+        newMessageKey,
+        user.uid
+      );
       toast.success("Successfully created event!", {
         position: toast.POSITION.TOP_RIGHT,
       });
