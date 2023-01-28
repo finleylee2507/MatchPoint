@@ -32,12 +32,12 @@ const SignInButton = () => {
 const Landing = (allUsers) => {
   const user = useAuthState();
   if (user && allUsers && allUsers["allUsers"]) {
-    // const newUserMessage = {
-    //   id: "welcome",
-    //   title: "Welcome to MatchPoint",
-    //   content:
-    //     "Welcome to MatchPoint! MatchPoint lets you seamlessly find open sporting events and sign up for them, allowing you to enjoy your favorite sports activities. Head over to the 'All Events' page now to see what's happening!",
-    // };
+    const newUserMessage = {
+      id: "welcome",
+      title: "Welcome to MatchPoint",
+      content:
+        "Welcome to MatchPoint! MatchPoint lets you seamlessly find open sporting events and sign up for them, allowing you to enjoy your favorite sports activities. Head over to the 'All Events' page now to see what's happening!",
+    };
 
     // const messageKey = getNewMessageKey();
     // console.log("new message is: ");
@@ -51,7 +51,7 @@ const Landing = (allUsers) => {
       };
 
       addNewUser(newUser, user.uid);
-      addNewMessage(newUserMessage, "welcome");
+      // addNewMessage(newUserMessage, "welcome");
     }
   }
 
