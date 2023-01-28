@@ -10,7 +10,7 @@ const App = () => {
   const [events, eventsError] = useDbData("/events");
   const user = useAuthState();
   const [users, usersError] = useDbData("/users");
-  const [messages, messagesError] = useDbDate("/messages");
+  const [messages, messagesError] = useDbData("/messages");
   console.log("User: ", user);
   return (
     <BrowserRouter>
