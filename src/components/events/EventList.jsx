@@ -24,6 +24,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EventList = ({ eventData, user, allUsers }) => {
+  if (eventData == undefined || user == undefined || allUsers == undefined) {
+    return "";
+  }
+
   const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);

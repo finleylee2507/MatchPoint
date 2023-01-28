@@ -48,6 +48,7 @@ const Landing = (allUsers) => {
         displayName: user.displayName,
         email: user.email,
         messages: ["welcome"],
+        photoURL: user.photoURL,
       };
 
       addNewUser(newUser, user.uid);
