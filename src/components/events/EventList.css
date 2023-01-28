@@ -5,6 +5,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #e3e0ff;
+  height: max(100vh, 100px);
 }
 
 /*.event-list-tool-bar{*/
