@@ -49,7 +49,7 @@ const storage = getStorage();
 
 // Use this function to get data from a path
 export const useDbData = (path) => {
-  console.log("Fetching data");
+  // console.log("Fetching data");
   const [data, setData] = useState();
   const [error, setError] = useState(null);
 
@@ -81,6 +81,10 @@ export const addNewEvent = (newEvent, eid, updatedUserEvents, uid) => {
 
   const userEventsRef = child(ref(database), `users/${uid}`);
   update(userEventsRef, updatedUserEvents); // add event to user's list of events
+};
+
+export const addNewMessage = (newMessage, mid) => {
+  set(ref(database, "messages/" + mid), newMessage);
 };
 
 export const deleteEvent = async (eid) => {
@@ -153,6 +157,11 @@ export const updateEvent = async (newEvent, eid) => {
 export const getNewEventKey = () => {
   const eventKey = push(child(ref(database), "events"));
   return eventKey.key;
+};
+
+export const getNewMessageKey = () => {
+  const messageKey = push(child(ref(database), "messages"));
+  return messageKey.key;
 };
 
 export const uploadFile = async (file) => {

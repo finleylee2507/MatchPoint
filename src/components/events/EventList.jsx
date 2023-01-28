@@ -33,11 +33,11 @@ const EventList = ({ eventData, user, allUsers }) => {
   const [eventToDelete, setEventToDelete] = useState(null);
   const [eventToEdit, setEventToEdit] = useState(null);
 
-  console.log("events: ", events);
+  // console.log("events: ", events);
 
   const [searchFilter, setSearchFilter] = useState("");
   const [defaultCoverURL, setDefaultCoverURL] = useState("");
-  console.log("default cover: ", defaultCoverURL);
+  // console.log("default cover: ", defaultCoverURL);
   useEffect(() => {
     getImageLinkOfExistingImage("default-cover.png")
       .then((url) => {

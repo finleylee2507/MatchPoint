@@ -10,6 +10,7 @@ const App = () => {
   const [events, eventsError] = useDbData("/events");
   const user = useAuthState();
   const [users, usersError] = useDbData("/users");
+  const [messages, messagesError] = useDbData("/messages");
 
   return (
     <BrowserRouter>
@@ -36,7 +37,11 @@ const App = () => {
           element={
             <div>
               <NavBar />
-              <MessageList />
+              <MessageList
+                allUsers={users}
+                user={user}
+                allMessages={messages}
+              />
             </div>
           }
         ></Route>

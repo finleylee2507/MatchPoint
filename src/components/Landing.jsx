@@ -1,7 +1,9 @@
 // Landing Page
 
 import {
+  addNewMessage,
   addNewUser,
+  getNewMessageKey,
   signInWithGoogle,
   useAuthState,
 } from "../utilities/firebase";
@@ -30,20 +32,26 @@ const SignInButton = () => {
 const Landing = (allUsers) => {
   const user = useAuthState();
   if (user && allUsers && allUsers["allUsers"]) {
-    console.log("user id");
-    console.log(user.uid);
-    console.log("all users");
-    console.log(allUsers);
-    console.log("current user");
-    console.log(allUsers["allUsers"][user.uid]);
+    // const newUserMessage = {
+    //   id: "welcome",
+    //   title: "Welcome to MatchPoint",
+    //   content:
+    //     "Welcome to MatchPoint! MatchPoint lets you seamlessly find open sporting events and sign up for them, allowing you to enjoy your favorite sports activities. Head over to the 'All Events' page now to see what's happening!",
+    // };
+
+    // const messageKey = getNewMessageKey();
+    // console.log("new message is: ");
+    // console.log(messageKey);
 
     if (!allUsers["allUsers"][user.uid]) {
       const newUser = {
         displayName: user.displayName,
         email: user.email,
+        messages: ["welcome"],
       };
 
       addNewUser(newUser, user.uid);
+      addNewMessage(newUserMessage, "welcome");
     }
   }
 

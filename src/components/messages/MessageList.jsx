@@ -1,17 +1,27 @@
-import React from 'react'
-import { Message } from './Message';
-import messageData from '../../utilities/data/message.json'
+import React from "react";
+import Message from "./Message.jsx";
+// import { getUserMessages } from "../../utilities/firebase";
+// import messageData from "../../utilities/data/message.json";
 
-export default function MessageList() {
+const MessageList = ({ allUsers, user, allMessages }) => {
+  console.log(user);
+  console.log(allUsers);
+  console.log(allMessages);
+  if (user == undefined || allUsers == undefined || allMessages == undefined) {
+    return "";
+  }
 
-  return (
-    <div className="event-list">
-      {Object.entries(messageData.messages).map((e, id) => (
-        <Message
-          key={id}
-          messageData={e}
-        />
-      ))}
-    </div>
-  )
-}
+  if (allUsers[user.uid]["messages"]) {
+    return (
+      <div className="event-list">
+        {Object.entries(allUsers[user.uid]["messages"]).map(([id, m]) => (
+          <Message key={id} message={allMessages[m]} />
+        ))}
+      </div>
+    );
+  } else {
+    return <p className="empty-page-message">You have no messages ...</p>;
+  }
+};
+
+export default MessageList;
