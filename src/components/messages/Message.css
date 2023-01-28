@@ -2,7 +2,7 @@
     cursor: pointer;
     background-color: transparent;
     box-shadow: 0 -1px gray, inset 0 -1px gray;
-    margin: 2vw;
+    margin: 0 1vw;
     padding: 1vw;
     width: 90%;
 }
