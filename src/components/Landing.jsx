@@ -41,6 +41,7 @@ const Landing = (allUsers) => {
       const newUser = {
         displayName: user.displayName,
         email: user.email,
+        photoURL:user.photoURL
       };
 
       addNewUser(newUser, user.uid);
