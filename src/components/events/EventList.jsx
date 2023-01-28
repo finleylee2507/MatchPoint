@@ -95,16 +95,14 @@ const EventList = ({ eventData, user, allUsers }) => {
     };
 
     // Create an updated list of unread messages for the current user (joiner)
-    let userUpdatedUnreadMessages = [
-      ...allUsers[user.uid].unreadMessages,
-      newMessageKey,
-    ];
+    let userUpdatedUnreadMessages = {
+      unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+    };
 
     // Create an updated list of unread messages for the owner of the event
-    let ownerUpdatedUnreadMessages = [
-      ...allUsers[data.owner].unreadMessages,
-      newMessageKey,
-    ];
+    let ownerUpdatedUnreadMessages = {
+      unreadMessages: [...allUsers[data.owner].unreadMessages, newMessageKey],
+    };
 
     let joinResult = await joinEvent(
       updatedParticipants,
