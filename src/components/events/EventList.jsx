@@ -24,7 +24,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EventList = ({ eventData, user, allUsers }) => {
-  if (eventDate == undefined || user == undefined || allUsers == undefined) {
+  if (eventData == undefined || user == undefined || allUsers == undefined) {
     return "";
   }
 
