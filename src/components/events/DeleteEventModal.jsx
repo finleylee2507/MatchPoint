@@ -1,42 +1,46 @@
-import React, {useState} from "react";
-import {Alert, Button, Modal} from "react-bootstrap";
+import React, { useState } from "react";
+import { Alert, Button, Modal } from "react-bootstrap";
 
-const DeleteEventModal = ({show, handleClose, handleDelete}) => {
+const DeleteEventModal = ({ show, handleClose, handleDelete }) => {
+  //0->initial state (deletion not triggered), 1->delete successful, 2->delete failed
+  const [deletionStatus, setDeletionStatus] = useState(0);
 
-    //0->initial state (deletion not triggered), 1->delete successful, 2->delete failed
-    const [deletionStatus, setDeletionStatus] = useState(0);
+  const yesButtonHandler = async () => {
+    //call Event List's delete event function
+    let deleteResult = await handleDelete();
 
-    const yesButtonHandler = async () => {
+    setDeletionStatus(deleteResult ? 1 : 2);
 
-        //call Event List's delete event function
-        let deleteResult = await handleDelete();
+    //clear states
+    setDeletionStatus(0);
 
-        setDeletionStatus(deleteResult ? 1 : 2);
+    //close modal
+    handleClose();
+  };
+  return (
+    <Modal show={show} centered backdrop="static" onHide={handleClose}>
+      <Modal.Body>
+        <p>Are you sure you want to delete this event?</p>
+      </Modal.Body>
 
-        //clear states
-        setDeletionStatus(0);
-
-        //close modal
-        handleClose();
-
-    };
-    return (
-        <Modal show={show} centered backdrop="static" onHide={handleClose}>
-            <Modal.Body>
-                <p>Are you sure you want to delete this event?</p>
-            </Modal.Body>
-
-            <Modal.Footer>
-                <Button variant="primary" onClick={yesButtonHandler} disabled={deletionStatus !== 0}>
-                    Yes
-                </Button>
-                <Button variant="outline-secondary" onClick={handleClose} disabled={deletionStatus !== 0}>
-                    Cancel
-                </Button>
-            </Modal.Footer>
-
-        </Modal>
-    );
+      <Modal.Footer>
+        <Button
+          variant="primary"
+          onClick={yesButtonHandler}
+          disabled={deletionStatus !== 0}
+        >
+          Yes
+        </Button>
+        <Button
+          variant="outline-secondary"
+          onClick={handleClose}
+          disabled={deletionStatus !== 0}
+        >
+          Cancel
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 };
 
 export default DeleteEventModal;
