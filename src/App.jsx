@@ -23,7 +23,7 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="allEvents"
+          path="/allEvents"
           element={
             <div>
               <NavBar />
@@ -32,11 +32,11 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="Teams"
+          path="/inbox"
           element={
             <div>
               <NavBar />
-              <TeamList />
+              <MessageList />
             </div>
           }
         ></Route>
