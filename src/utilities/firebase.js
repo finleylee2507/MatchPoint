@@ -97,13 +97,18 @@ export const joinEventMessage = (
   oid,
   uid
 ) => {
-  set(ref(database, "messages/" + mid), newMessage); // add to general messages table
+  try {
+    set(ref(database, "messages/" + mid), newMessage); // add to general messages table
 
-  const ownerUnreadMessagesRef = child(ref(database), `users/${oid}`);
-  update(ownerUnreadMessagesRef, ownerUnreadMessages); // updates owners unread messages
+    const ownerUnreadMessagesRef = child(ref(database), `users/${oid}`);
+    update(ownerUnreadMessagesRef, ownerUnreadMessages); // updates owners unread messages
 
-  const userUnreadMessagesRef = child(ref(database), `users/${uid}`);
-  update(userUnreadMessagesRef, userUnreadMessages); // updates users unread messages
+    const userUnreadMessagesRef = child(ref(database), `users/${uid}`);
+    update(userUnreadMessagesRef, userUnreadMessages); // updates users unread messages
+  } catch (error) {
+    console.log("Error in join event message");
+    console.log(error);
+  }
 };
 
 export const deleteEvent = async (eid) => {

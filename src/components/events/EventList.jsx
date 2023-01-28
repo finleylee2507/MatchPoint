@@ -82,7 +82,10 @@ const EventList = ({ eventData, user, allUsers }) => {
     }
 
     // Message logic
+    // Get a new message key
     let newMessageKey = getNewMessageKey();
+
+    // Create a new message for the general messages table
     let newJoinMessage = {
       title: "New Event Participant",
       id: newMessageKey,
@@ -91,10 +94,13 @@ const EventList = ({ eventData, user, allUsers }) => {
       }.`,
     };
 
+    // Create an updated list of unread messages for the current user (joiner)
     let userUpdatedUnreadMessages = [
       ...allUsers[user.uid].unreadMessages,
       newMessageKey,
     ];
+
+    // Create an updated list of unread messages for the owner of the event
     let ownerUpdatedUnreadMessages = [
       ...allUsers[data.owner].unreadMessages,
       newMessageKey,
@@ -108,9 +114,9 @@ const EventList = ({ eventData, user, allUsers }) => {
     );
 
     joinEventMessage(
-      newJoinMessage,
-      ownerUpdatedUnreadMessages,
-      userUpdatedUnreadMessages,
+      newJoinMessage, // general table
+      ownerUpdatedUnreadMessages, // updated owner
+      userUpdatedUnreadMessages, // updated user
       newMessageKey,
       data.owner,
       user.uid
