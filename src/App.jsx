@@ -8,11 +8,8 @@ import MessageList from "./components/messages/MessageList";
 
 const App = () => {
   const [events, eventsError] = useDbData("/events");
-  // console.log(eventsError);
   const user = useAuthState();
   const [users, usersError] = useDbData("/users");
-  //console.log("Users: ",users);
-  // console.log(usersError);
 
   return (
     <BrowserRouter>
@@ -26,7 +23,7 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="/allEvents"
+          path="allEvents"
           element={
             <div>
               <NavBar />
@@ -35,22 +32,17 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="/messages"
+          path="Teams"
           element={
             <div>
               <NavBar />
-              <MessageList />
+              <TeamList />
             </div>
           }
         ></Route>
       </Routes>
     </BrowserRouter>
   );
-  // <div className="App">
-  //   <NavBar />
-  //   <EventList />
-  // </div>
-  //   );
 };
 
 export default App;

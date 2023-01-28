@@ -1,273 +1,282 @@
-import React, {useState} from 'react';
-import {Alert, Button, Form, Modal, Spinner} from 'react-bootstrap';
+import React, { useState } from "react";
+import { Alert, Button, Form, Modal, Spinner } from "react-bootstrap";
 import "./AddEventModal.css";
 
-const AddEventModal = ({show, handleClose, handleSubmit, user}) => {
-    const [formData, setFormData] = useState({ //used to store form data
-        eventName: "",
-        eventLocation: "",
-        eventCapacity: 0,
-        imageFile: "",
-        dateString: "",
-        timeString: "",
-        currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
-        currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
-        skillLevel:"",
-        eventDescription:""
+const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
+  const [formData, setFormData] = useState({
+    //used to store form data
+    eventName: "",
+    eventLocation: "",
+    eventCapacity: 0,
+    imageFile: "",
+    dateString: "",
+    timeString: "",
+    currentDate: new Date(new Date().getTime() - 60 * 60 * 1000 * 6)
+      .toISOString()
+      .split("T")[0],
+    currentTime: new Date(new Date().getTime() - 60 * 60 * 1000 * 6)
+      .toISOString()
+      .split("T")[1]
+      .substring(0, 5),
+    skillLevel: "",
+    eventDescription: "",
+  });
+
+  // console.log("Haha: ",user.uid);
+  const clearStates = () => {
+    setFormData({
+      eventName: "",
+      eventLocation: "",
+      eventCapacity: 0,
+      dateString: "",
+      timeString: "",
+      currentDate: new Date(new Date().getTime() - 60 * 60 * 1000 * 6)
+        .toISOString()
+        .split("T")[0],
+      currentTime: new Date(new Date().getTime() - 60 * 60 * 1000 * 6)
+        .toISOString()
+        .split("T")[1]
+        .substring(0, 5),
+      skillLevel: "",
+      eventDescription: "",
     });
+    setValidated(false);
+    setSubmissionStatus(0);
+  };
 
+  const creatingEventElement = (
+    <div className="creating-event-container">
+      <p className="creating-event-text">Creating Event...</p>
+      <div className="submission-status-icon">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Creating Event...</span>
+        </Spinner>
+      </div>
+    </div>
+  );
 
-    // console.log("Haha: ",user.uid);
-    const clearStates = () => {
-        setFormData({
-            eventName: "",
-            eventLocation: "",
-            eventCapacity: 0,
-            dateString: "",
-            timeString: "",
-            currentDate: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[0],
-            currentTime: (new Date((new Date()).getTime() - ((60 * 60 * 1000) * 6))).toISOString().split('T')[1].substring(0, 5),
-            skillLevel: "",
-            eventDescription: ""
-        });
-        setValidated(false);
-        setSubmissionStatus(0);
+  //0->not submitted, 1-> submitting
+  let [submissionStatus, setSubmissionStatus] = useState(0);
+  const [validated, setValidated] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value, type, files } = event.target;
+
+    console.log(formData);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "file" ? files[0] : value,
+    }));
+  };
+
+  const createEvent = async (e) => {
+    e.preventDefault();
+
+    setSubmissionStatus(1);
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+      setSubmissionStatus(0);
+      setValidated(true);
+      // console.log("huh");
+      return;
+    }
+
+    //create event based on form input
+    const eventDateTime = new Date(
+      `${formData.dateString} ${formData.timeString}`
+    );
+    const dateTimeString = eventDateTime.toUTCString();
+    const newEvent = {
+      name: formData.eventName,
+      maxCap: formData.eventCapacity,
+      location: formData.eventLocation,
+      owner: user.uid,
+      //uncollected fields that exist in database
+      activity: "",
+      desc: formData.eventDescription,
+      imgSrc: "",
+      privacy: 0,
+      participants: [],
+      dateTimeString: dateTimeString,
+      skillLevel: formData.skillLevel,
     };
 
-    const creatingEventElement = (<div className="creating-event-container">
-            <p className="creating-event-text">
-                Creating Event...
-            </p>
-            <div className="submission-status-icon">
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Creating Event...</span>
-                </Spinner>
-            </div>
-        </div>
-    );
+    //call parent's function to submit event to database
+    try {
+      await handleSubmit(newEvent, formData.imageFile);
 
-    const eventCreationSuccessElement = (
-        <Alert key="success" variant="success">
-            Successfully created event!
-        </Alert>
-    );
+      clearStates();
 
-    const eventCreationFailureElement = (
-        <Alert key="danger" variant="danger">
-            Hmm something went wrong... Please check and try again.
-        </Alert>
-    );
+      //close modal
+      handleClose();
+    } catch (error) {
+      console.log(error);
+      setSubmissionStatus(0);
+    }
+  };
+  return (
+    <Modal
+      show={show}
+      onHide={() => {
+        clearStates();
+        handleClose();
+      }}
+      centered
+      backdrop="static"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Create an event</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form
+          noValidate
+          validated={validated}
+          onSubmit={createEvent}
+          id="create-event-form"
+        >
+          <Form.Group className="mb-3" controlId="event-name">
+            <Form.Label>Event Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="eventName"
+              value={formData.eventName}
+              onChange={handleChange}
+              autoFocus
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide an event name.
+            </Form.Control.Feedback>
+          </Form.Group>
 
+          <Form.Group className="mb-3" controlId="event-description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              type="text"
+              as="textarea"
+              rows={3}
+              name="eventDescription"
+              value={formData.eventDescription}
+              onChange={handleChange}
+              autoFocus
+            />
+          </Form.Group>
 
-    //0->not submitted, 1-> submitting, 2-> successful, 3 ->unsuccessful
-    let [submissionStatus, setSubmissionStatus] = useState(0);
-    const [validated, setValidated] = useState(false);
+          <Form.Group className="mb-3" controlId="event-location">
+            <Form.Label>Location</Form.Label>
+            <Form.Control
+              type="text"
+              name="eventLocation"
+              value={formData.eventLocation}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a location.
+            </Form.Control.Feedback>
+          </Form.Group>
 
+          <Form.Group className="mb-3" controlId="event-capacity">
+            <Form.Label>Capacity</Form.Label>
+            <Form.Control
+              type="number"
+              min="1"
+              max="100"
+              name="eventCapacity"
+              value={formData.eventCapacity}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid number of attendees.
+            </Form.Control.Feedback>
+          </Form.Group>
 
-    const handleChange = (event) => {
-        const {name, value, type, files} = event.target;
+          <Form.Group className="mb-3" controlId="event-date">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="dateString"
+              onChange={handleChange}
+              value={formData.dateString}
+              min={formData.currentDate}
+              autoFocus
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid date.
+            </Form.Control.Feedback>
+          </Form.Group>
 
-        console.log(formData);
-        setFormData(prevFormData => ({
-            ...prevFormData,
-            [name]: type === "file" ? files[0] : value
-        }));
+          <Form.Group className="mb-3" controlId="event-time">
+            <Form.Label>Time</Form.Label>
+            <Form.Control
+              type="time"
+              name="timeString"
+              onChange={handleChange}
+              value={formData.timeString}
+              min={
+                formData.dateString === formData.currentDate
+                  ? formData.currentTime
+                  : "00:00"
+              }
+              autoFocus
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid time.
+            </Form.Control.Feedback>
+          </Form.Group>
 
-    };
+          <Form.Group className="mb-3" controlId="event-time">
+            <Form.Label>Skill Level:</Form.Label>
+            <Form.Select
+              aria-label="Default select example"
+              value={formData.skillLevel}
+              onChange={handleChange}
+              name="skillLevel"
+              required
+            >
+              <option value="">-- choose a skill level --</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              Please select a skill level
+            </Form.Control.Feedback>
+          </Form.Group>
 
-    const createEvent = async (e) => {
-        e.preventDefault();
+          <Form.Group className="mb-3" controlId="upload-image">
+            <Form.Label>Upload Cover Image (Optional)</Form.Label>
+            <Form.Control
+              type="file"
+              name="imageFile"
+              onChange={handleChange}
+              accept="image/*"
+            />
+          </Form.Group>
 
-        setSubmissionStatus(1);
-        const form = e.currentTarget;
-        if (form.checkValidity() === false) {
-            e.stopPropagation();
-            setSubmissionStatus(0);
-            setValidated(true);
-            // console.log("huh");
-            return;
-        }
-
-
-        //create event based on form input
-        const eventDateTime = new Date(`${formData.dateString} ${formData.timeString}`);
-        const dateTimeString = eventDateTime.toUTCString();
-        const newEvent = {
-            name: formData.eventName,
-            maxCap: formData.eventCapacity,
-            location: formData.eventLocation,
-            owner: user.uid,
-            desc: formData.eventDescription,
-            //uncollected fields that exist in database
-            activity: "",
-            imgSrc: "",
-            privacy: 0,
-            participants: [],
-            skillLevel:formData.skillLevel,
-            dateTimeString: dateTimeString,
-
-
-        };
-
-
-        //call parent's function to submit event to database
-        try {
-            const submissionResult = await handleSubmit(newEvent, formData.imageFile);
-            // console.log(submissionResult);
-            setSubmissionStatus(2);
-
-            setTimeout(() => {
-                clearStates();
-
-                //close modal
-                handleClose();
-            }, 2000);
-
-
-        } catch (error) {
-            console.log(error);
-            setSubmissionStatus(3);
-        }
-
-
-    };
-    return (
-        <Modal show={show} onHide={() => {
-            clearStates();
-            handleClose();
-        }} centered backdrop="static">
-            <Modal.Header closeButton>
-                <Modal.Title>Create an event</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form noValidate validated={validated} onSubmit={createEvent} id="create-event-form">
-                    <Form.Group className="mb-3" controlId="event-name">
-                        <Form.Label>Event Name</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="eventName"
-                            value={formData.eventName}
-                            onChange={handleChange}
-                            autoFocus
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">Please provide an event name.</Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="event-description">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control
-                            type="text"
-                            as="textarea"
-                            rows={3}
-                            name="eventDescription"
-                            value={formData.eventDescription}
-                            onChange={handleChange}
-                            autoFocus
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="event-location">
-                        <Form.Label>Location</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="eventLocation"
-                            value={formData.eventLocation}
-                            onChange={handleChange}
-                            required
-                            autoFocus
-                        />
-                        <Form.Control.Feedback type="invalid">Please provide a location.</Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="event-capacity">
-                        <Form.Label>Capacity</Form.Label>
-                        <Form.Control
-                            type="number"
-                            min="1"
-                            max="100"
-                            name="eventCapacity"
-                            value={formData.eventCapacity}
-                            onChange={handleChange}
-                            required
-                            autoFocus
-                        />
-                        <Form.Control.Feedback type="invalid">Please provide a valid number of
-                            attendees.</Form.Control.Feedback>
-                    </Form.Group>
-
-
-                    <Form.Group className="mb-3" controlId="event-date">
-                        <Form.Label>Date</Form.Label>
-                        <Form.Control
-                            type="date"
-                            name="dateString"
-                            onChange={handleChange}
-                            value={formData.dateString}
-                            min={formData.currentDate}
-                            autoFocus
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">Please provide a valid date.</Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="event-time">
-                        <Form.Label>Time</Form.Label>
-                        <Form.Control
-                            type="time"
-                            name="timeString"
-                            onChange={handleChange}
-                            value={formData.timeString}
-                            min={formData.dateString === formData.currentDate ? formData.currentTime : "00:00"}
-                            autoFocus
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">Please provide a valid time.</Form.Control.Feedback>
-                    </Form.Group>
-
-
-                    <Form.Group className="mb-3" controlId="event-time">
-                        <Form.Label>Skill Level:</Form.Label>
-                        <Form.Select aria-label="Default select example" value={formData.skillLevel} onChange={handleChange} name="skillLevel" required>
-                            <option value="">-- choose a skill level --</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">Please select a skill level</Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="upload-image">
-                        <Form.Label>Upload Cover Image (Optional)</Form.Label>
-                        <Form.Control type="file" name="imageFile" onChange={handleChange} accept="image/*"/>
-                    </Form.Group>
-
-                    <div className="submission-status">
-
-                        {
-                            (() => {
-                                switch (submissionStatus) {
-                                    case 1:
-                                        return creatingEventElement;
-                                    case 2:
-                                        return eventCreationSuccessElement;
-                                    case 3:
-                                        return eventCreationFailureElement;
-                                }
-                            })()
-                        }
-                    </div>
-
-
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="primary" type="submit" form="create-event-form" disabled={submissionStatus !== 0}>
-                    Create Event
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    );
+          <div className="submission-status">
+            {submissionStatus === 1 && creatingEventElement}
+          </div>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="primary"
+          type="submit"
+          form="create-event-form"
+          disabled={submissionStatus !== 0}
+        >
+          Create Event
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 };
 
 export default AddEventModal;
