@@ -106,7 +106,7 @@ const EventCard = ({
             <Col xs={2} className="circular-image-wrapper footer-padding">
               <img
                 className="profile-image"
-                src={user.photoURL}
+                src={allUsers[owner].photoURL}
                 alt="image of event"
               />
             </Col>
