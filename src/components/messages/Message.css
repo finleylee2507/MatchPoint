@@ -1,7 +1,28 @@
-.card{
+.message{
     cursor: pointer;
+    background-color: transparent;
+    box-shadow: 0 -1px gray, inset 0 -1px gray;
+    margin: 2vw;
+    padding: 1vw;
+    width: 90%;
 }
 
-.card:hover {
-    background-color: gray;
+.message:hover{
+    background-color: #C3BEFF;
+    transition: 0.3s;
 }
+
+
+.subtitle{
+    font-size: 1.5vw;
+    color: gray;
+    margin-bottom: 0.7vw;
+}
+
+.message-content{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1.5vw;
+}
+

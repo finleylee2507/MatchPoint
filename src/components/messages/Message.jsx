@@ -8,12 +8,13 @@ const Message = ({ message }) => {
   }
 
   return (
-    <Card className="card" onClick={() => console.log("you click the btn")}>
-      <Card.Body className="card-body">
-        <Card.Title className="card-title">{message.title}</Card.Title>
-        <Card.Text className="card-text">{message.content}</Card.Text>
-      </Card.Body>
-    </Card>
+    <div className="message" onClick={() => console.log("you click the btn")}>
+      <div>
+        <h1 className="card-title">{message.title}</h1>
+        <h3 className="subtitle">Event name</h3>
+        <p className="message-content">{message.content}</p>
+      </div>
+    </div>
   );
 };
 
