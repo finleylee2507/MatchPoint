@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "../utilities/firebase";
@@ -13,7 +13,7 @@ const SignOutButton = () => {
   }
 
   return (
-    <button className="btn btn-dark" onClick={signOutUser}>
+    <button className="nav-button" onClick={signOutUser}>
       Sign out
     </button>
   );
@@ -24,19 +24,20 @@ const AuthButton = () => {
 };
 
 const NavBar = () => {
+  const [activeLink, setActiveLink] = useState("allEvents");
+
+  const handleClick = (link) => {
+    setActiveLink(link);
+  };
+
   return (
     <>
-      <Navbar expand="false" className="bar">
+      <Navbar expand="false" className="bar navbar-expand-lg navbar-light">
         <Container fluid>
           <Navbar.Toggle aria-controls={`offcanvasNavbar`} />
-          <Navbar.Brand
-            className="logo"
-            href="src/components/events/EventList.jsx"
-          >
+          <Navbar.Brand className="logo" href="/allEvents">
             MatchPoint
           </Navbar.Brand>
-          {/* <Nav.Link className="nav-link" href="#action1">Sign in</Nav.Link> */}
-          <AuthButton />
           <Navbar.Offcanvas
             id={`offcanvasNavbar`}
             aria-labelledby={`offcanvasNavbarLabel`}
@@ -51,12 +52,29 @@ const NavBar = () => {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 {/* <Nav.Link href="#action1">Profile</Nav.Link> */}
-                <Nav.Link href="/allEvents">All Events</Nav.Link>
+                <Nav.Link
+                  className={`nav-link ${
+                    activeLink === "allEvents" ? "active" : ""
+                  }`}
+                  href="/allEvents"
+                  onClick={() => handleClick("allEvents")}
+                >
+                  All Events
+                </Nav.Link>
                 {/* <Nav.Link href='/teams'>Teams</Nav.Link> */}
-                <Nav.Link href="/inbox">Inbox</Nav.Link>
+                <Nav.Link
+                  className={`nav-link ${
+                    activeLink === "inbox" ? "active" : ""
+                  }`}
+                  href="/inbox"
+                  onClick={() => handleClick("inbox")}
+                >
+                  Inbox
+                </Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
+          <AuthButton />
         </Container>
       </Navbar>
     </>
