@@ -243,7 +243,7 @@ const EventList = ({ eventData, user, allUsers }) => {
     <div className="event-list">
       <div className="event-list-tool-bar">
         <Form className="d-flex">
-          <Stack direction="horizontal" gap={2}>
+          <Stack className="tool-bar-stack" direction="horizontal" gap={2}>
             <Form.Control
               type="search"
               placeholder="Search for an activity"
