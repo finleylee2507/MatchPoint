@@ -26,6 +26,7 @@ import DeleteEventModal from "./DeleteEventModal";
 import EditEventModal from "./EditEventModal";
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ParticipantsModal from "./ParticipantsModal";
 
 const EventList = ({eventData, user, allUsers}) => {
     const [searchFilter, setSearchFilter] = useState("");
@@ -34,8 +35,10 @@ const EventList = ({eventData, user, allUsers}) => {
     const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
     const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);
     const [showEditEventModal, setShowEditEventModal] = useState(false);
+    const [showParticipantsModal, setShowParticipantsModal] = useState(false);
     const [events, setEvents] = useState([]);
-    const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
+    const [modalDataSeeMore, setModalDataSeeMore] = useState(null);
+    const [eventToShowParticipants, setEventToShowParticipants] = useState(null);
     const [eventToDelete, setEventToDelete] = useState(null);
     const [eventToEdit, setEventToEdit] = useState(null);
     const handleCloseAddEventModal = () => setShowAddEventModal(false);
@@ -185,7 +188,17 @@ const EventList = ({eventData, user, allUsers}) => {
         );
     }
 
+    const handleShowParticipantsModal = () => {
+        setShowParticipantsModal(true);
+    };
 
+    const handleCloseParticipantsModal = () => {
+        setShowParticipantsModal(false);
+    };
+
+    const handleSetEventToShowParticipants = (data) => {
+        setEventToShowParticipants(data);
+    };
     const handleJoinEvent = async (data) => {
         console.log("Joining");
         //make sure not joining an event that's full
@@ -527,6 +540,8 @@ const EventList = ({eventData, user, allUsers}) => {
                 handleSubmit={handleEditEventSubmit}
                 data={eventToEdit}
             />
+            <ParticipantsModal show={showParticipantsModal} handleClose={handleCloseParticipantsModal}
+                               data={eventToShowParticipants} allUsers={allUsers}/>
             {!events || events.length === 0 ? (
                 <p className="empty-page-message">No events to display...</p>
             ) : (
@@ -536,9 +551,11 @@ const EventList = ({eventData, user, allUsers}) => {
                         openDeleteEventModal={handleShowDeleteEventModal}
                         handleSetEventToDelete={handleSetEventToDelete}
                         handleSetEventToEdit={handleSetEventToEdit}
+                        handleSetEventToShowParticipants={handleSetEventToShowParticipants}
                         openEditEventModal={handleShowEditEventModal}
                         handleLeave={handleLeaveEvent}
                         handleJoin={handleJoinEvent}
+                        handleShowParticipantsModal={handleShowParticipantsModal}
                         key={e.id}
                         cardData={e}
                         user={user}
