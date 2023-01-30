@@ -2,6 +2,7 @@
 
 import {
   addNewUser,
+  clearDatabase,
   getNewMessageKey,
   signInWithGoogle,
   useAuthState,
@@ -25,6 +26,14 @@ const SignInButton = () => {
         Sign In
       </Button>
     </div>
+  );
+};
+
+const ClearDBButton = () => {
+  return (
+    <button className="btn btn-dark" onClick={clearDatabase}>
+      Clear Database
+    </button>
   );
 };
 
@@ -83,6 +92,7 @@ const Landing = (allUsers) => {
           teams!
         </p>
         <SignInButton />
+        <ClearDBButton />
       </div>
     </div>
   );

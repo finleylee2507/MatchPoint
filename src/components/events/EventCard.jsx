@@ -44,6 +44,10 @@ const EventCard = ({
     handleJoin(cardData);
   };
 
+  if (allUsers == undefined || user == undefined) {
+    return "";
+  }
+
   return (
     <Card className="card">
       <Col>
@@ -104,11 +108,13 @@ const EventCard = ({
         <div className="card-footer">
           <Row>
             <Col xs={2} className="circular-image-wrapper footer-padding">
-              <img
-                className="profile-image"
-                src={allUsers[owner].photoURL}
-                alt="image of event"
-              />
+              {allUsers && allUsers[owner] && allUsers[owner].photoURL && (
+                <img
+                  className="profile-image"
+                  src={allUsers[owner].photoURL}
+                  alt="image of event"
+                />
+              )}
             </Col>
             <Col className="footer-padding">
               <h2 className="subheader">Organized by</h2>

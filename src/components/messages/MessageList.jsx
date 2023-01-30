@@ -6,22 +6,22 @@ import Message from "./Message.jsx";
 const MessageList = ({ allUsers, user, allMessages }) => {
   console.log(user);
   console.log(allUsers);
-  console.log("All messages: ",allMessages);
+  console.log("All messages: ", allMessages);
 
-  if (user == undefined || allUsers == undefined || allMessages == undefined) {
-    return (
-        <p className="empty-page-message">You have no messages ...</p>
-    );
+  if (
+    user == undefined ||
+    allUsers == undefined ||
+    allMessages == undefined ||
+    allUsers[user.uid] == undefined
+  ) {
+    return <p className="empty-page-message">You have no messages ...</p>;
   }
 
-  console.log("Unread messages: ",allUsers[user.uid]["unreadMessages"]);
   let allUserMessages = [];
   if (
     allUsers[user.uid]["unreadMessages"] ||
     allUsers[user.uid]["readMessages"]
   ) {
-
-
     if (allUsers[user.uid]["unreadMessages"]) {
       allUserMessages = [
         ...allUserMessages,
@@ -48,10 +48,7 @@ const MessageList = ({ allUsers, user, allMessages }) => {
         ))}
       </div>
     );
-  }
-
-
-  else {
+  } else {
     return <p className="empty-page-message">You have no messages ...</p>;
   }
 };

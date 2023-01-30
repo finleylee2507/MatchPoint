@@ -47,6 +47,32 @@ const storage = getStorage();
 
 /* DATABASE FUNCTIONS */
 
+// Clear database of all unessential fields
+export const clearDatabase = () => {
+  console.log("Clearing database");
+
+  const data = {
+    messages: {
+      welcome: {
+        id: "welcome",
+        title: "Welcome to MatchPoint",
+        content:
+          "Welcome to MatchPoint! MatchPoint lets you seamlessly find open sporting events and sign up for them, allowing you to enjoy your favorite sports activities. Head over to the 'All Events' page now to see what's happening!",
+      },
+    },
+    users: {
+      0: "Initialize",
+    },
+  };
+
+  // Remove all non-essential entries from users and messages tables
+  update(ref(database), data);
+
+  // Remove events table all together
+  const eventsRef = child(ref(database), "/events");
+  remove(eventsRef);
+};
+
 // Use this function to get data from a path
 export const useDbData = (path) => {
   // console.log("Fetching data");
