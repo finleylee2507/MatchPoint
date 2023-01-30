@@ -131,7 +131,7 @@ const EventCard = ({
                                     let displayName = participant.displayName;
                                     return (
                                         <img className="participant-profile-image" src={photoURL} alt={displayName}
-                                             title={displayName}/>);
+                                             title={displayName} key={participantsToShow.indexOf(participant)}/>);
                                 })}
                                 {
                                     cardData.participants.length > 5 &&
@@ -179,9 +179,6 @@ const EventCard = ({
                     </Col>
                 </Row>
                 <div className="card-footer">
-                    <Row>
-
-                    </Row>
 
                     <Row>
                         <Col>
