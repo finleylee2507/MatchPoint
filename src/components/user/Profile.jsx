@@ -23,18 +23,14 @@ const UserEventList = ({ user, allEvents }) => {
   }
 };
 const Profile = ({ allUsers, user, allEvents }) => {
-  if (user == undefined || allUsers == undefined || allEvents == undefined) {
+  if (user == undefined || allUsers == undefined) {
     return (
       <div>
         <p>Unable to display your profile. Please try again later.</p>
       </div>
     );
-  }
-
-  // var realUser = allUsers[user.uid];
-  // console.log(realUser);
-
-  if (allUsers[user.uid]) {
+  } else if (allUsers[user.uid]) {
+    console.log("In here");
     return (
       <div className="user-profile-container">
         <UserAvatar
