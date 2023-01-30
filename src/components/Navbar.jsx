@@ -72,7 +72,7 @@ const NavBar = ({numberOfUnread}) => {
                       onClick={() => handleClick("inbox")}
                   >
                     Inbox
-                    <span className="number-of-unread">{numberOfUnread}</span>
+                    {numberOfUnread !== 0? <span className="number-of-unread">{numberOfUnread}</span> : <span></span>}
                   </Nav.Link>
 
                   <Nav.Link
