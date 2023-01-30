@@ -51,9 +51,10 @@ const NavBar = () => {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 {/* <Nav.Link href="#action1">Profile</Nav.Link> */}
+                <Nav.Link href="/profile">Profile</Nav.Link>
+                <Nav.Link href="/inbox">Inbox</Nav.Link>
                 <Nav.Link href="/allEvents">All Events</Nav.Link>
                 {/* <Nav.Link href='/teams'>Teams</Nav.Link> */}
-                <Nav.Link href="/inbox">Inbox</Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

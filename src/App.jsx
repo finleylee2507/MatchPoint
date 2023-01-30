@@ -5,6 +5,7 @@ import Landing from "./components/Landing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAuthState, useDbData } from "./utilities/firebase";
 import MessageList from "./components/messages/MessageList";
+import Profile from "./components/user/Profile";
 
 const App = () => {
   const [events, eventsError] = useDbData("/events");
@@ -29,6 +30,15 @@ const App = () => {
             <div>
               <NavBar />
               <EventList eventData={events} user={user} allUsers={users} />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/profile"
+          element={
+            <div>
+              <NavBar />
+              <Profile allUsers={users} user={user} allEvents={events} />
             </div>
           }
         ></Route>

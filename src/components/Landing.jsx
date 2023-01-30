@@ -39,7 +39,7 @@ const ClearDBButton = () => {
 
 const Landing = (allUsers) => {
   const user = useAuthState();
-  if (user && allUsers && allUsers["allUsers"]) {
+  if (user && allUsers && allUsers["allUsers"] && allUsers["allUsers"]) {
     const newUserMessage = {
       id: "welcome",
       title: "Welcome to MatchPoint",
@@ -52,6 +52,7 @@ const Landing = (allUsers) => {
     // console.log(messageKey);
 
     if (!allUsers["allUsers"][user.uid]) {
+      console.log("time to create new user");
       const newUser = {
         displayName: user.displayName,
         email: user.email,
