@@ -1,461 +1,510 @@
 // Event List
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
-  addNewEvent,
-  deleteEvent,
-  deleteEventFromUsers,
-  deleteFile,
-  getImageLinkOfExistingImage,
-  getNewEventKey,
-  getNewMessageKey,
-  createEventMessage,
-  joinEventMessage,
-  joinEvent,
-  updateEvent,
-  uploadFile,
+    addNewEvent,
+    createEventMessage,
+    deleteEvent,
+    deleteEventFromUsers,
+    deleteEventMessage,
+    deleteFile,
+    getImageLinkOfExistingImage,
+    getNewEventKey,
+    getNewMessageKey,
+    joinEvent,
+    joinLeaveEventMessage,
+    updateEvent,
+    uploadFile,
 } from "../../utilities/firebase";
-import { Button, Form, Stack } from "react-bootstrap";
+import {Button, Form, Stack} from "react-bootstrap";
 import EventCard from "./EventCard";
 import EventModal from "./EventModal";
 import AddEventModal from "./AddEventModal";
 import "./EventList.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import DeleteEventModal from "./DeleteEventModal";
 import EditEventModal from "./EditEventModal";
-import { toast, ToastContainer } from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const EventList = ({ eventData, user, allUsers }) => {
-  if (eventData == undefined || user == undefined || allUsers == undefined) {
-    return "";
-  }
-
-  const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
-  const [showAddEventModal, setShowAddEventModal] = useState(false);
-  const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);
-  const [showEditEventModal, setShowEditEventModal] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
-  const [eventToDelete, setEventToDelete] = useState(null);
-  const [eventToEdit, setEventToEdit] = useState(null);
-
-  // console.log("events: ", events);
-
-  const [searchFilter, setSearchFilter] = useState("");
-  const [defaultCoverURL, setDefaultCoverURL] = useState("");
-  // console.log("default cover: ", defaultCoverURL);
-  useEffect(() => {
-    getImageLinkOfExistingImage("default-cover.png")
-      .then((url) => {
-        setDefaultCoverURL(url);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  const handleJoinEvent = async (data) => {
-    console.log("Joining");
-    //make sure not joining an event that's full
-    if (data.participants.length >= data.maxCap) {
-      toast.error("Sorry the event is full!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      return;
-    }
-    const ueid = data.id;
-    const updatedParticipants = {
-      participants: [...data.participants, user.uid],
-    };
-
-    console.log("Updated participants: ", updatedParticipants);
-    let updatedUserEvents;
-    if (!allUsers[user.uid].events) {
-      updatedUserEvents = {
-        events: [ueid],
-      };
-    } else {
-      updatedUserEvents = {
-        events: [...allUsers[user.uid].events, ueid],
-      };
+const EventList = ({eventData, user, allUsers}) => {
+    if (eventData == undefined || user == undefined || allUsers == undefined) {
+        return "";
     }
 
-    // Message logic
-    // Get a new message key
-    let newMessageKey = getNewMessageKey();
+    const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
+    const [showAddEventModal, setShowAddEventModal] = useState(false);
+    const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);
+    const [showEditEventModal, setShowEditEventModal] = useState(false);
+    const [events, setEvents] = useState([]);
+    const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
+    const [eventToDelete, setEventToDelete] = useState(null);
+    const [eventToEdit, setEventToEdit] = useState(null);
 
-    // Create a new message for the general messages table
-    let newJoinMessage = {
-      title: "New Event Participant",
-      id: newMessageKey,
-      content: `${allUsers[user.uid].displayName} has joined the event '${
-        data.name
-      }.`,
-    };
+    // console.log("events: ", events);
 
-    // Create an updated list of unread messages for the current user (joiner)
-    let userUpdatedUnreadMessages = {
-      unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
-    };
+    const [searchFilter, setSearchFilter] = useState("");
+    const [defaultCoverURL, setDefaultCoverURL] = useState("");
+    // console.log("default cover: ", defaultCoverURL);
+    useEffect(() => {
+        getImageLinkOfExistingImage("default-cover.png")
+            .then((url) => {
+                setDefaultCoverURL(url);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
-    // Create an updated list of unread messages for the owner of the event
-    let ownerUpdatedUnreadMessages = {
-      unreadMessages: [...allUsers[data.owner].unreadMessages, newMessageKey],
-    };
-
-    let joinResult = await joinEvent(
-      updatedParticipants,
-      updatedUserEvents,
-      ueid,
-      user.uid
-    );
-
-    joinEventMessage(
-      newJoinMessage, // general table
-      ownerUpdatedUnreadMessages, // updated owner
-      userUpdatedUnreadMessages, // updated user
-      newMessageKey,
-      data.owner,
-      user.uid
-    );
-
-    if (!joinResult) {
-      toast.error(
-        "Hmm...Something went wrong. Please try again or contact the dev team.",
-        {
-          position: toast.POSITION.TOP_RIGHT,
+    const handleJoinEvent = async (data) => {
+        console.log("Joining");
+        //make sure not joining an event that's full
+        if (data.participants.length >= data.maxCap) {
+            toast.error("Sorry the event is full!", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+            return;
         }
-      );
+        const ueid = data.id;
+        const updatedParticipants = {
+            participants: [...data.participants, user.uid],
+        };
 
-      return;
-    }
-
-    toast.success("Successfully joined event!", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-  };
-
-  const handleLeaveEvent = async (data) => {
-    let currParticipants = data.participants;
-    let currUserEvents = allUsers[user.uid].events;
-    console.log("Curr user events: ", currUserEvents);
-    console.log("Curr participants: ", currParticipants);
-    let ueid = data.id;
-
-    //TODO: what happens if the creator of the event tries to leave the event, and he's the only participant
-    let updatedParticipants = {
-      participants: currParticipants.filter(
-        (participant) => participant !== user.uid
-      ),
-    }; //remove current user from the list
-    let updatedUserEvents = {
-      events: currUserEvents.filter((eventId) => eventId !== ueid),
-    }; //remove current event from user's event list
-
-    console.log("Updated participants: ", updatedParticipants);
-    console.log("Updated events: ", updatedUserEvents);
-    let leaveResult = await joinEvent(
-      updatedParticipants,
-      updatedUserEvents,
-      ueid,
-      user.uid
-    );
-
-    if (leaveResult) {
-      toast.success("Successfully left event!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } else {
-      toast.error(
-        "Hmm...Something went wrong. Please try again or contact the dev team.",
-        {
-          position: toast.POSITION.TOP_RIGHT,
+        console.log("Updated participants: ", updatedParticipants);
+        let updatedUserEvents;
+        if (!allUsers[user.uid].events) {
+            updatedUserEvents = {
+                events: [ueid],
+            };
+        } else {
+            updatedUserEvents = {
+                events: [...allUsers[user.uid].events, ueid],
+            };
         }
-      );
-    }
-  };
 
-  const handleCloseSeeMoreModal = () => {
-    setShowSeeMoreModal(false);
-  };
-  const handleShowSeeMoreModal = (data) => {
-    setModalDataSeeMore(data);
-    setShowSeeMoreModal(true);
-  };
-  const handleCloseAddEventModal = () => setShowAddEventModal(false);
-  const handleShowAddEventModal = (data) => {
-    setShowAddEventModal(true);
-  };
-  const handleCloseDeleteEventModal = () => setShowDeleteEventModal(false);
-  const handleShowDeleteEventModal = () => {
-    setShowDeleteEventModal(true);
-  };
+        // Message logic
+        // Get a new message key
+        let newMessageKey = getNewMessageKey();
 
-  const handleSetEventToDelete = (event) => {
-    setEventToDelete(event);
-  };
+        // Create a new message for the general messages table
+        let newJoinMessage = {
+            title: "New Event Participant",
+            id: newMessageKey,
+            content: `${allUsers[user.uid].displayName} has joined the event '${
+                data.name
+            }.`,
+        };
 
-  const handleShowEditEventModal = () => {
-    setShowEditEventModal(true);
-  };
+        // Create an updated list of unread messages for the current user (joiner)
+        let userUpdatedUnreadMessages = {
+            unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+        };
 
-  const handleCloseEditEventModal = () => {
-    setShowEditEventModal(false);
-  };
+        // Create an updated list of unread messages for the owner of the event
+        let ownerUpdatedUnreadMessages = {
+            unreadMessages: [...allUsers[data.owner].unreadMessages, newMessageKey],
+        };
 
-  const handleSetEventToEdit = (event) => {
-    setEventToEdit(event);
-  };
-  const handleDeleteEvent = async () => {
-    //get the list of event participants
-    console.log("Event participants: ", eventToDelete.participants);
-    let newParticipantsEvent = eventToDelete.participants.map(
-      (participantId) => {
-        let userCurrentEvents = allUsers[participantId].events;
-        let userNewEvents = userCurrentEvents.filter(
-          (eventId) => eventId !== eventToDelete.id
+        let joinResult = await joinEvent(
+            updatedParticipants,
+            updatedUserEvents,
+            ueid,
+            user.uid
         );
-        return { events: userNewEvents };
-      }
-    );
 
-    console.log("New participants events: ", newParticipantsEvent);
-    await deleteEventFromUsers(
-      eventToDelete.participants,
-      newParticipantsEvent
-    );
-    let deleteResult = await deleteEvent(eventToDelete.id);
+        joinLeaveEventMessage(
+            newJoinMessage, // general table
+            ownerUpdatedUnreadMessages, // updated owner
+            userUpdatedUnreadMessages, // updated user
+            newMessageKey,
+            data.owner,
+            user.uid
+        );
 
-    if (eventToDelete.imgSrc !== defaultCoverURL) {
-      //make sure we don't delete the default image cover in storage
-      await deleteFile(eventToDelete.imgSrc);
-    }
+        if (!joinResult) {
+            toast.error(
+                "Hmm...Something went wrong. Please try again or contact the dev team.",
+                {
+                    position: toast.POSITION.TOP_RIGHT,
+                }
+            );
 
-    //NOTE: for whatever reason, the UI won't update with firebase when the only item in the list gets deleted,
-    // so we handle the edge case by doing this:
-    if (events.length === 1) {
-      setEvents([]);
-    }
-
-    if (deleteResult) {
-      toast.success("Successfully deleted event!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } else {
-      toast.error(
-        "Hmm...Something went wrong. Please try again or contact the dev team.",
-        {
-          position: toast.POSITION.TOP_RIGHT,
+            return;
         }
-      );
-    }
-  };
-  const handleAddEventSubmit = async (
-    newEventData,
-    newMessageData,
-    imageFile
-  ) => {
-    const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
-    if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
-      //if the user uploaded a file
-      let [isSuccessful, fileLink] = await uploadFile(imageFile);
-      //console.log("Successful? ", isSuccessful);
-      if (isSuccessful) {
-        newEventData.imgSrc = fileLink;
-        newEventData.owner = user.uid;
-      }
-    } else {
-      //set image link to default image
-      let fileLink = defaultCoverURL;
-      newEventData.imgSrc = fileLink;
-    }
 
-    //get key from database
-    let newEventKey = getNewEventKey();
-
-    let newMessageKey = getNewMessageKey();
-
-    //append id to new event
-    newEventData.id = newEventKey;
-    newEventData.participants.push(user.uid);
-    //console.log("new event object: ", newEventData);
-
-    newMessageData.id = newMessageKey;
-
-    let updatedUserEvents;
-    if (!allUsers[user.uid].events) {
-      updatedUserEvents = {
-        events: [newEventKey],
-      };
-    } else {
-      updatedUserEvents = {
-        events: [...allUsers[user.uid].events, newEventKey],
-      };
-    }
-
-    let updatedUserMessage = {
-      unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+        toast.success("Successfully joined event!", {
+            position: toast.POSITION.TOP_RIGHT,
+        });
     };
 
-    //submit new event to database
-    try {
-      addNewEvent(newEventData, newEventKey, updatedUserEvents, user.uid);
-      createEventMessage(
-        updatedUserMessage,
+    const handleLeaveEvent = async (data) => {
+        let currParticipants = data.participants;
+        let currUserEvents = allUsers[user.uid].events;
+        console.log("Curr user events: ", currUserEvents);
+        console.log("Curr participants: ", currParticipants);
+        let ueid = data.id;
+
+        let updatedParticipants = {
+            participants: currParticipants.filter(
+                (participant) => participant !== user.uid
+            ),
+        }; //remove current user from the list
+        let updatedUserEvents = {
+            events: currUserEvents.filter((eventId) => eventId !== ueid),
+        }; //remove current event from user's event list
+
+        console.log("Updated participants: ", updatedParticipants);
+        console.log("Updated events: ", updatedUserEvents);
+        let leaveResult = await joinEvent(
+            updatedParticipants,
+            updatedUserEvents,
+            ueid,
+            user.uid
+        );
+
+        // Message logic
+        // Get a new message key
+        let newMessageKey = getNewMessageKey();
+
+        // Create a new message for the general messages table
+        let newJoinMessage = {
+            title: "A Participant Left the Event",
+            id: newMessageKey,
+            content: `${allUsers[user.uid].displayName} has left the event '${
+                data.name
+            }.`,
+        };
+
+        // Create an updated list of unread messages for the current user (joiner)
+        let userUpdatedUnreadMessages = {
+            unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+        };
+
+        // Create an updated list of unread messages for the owner of the event
+        let ownerUpdatedUnreadMessages = {
+            unreadMessages: [...allUsers[data.owner].unreadMessages, newMessageKey],
+        };
+
+        joinLeaveEventMessage(
+            newJoinMessage, // general table
+            ownerUpdatedUnreadMessages, // updated owner
+            userUpdatedUnreadMessages, // updated user
+            newMessageKey,
+            data.owner,
+            user.uid
+        );
+        if (leaveResult) {
+            toast.success("Successfully left event!", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        } else {
+            toast.error(
+                "Hmm...Something went wrong. Please try again or contact the dev team.",
+                {
+                    position: toast.POSITION.TOP_RIGHT,
+                }
+            );
+        }
+    };
+
+    const handleCloseSeeMoreModal = () => {
+        setShowSeeMoreModal(false);
+    };
+    const handleShowSeeMoreModal = (data) => {
+        setModalDataSeeMore(data);
+        setShowSeeMoreModal(true);
+    };
+    const handleCloseAddEventModal = () => setShowAddEventModal(false);
+    const handleShowAddEventModal = (data) => {
+        setShowAddEventModal(true);
+    };
+    const handleCloseDeleteEventModal = () => setShowDeleteEventModal(false);
+    const handleShowDeleteEventModal = () => {
+        setShowDeleteEventModal(true);
+    };
+
+    const handleSetEventToDelete = (event) => {
+        setEventToDelete(event);
+    };
+
+    const handleShowEditEventModal = () => {
+        setShowEditEventModal(true);
+    };
+
+    const handleCloseEditEventModal = () => {
+        setShowEditEventModal(false);
+    };
+
+    const handleSetEventToEdit = (event) => {
+        setEventToEdit(event);
+    };
+    const handleDeleteEvent = async () => {
+        //get the list of event participants
+        console.log("Event participants: ", eventToDelete.participants);
+        let newParticipantsEvent = eventToDelete.participants.map(
+            (participantId) => {
+                let userCurrentEvents = allUsers[participantId].events;
+                let userNewEvents = userCurrentEvents.filter(
+                    (eventId) => eventId !== eventToDelete.id
+                );
+                return {events: userNewEvents};
+            }
+        );
+
+        console.log("New participants events: ", newParticipantsEvent);
+        await deleteEventFromUsers(
+            eventToDelete.participants,
+            newParticipantsEvent
+        );
+        let deleteResult = await deleteEvent(eventToDelete.id);
+
+        if (eventToDelete.imgSrc !== defaultCoverURL) {
+            //make sure we don't delete the default image cover in storage
+            await deleteFile(eventToDelete.imgSrc);
+        }
+
+        //NOTE: for whatever reason, the UI won't update with firebase when the only item in the list gets deleted,
+        // so we handle the edge case by doing this:
+        if (events.length === 1) {
+            setEvents([]);
+        }
+
+        //Message logic
+        //Get a new message key
+        let newMessageKey = getNewMessageKey();
+
+        //create new message
+        const newMessage = {
+            content: `The event '${eventToDelete.name}' that you're a part of has been deleted.`,
+            title: "Event Deleted",
+            id: newMessageKey
+        };
+
+        let updatedParticipantsMessages = eventToDelete.participants.map(participant => {
+            let newMessages = [...allUsers[participant].unreadMessages, newMessageKey];
+            return {unreadMessages: newMessages};
+        });
+
+        deleteEventMessage(newMessage, updatedParticipantsMessages, eventToDelete.participants, newMessageKey);
+
+        if (deleteResult) {
+            toast.success("Successfully deleted event!", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        } else {
+            toast.error(
+                "Hmm...Something went wrong. Please try again or contact the dev team.",
+                {
+                    position: toast.POSITION.TOP_RIGHT,
+                }
+            );
+        }
+    };
+    const handleAddEventSubmit = async (
+        newEventData,
         newMessageData,
-        newMessageKey,
-        user.uid
-      );
-      toast.success("Successfully created event!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } catch (error) {
-      console.log(error);
-      toast.error(
-        "Hmm...Something went wrong. Please try again or contact the dev team.",
-        {
-          position: toast.POSITION.TOP_RIGHT,
+        imageFile
+    ) => {
+        const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
+        if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
+            //if the user uploaded a file
+            let [isSuccessful, fileLink] = await uploadFile(imageFile);
+            //console.log("Successful? ", isSuccessful);
+            if (isSuccessful) {
+                newEventData.imgSrc = fileLink;
+                newEventData.owner = user.uid;
+            }
+        } else {
+            //set image link to default image
+            let fileLink = defaultCoverURL;
+            newEventData.imgSrc = fileLink;
         }
-      );
-    }
-  };
 
-  const handleEditEventSubmit = async (newEventData, imageFile) => {
-    const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
+        //get key from database
+        let newEventKey = getNewEventKey();
 
-    if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
-      //if the user uploaded a file
-      let [isSuccessful, fileLink] = await uploadFile(imageFile);
-      //console.log("Successful? ", isSuccessful);
-      if (isSuccessful) {
-        newEventData.imgSrc = fileLink;
-      }
-    }
+        let newMessageKey = getNewMessageKey();
 
-    //update event
-    let editResult = await updateEvent(newEventData, newEventData.id);
-    if (editResult) {
-      toast.success("Successfully edited event!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } else {
-      toast.error(
-        "Hmm...Something went wrong. Please try again or contact the dev team.",
-        {
-          position: toast.POSITION.TOP_RIGHT,
+        //append id to new event
+        newEventData.id = newEventKey;
+        newEventData.participants.push(user.uid);
+        //console.log("new event object: ", newEventData);
+
+        newMessageData.id = newMessageKey;
+
+        let updatedUserEvents;
+        if (!allUsers[user.uid].events) {
+            updatedUserEvents = {
+                events: [newEventKey],
+            };
+        } else {
+            updatedUserEvents = {
+                events: [...allUsers[user.uid].events, newEventKey],
+            };
         }
-      );
-    }
-  };
-  const handleSearch = () => {
-    //search events based on filter
-    let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
-    setEvents((prevState) => {
-      return prevState.filter((event) => {
-        let eventName = event.name.toLowerCase();
 
-        let isMatch = searchTerms.some((term) => eventName.includes(term));
+        let updatedUserMessage = {
+            unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+        };
 
-        return isMatch;
-      });
-    });
-  };
+        //submit new event to database
+        try {
+            addNewEvent(newEventData, newEventKey, updatedUserEvents, user.uid);
+            createEventMessage(
+                updatedUserMessage,
+                newMessageData,
+                newMessageKey,
+                user.uid
+            );
+            toast.success("Successfully created event!", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        } catch (error) {
+            console.log(error);
+            toast.error(
+                "Hmm...Something went wrong. Please try again or contact the dev team.",
+                {
+                    position: toast.POSITION.TOP_RIGHT,
+                }
+            );
+        }
+    };
 
-  const handleKeyPress = (e) => {
-    if (event.key === "Enter") {
-      e.preventDefault();
-      handleSearch();
-    }
-  };
+    const handleEditEventSubmit = async (newEventData, imageFile) => {
+        const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
 
-  useEffect(() => {
-    console.log("Use effect runs");
-    eventData && setEvents(Object.values(eventData));
-  }, [searchFilter, eventData]);
+        if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
+            //if the user uploaded a file
+            let [isSuccessful, fileLink] = await uploadFile(imageFile);
+            //console.log("Successful? ", isSuccessful);
+            if (isSuccessful) {
+                newEventData.imgSrc = fileLink;
+            }
+        }
 
-  return (
-    <div className="event-list">
-      <ToastContainer />
-      <div className="event-list-tool-bar">
-        <Form className="d-flex">
-          <Stack direction="horizontal" gap={2}>
-            <Form.Control
-              type="search"
-              placeholder="Search for an activity"
-              className="me-2"
-              aria-label="Search"
-              value={searchFilter}
-              onKeyPress={(e) => handleKeyPress(e)}
-              onChange={(e) => setSearchFilter(e.target.value)}
+        //update event
+        let editResult = await updateEvent(newEventData, newEventData.id);
+        if (editResult) {
+            toast.success("Successfully edited event!", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        } else {
+            toast.error(
+                "Hmm...Something went wrong. Please try again or contact the dev team.",
+                {
+                    position: toast.POSITION.TOP_RIGHT,
+                }
+            );
+        }
+    };
+    const handleSearch = () => {
+        //search events based on filter
+        let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
+        setEvents((prevState) => {
+            return prevState.filter((event) => {
+                let eventName = event.name.toLowerCase();
+
+                let isMatch = searchTerms.some((term) => eventName.includes(term));
+
+                return isMatch;
+            });
+        });
+    };
+
+    const handleKeyPress = (e) => {
+        if (event.key === "Enter") {
+            e.preventDefault();
+            handleSearch();
+        }
+    };
+
+    useEffect(() => {
+        console.log("Use effect runs");
+        eventData && setEvents(Object.values(eventData));
+    }, [searchFilter, eventData]);
+
+    return (
+        <div className="event-list">
+            <ToastContainer/>
+            <div className="event-list-tool-bar">
+                <Form className="d-flex">
+                    <Stack direction="horizontal" gap={2}>
+                        <Form.Control
+                            type="search"
+                            placeholder="Search for an activity"
+                            className="me-2"
+                            aria-label="Search"
+                            value={searchFilter}
+                            onKeyPress={(e) => handleKeyPress(e)}
+                            onChange={(e) => setSearchFilter(e.target.value)}
+                        />
+                        <Button
+                            className="search-button"
+                            aria-label="Search"
+                            variant="outline-success"
+                            onClick={handleSearch}
+                        >
+                            Search
+                        </Button>
+                        <Button
+                            className="add-event-button"
+                            aria-label="Add event"
+                            onClick={handleShowAddEventModal}
+                        >
+                            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                            Add Event
+                        </Button>
+                    </Stack>
+                </Form>
+            </div>
+
+            <EventModal
+                show={showSeeMoreModal}
+                handleJoin={handleJoinEvent}
+                handleClose={handleCloseSeeMoreModal}
+                data={modalDataSeeMore}
+                allUsers={allUsers}
             />
-            <Button
-              className="search-button"
-              aria-label="Search"
-              variant="outline-success"
-              onClick={handleSearch}
-            >
-              Search
-            </Button>
-            <Button
-              className="add-event-button"
-              aria-label="Add event"
-              onClick={handleShowAddEventModal}
-            >
-              <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-              Add Event
-            </Button>
-          </Stack>
-        </Form>
-      </div>
+            <AddEventModal
+                show={showAddEventModal}
+                handleClose={handleCloseAddEventModal}
+                handleSubmit={handleAddEventSubmit}
+                user={user}
+            />
 
-      <EventModal
-        show={showSeeMoreModal}
-        handleJoin={handleJoinEvent}
-        handleClose={handleCloseSeeMoreModal}
-        data={modalDataSeeMore}
-        allUsers={allUsers}
-      />
-      <AddEventModal
-        show={showAddEventModal}
-        handleClose={handleCloseAddEventModal}
-        handleSubmit={handleAddEventSubmit}
-        user={user}
-      />
+            <DeleteEventModal
+                show={showDeleteEventModal}
+                handleClose={handleCloseDeleteEventModal}
+                handleDelete={handleDeleteEvent}
+            />
 
-      <DeleteEventModal
-        show={showDeleteEventModal}
-        handleClose={handleCloseDeleteEventModal}
-        handleDelete={handleDeleteEvent}
-      />
-
-      <EditEventModal
-        show={showEditEventModal}
-        handleClose={handleCloseEditEventModal}
-        handleSubmit={handleEditEventSubmit}
-        data={eventToEdit}
-      />
-      {!events || events.length === 0 ? (
-        <p className="empty-page-message">No events to display...</p>
-      ) : (
-        events.map((e) => (
-          <EventCard
-            openModal={handleShowSeeMoreModal}
-            openDeleteEventModal={handleShowDeleteEventModal}
-            handleSetEventToDelete={handleSetEventToDelete}
-            handleSetEventToEdit={handleSetEventToEdit}
-            openEditEventModal={handleShowEditEventModal}
-            handleLeave={handleLeaveEvent}
-            handleJoin={handleJoinEvent}
-            key={e.id}
-            cardData={e}
-            user={user}
-            allUsers={allUsers}
-          />
-        ))
-      )}
-    </div>
-  );
+            <EditEventModal
+                show={showEditEventModal}
+                handleClose={handleCloseEditEventModal}
+                handleSubmit={handleEditEventSubmit}
+                data={eventToEdit}
+            />
+            {!events || events.length === 0 ? (
+                <p className="empty-page-message">No events to display...</p>
+            ) : (
+                events.map((e) => (
+                    <EventCard
+                        openModal={handleShowSeeMoreModal}
+                        openDeleteEventModal={handleShowDeleteEventModal}
+                        handleSetEventToDelete={handleSetEventToDelete}
+                        handleSetEventToEdit={handleSetEventToEdit}
+                        openEditEventModal={handleShowEditEventModal}
+                        handleLeave={handleLeaveEvent}
+                        handleJoin={handleJoinEvent}
+                        key={e.id}
+                        cardData={e}
+                        user={user}
+                        allUsers={allUsers}
+                    />
+                ))
+            )}
+        </div>
+    );
 };
 
 export default EventList;

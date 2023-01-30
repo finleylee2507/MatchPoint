@@ -89,7 +89,16 @@ export const createEventMessage = (newUserMessage, newMessage, mid, uid) => {
   update(userUnreadMessagesRef, newUserMessage);
 };
 
-export const joinEventMessage = (
+export const deleteEventMessage=(newMessage,updatedParticipantsMessages,participants,mid)=>{
+  set(ref(database, "messages/" + mid), newMessage);
+  for(let participant of participants){
+    let i=participants.indexOf(participant)
+    const userUnreadMessagesRef = child(ref(database), `users/${participant}`);
+    update(userUnreadMessagesRef, updatedParticipantsMessages[i]);
+  }
+}
+
+export const joinLeaveEventMessage = (
   newMessage,
   ownerUnreadMessages,
   userUnreadMessages,
@@ -110,6 +119,8 @@ export const joinEventMessage = (
     console.log(error);
   }
 };
+
+
 
 export const deleteEvent = async (eid) => {
   let isSuccessful = false;
