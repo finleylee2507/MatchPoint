@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import { signOut } from "../utilities/firebase";
 import "./Navbar.css";
 
 const SignOutButton = () => {
   const navigate = useNavigate();
-
+  const location=useLocation()
   async function signOutUser() {
     await signOut();
     navigate("/");
@@ -24,11 +25,12 @@ const AuthButton = () => {
 };
 
 const NavBar = () => {
-  const [activeLink, setActiveLink] = useState("allEvents");
-
+  const [activeLink, setActiveLink] = useState(location.pathname);
+  useEffect(()=>{})
   const handleClick = (link) => {
     setActiveLink(link);
   };
+
 
   return (
     <>
@@ -54,7 +56,7 @@ const NavBar = () => {
                 {/* <Nav.Link href="#action1">Profile</Nav.Link> */}
                 <Nav.Link
                   className={`nav-link ${
-                    activeLink === "allEvents" ? "active" : ""
+                    activeLink === "/allEvents" ? "active" : ""
                   }`}
                   href="/allEvents"
                   onClick={() => handleClick("allEvents")}
@@ -64,7 +66,7 @@ const NavBar = () => {
                 {/* <Nav.Link href='/teams'>Teams</Nav.Link> */}
                 <Nav.Link
                   className={`nav-link ${
-                    activeLink === "inbox" ? "active" : ""
+                    activeLink === "/inbox" ? "active" : ""
                   }`}
                   href="/inbox"
                   onClick={() => handleClick("inbox")}
