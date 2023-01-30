@@ -6,16 +6,21 @@ import Message from "./Message.jsx";
 const MessageList = ({ allUsers, user, allMessages }) => {
   console.log(user);
   console.log(allUsers);
-  console.log(allMessages);
+  console.log("All messages: ",allMessages);
+
   if (user == undefined || allUsers == undefined || allMessages == undefined) {
-    return "";
+    return (
+        <p className="empty-page-message">You have no messages ...</p>
+    );
   }
 
+  console.log("Unread messages: ",allUsers[user.uid]["unreadMessages"]);
+  let allUserMessages = [];
   if (
     allUsers[user.uid]["unreadMessages"] ||
     allUsers[user.uid]["readMessages"]
   ) {
-    var allUserMessages = [];
+
 
     if (allUsers[user.uid]["unreadMessages"]) {
       allUserMessages = [
@@ -31,7 +36,6 @@ const MessageList = ({ allUsers, user, allMessages }) => {
       ];
     }
 
-    console.log(allUserMessages);
     return (
       <div className="event-list">
         {Object.entries(allUserMessages).map(([id, m]) => (
@@ -44,7 +48,10 @@ const MessageList = ({ allUsers, user, allMessages }) => {
         ))}
       </div>
     );
-  } else {
+  }
+
+
+  else {
     return <p className="empty-page-message">You have no messages ...</p>;
   }
 };

@@ -57,7 +57,7 @@ const EventCard = ({
             <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
             <a
               href={`https://maps.google.com/?q=${cardData.location}`}
-              class="subheader"
+              className="subheader"
               target="_blank"
             >
               {" "}
@@ -65,10 +65,10 @@ const EventCard = ({
             </a>
           </Col>
         </Row>
-        <hr class="solid"></hr>
+        <hr className="solid"></hr>
         <Row className="card-middle">
           <Col>
-            <h className="details-header">Event Size</h>
+            <h3 className="details-header">Event Size</h3>
             <div className="details">
               <div className="left">
                 <FontAwesomeIcon icon={faPeopleGroup}></FontAwesomeIcon>
@@ -79,7 +79,7 @@ const EventCard = ({
             </div>
           </Col>
           <Col>
-            <h className="details-header">Spots Available</h>
+            <h3 className="details-header">Spots Available</h3>
             <div className="details">
               <div className="left">
                 <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
@@ -90,7 +90,7 @@ const EventCard = ({
             </div>
           </Col>
           <Col>
-            <h className="details-header">Experience Level</h>
+            <h3 className="details-header">Experience Level</h3>
             <div className="details">
               <div className="left">
                 <FontAwesomeIcon icon={faAward}></FontAwesomeIcon>

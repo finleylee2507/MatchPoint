@@ -28,24 +28,93 @@ import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EventList = ({eventData, user, allUsers}) => {
-    if (eventData == undefined || user == undefined || allUsers == undefined) {
-        return "";
-    }
-
-    const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
+    const [searchFilter, setSearchFilter] = useState("");
     const [showAddEventModal, setShowAddEventModal] = useState(false);
+    const [defaultCoverURL, setDefaultCoverURL] = useState("");
+    const [showSeeMoreModal, setShowSeeMoreModal] = useState(false);
     const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);
     const [showEditEventModal, setShowEditEventModal] = useState(false);
     const [events, setEvents] = useState([]);
     const [modalDataSeeMore, setModalDataSeeMore] = useState([]);
     const [eventToDelete, setEventToDelete] = useState(null);
     const [eventToEdit, setEventToEdit] = useState(null);
+    const handleCloseAddEventModal = () => setShowAddEventModal(false);
+    const handleShowAddEventModal = (data) => {
+        setShowAddEventModal(true);
+    };
+    const handleAddEventSubmit = async (
+        newEventData,
+        newMessageData,
+        imageFile
+    ) => {
+        const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
+        if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
+            //if the user uploaded a file
+            let [isSuccessful, fileLink] = await uploadFile(imageFile);
+            //console.log("Successful? ", isSuccessful);
+            if (isSuccessful) {
+                newEventData.imgSrc = fileLink;
+                newEventData.owner = user.uid;
+            }
+        } else {
+            //set image link to default image
+            let fileLink = defaultCoverURL;
+            newEventData.imgSrc = fileLink;
+        }
 
-    // console.log("events: ", events);
+        //get key from database
+        let newEventKey = getNewEventKey();
 
-    const [searchFilter, setSearchFilter] = useState("");
-    const [defaultCoverURL, setDefaultCoverURL] = useState("");
-    // console.log("default cover: ", defaultCoverURL);
+        let newMessageKey = getNewMessageKey();
+
+        //append id to new event
+        newEventData.id = newEventKey;
+        newEventData.participants.push(user.uid);
+        //console.log("new event object: ", newEventData);
+
+        newMessageData.id = newMessageKey;
+
+        let updatedUserEvents;
+        if (!allUsers[user.uid].events) {
+            updatedUserEvents = {
+                events: [newEventKey],
+            };
+        } else {
+            updatedUserEvents = {
+                events: [...allUsers[user.uid].events, newEventKey],
+            };
+        }
+
+        let updatedUserMessage = {
+            unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+        };
+
+        //submit new event to database
+        try {
+            addNewEvent(newEventData, newEventKey, updatedUserEvents, user.uid);
+            createEventMessage(
+                updatedUserMessage,
+                newMessageData,
+                newMessageKey,
+                user.uid
+            );
+            toast.success("Successfully created event!", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        } catch (error) {
+            console.log(error);
+            toast.error(
+                "Hmm...Something went wrong. Please try again or contact the dev team.",
+                {
+                    position: toast.POSITION.TOP_RIGHT,
+                }
+            );
+        }
+    };
+
+    useEffect(() => {
+        eventData && setEvents(Object.values(eventData));
+    }, [searchFilter, eventData]);
     useEffect(() => {
         getImageLinkOfExistingImage("default-cover.png")
             .then((url) => {
@@ -55,6 +124,67 @@ const EventList = ({eventData, user, allUsers}) => {
                 console.log(error);
             });
     }, []);
+
+    const handleSearch = () => {
+        //search events based on filter
+        let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
+        setEvents((prevState) => {
+            return prevState.filter((event) => {
+                let eventName = event.name.toLowerCase();
+
+                let isMatch = searchTerms.some((term) => eventName.includes(term));
+
+                return isMatch;
+            });
+        });
+    };
+    if (eventData == undefined || user == undefined || allUsers == undefined) {
+        return (
+            <div className="event-list">
+
+                <ToastContainer/>
+                <div className="event-list-tool-bar">
+                    <Form className="d-flex">
+                        <Stack direction="horizontal" gap={2}>
+                            <Form.Control
+                                type="search"
+                                placeholder="Search for an activity"
+                                className="me-2"
+                                aria-label="Search"
+                                value={searchFilter}
+                                onKeyPress={(e) => handleKeyPress(e)}
+                                onChange={(e) => setSearchFilter(e.target.value)}
+                            />
+                            <Button
+                                className="search-button"
+                                aria-label="Search"
+                                variant="outline-success"
+                                onClick={handleSearch}
+                            >
+                                Search
+                            </Button>
+                            <Button
+                                className="add-event-button"
+                                aria-label="Add event"
+                                onClick={handleShowAddEventModal}
+                            >
+                                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                                Add Event
+                            </Button>
+                        </Stack>
+                    </Form>
+                </div>
+                <p className="empty-page-message">No events to display...</p>
+                <AddEventModal
+                    show={showAddEventModal}
+                    handleClose={handleCloseAddEventModal}
+                    handleSubmit={handleAddEventSubmit}
+                    user={user}
+                />
+            </div>
+        );
+    }
+
 
     const handleJoinEvent = async (data) => {
         console.log("Joining");
@@ -214,10 +344,7 @@ const EventList = ({eventData, user, allUsers}) => {
         setModalDataSeeMore(data);
         setShowSeeMoreModal(true);
     };
-    const handleCloseAddEventModal = () => setShowAddEventModal(false);
-    const handleShowAddEventModal = (data) => {
-        setShowAddEventModal(true);
-    };
+
     const handleCloseDeleteEventModal = () => setShowDeleteEventModal(false);
     const handleShowDeleteEventModal = () => {
         setShowDeleteEventModal(true);
@@ -300,75 +427,7 @@ const EventList = ({eventData, user, allUsers}) => {
             );
         }
     };
-    const handleAddEventSubmit = async (
-        newEventData,
-        newMessageData,
-        imageFile
-    ) => {
-        const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
-        if (imageFile && acceptedFileTypes.includes(imageFile.type)) {
-            //if the user uploaded a file
-            let [isSuccessful, fileLink] = await uploadFile(imageFile);
-            //console.log("Successful? ", isSuccessful);
-            if (isSuccessful) {
-                newEventData.imgSrc = fileLink;
-                newEventData.owner = user.uid;
-            }
-        } else {
-            //set image link to default image
-            let fileLink = defaultCoverURL;
-            newEventData.imgSrc = fileLink;
-        }
 
-        //get key from database
-        let newEventKey = getNewEventKey();
-
-        let newMessageKey = getNewMessageKey();
-
-        //append id to new event
-        newEventData.id = newEventKey;
-        newEventData.participants.push(user.uid);
-        //console.log("new event object: ", newEventData);
-
-        newMessageData.id = newMessageKey;
-
-        let updatedUserEvents;
-        if (!allUsers[user.uid].events) {
-            updatedUserEvents = {
-                events: [newEventKey],
-            };
-        } else {
-            updatedUserEvents = {
-                events: [...allUsers[user.uid].events, newEventKey],
-            };
-        }
-
-        let updatedUserMessage = {
-            unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
-        };
-
-        //submit new event to database
-        try {
-            addNewEvent(newEventData, newEventKey, updatedUserEvents, user.uid);
-            createEventMessage(
-                updatedUserMessage,
-                newMessageData,
-                newMessageKey,
-                user.uid
-            );
-            toast.success("Successfully created event!", {
-                position: toast.POSITION.TOP_RIGHT,
-            });
-        } catch (error) {
-            console.log(error);
-            toast.error(
-                "Hmm...Something went wrong. Please try again or contact the dev team.",
-                {
-                    position: toast.POSITION.TOP_RIGHT,
-                }
-            );
-        }
-    };
 
     const handleEditEventSubmit = async (newEventData, imageFile) => {
         const acceptedFileTypes = ["image/gif", "image/jpeg", "image/png"];
@@ -397,19 +456,7 @@ const EventList = ({eventData, user, allUsers}) => {
             );
         }
     };
-    const handleSearch = () => {
-        //search events based on filter
-        let searchTerms = searchFilter.split(" ").map((word) => word.toLowerCase());
-        setEvents((prevState) => {
-            return prevState.filter((event) => {
-                let eventName = event.name.toLowerCase();
 
-                let isMatch = searchTerms.some((term) => eventName.includes(term));
-
-                return isMatch;
-            });
-        });
-    };
 
     const handleKeyPress = (e) => {
         if (event.key === "Enter") {
@@ -418,10 +465,6 @@ const EventList = ({eventData, user, allUsers}) => {
         }
     };
 
-    useEffect(() => {
-        console.log("Use effect runs");
-        eventData && setEvents(Object.values(eventData));
-    }, [searchFilter, eventData]);
 
     return (
         <div className="event-list">
