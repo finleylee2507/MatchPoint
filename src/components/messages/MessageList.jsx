@@ -12,10 +12,20 @@ const MessageList = ({ allUsers, user, allMessages }) => {
   }
 
   if (allUsers[user.uid]["unreadMessages"]) {
+    var allUserMessages = [
+      ...allUsers[user.uid]["unreadMessages"],
+      ...allUsers[user.uid]["readMessages"],
+    ];
+    console.log(allUserMessages);
     return (
       <div className="event-list">
-        {Object.entries(allUsers[user.uid]["unreadMessages"]).map(([id, m]) => (
-          <Message key={id} message={allMessages[m]} />
+        {Object.entries(allUserMessages).map(([id, m]) => (
+          <Message
+            key={id}
+            message={allMessages[m]}
+            allUsers={allUsers}
+            user={user}
+          />
         ))}
       </div>
     );
