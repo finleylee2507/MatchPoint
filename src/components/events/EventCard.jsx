@@ -35,7 +35,7 @@ const EventCard = ({
         }
 
 
-    },[]);
+    },[cardData]);
     console.log("All users: ", allUsers);
     const handleDelete = () => {
         //pass to-be-deleted event to the parent component
