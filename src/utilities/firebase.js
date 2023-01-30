@@ -47,6 +47,32 @@ const storage = getStorage();
 
 /* DATABASE FUNCTIONS */
 
+// Clear database of all unessential fields
+export const clearDatabase = () => {
+  console.log("Clearing database");
+
+  const data = {
+    messages: {
+      welcome: {
+        id: "welcome",
+        title: "Welcome to MatchPoint",
+        content:
+          "Welcome to MatchPoint! MatchPoint lets you seamlessly find open sporting events and sign up for them, allowing you to enjoy your favorite sports activities. Head over to the 'All Events' page now to see what's happening!",
+      },
+    },
+    users: {
+      0: "Initialize",
+    },
+  };
+
+  // Remove all non-essential entries from users and messages tables
+  update(ref(database), data);
+
+  // Remove events table all together
+  const eventsRef = child(ref(database), "/events");
+  remove(eventsRef);
+};
+
 // Use this function to get data from a path
 export const useDbData = (path) => {
   // console.log("Fetching data");
@@ -89,7 +115,21 @@ export const createEventMessage = (newUserMessage, newMessage, mid, uid) => {
   update(userUnreadMessagesRef, newUserMessage);
 };
 
-export const joinEventMessage = (
+export const deleteEventMessage = (
+  newMessage,
+  updatedParticipantsMessages,
+  participants,
+  mid
+) => {
+  set(ref(database, "messages/" + mid), newMessage);
+  for (let participant of participants) {
+    let i = participants.indexOf(participant);
+    const userUnreadMessagesRef = child(ref(database), `users/${participant}`);
+    update(userUnreadMessagesRef, updatedParticipantsMessages[i]);
+  }
+};
+
+export const joinLeaveEventMessage = (
   newMessage,
   ownerUnreadMessages,
   userUnreadMessages,
@@ -109,6 +149,13 @@ export const joinEventMessage = (
     console.log("Error in join event message");
     console.log(error);
   }
+};
+
+export const updateReadAndUnreadMessages = (newMessageData, uid) => {
+  console.log(newMessageData);
+
+  const userRef = child(ref(database), `users/${uid}`);
+  update(userRef, newMessageData);
 };
 
 export const deleteEvent = async (eid) => {

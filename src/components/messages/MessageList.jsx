@@ -6,16 +6,45 @@ import Message from "./Message.jsx";
 const MessageList = ({ allUsers, user, allMessages }) => {
   console.log(user);
   console.log(allUsers);
-  console.log(allMessages);
-  if (user == undefined || allUsers == undefined || allMessages == undefined) {
-    return "";
+  console.log("All messages: ", allMessages);
+
+  if (
+    user == undefined ||
+    allUsers == undefined ||
+    allMessages == undefined ||
+    allUsers[user.uid] == undefined
+  ) {
+    return <p className="empty-page-message">You have no messages ...</p>;
   }
 
-  if (allUsers[user.uid]["unreadMessages"]) {
+  let allUserMessages = [];
+  if (
+    allUsers[user.uid]["unreadMessages"] ||
+    allUsers[user.uid]["readMessages"]
+  ) {
+    if (allUsers[user.uid]["unreadMessages"]) {
+      allUserMessages = [
+        ...allUserMessages,
+        ...allUsers[user.uid]["unreadMessages"],
+      ];
+    }
+
+    if (allUsers[user.uid]["readMessages"]) {
+      allUserMessages = [
+        ...allUserMessages,
+        ...allUsers[user.uid]["readMessages"],
+      ];
+    }
+
     return (
       <div className="event-list">
-        {Object.entries(allUsers[user.uid]["unreadMessages"]).map(([id, m]) => (
-          <Message key={id} message={allMessages[m]} />
+        {Object.entries(allUserMessages).map(([id, m]) => (
+          <Message
+            key={id}
+            message={allMessages[m]}
+            allUsers={allUsers}
+            user={user}
+          />
         ))}
       </div>
     );
