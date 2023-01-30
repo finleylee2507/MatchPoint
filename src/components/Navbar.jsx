@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Container, Nav, Navbar, Offcanvas} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
 import {signOut} from "../utilities/firebase";
@@ -24,8 +24,10 @@ const AuthButton = () => {
     return <SignOutButton/>;
 };
 
-const NavBar = () => {
+const NavBar = ({numberOfUnread}) => {
     const [activeLink, setActiveLink] = useState(location.pathname);
+
+
     const handleClick = (link) => {
         setActiveLink(link);
     };
@@ -71,6 +73,7 @@ const NavBar = () => {
                                     onClick={() => handleClick("inbox")}
                                 >
                                     Inbox
+                                    <span className="number-of-unread">{numberOfUnread}</span>
                                 </Nav.Link>
                             </Nav>
                         </Offcanvas.Body>

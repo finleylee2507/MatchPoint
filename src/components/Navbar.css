@@ -55,6 +55,14 @@
   border-bottom: 3px solid #271CA1 !important;
  }
 
+.number-of-unread {
+    background-color: #DA4167;
+    color: white;
+    border-radius: 12px;
+    padding: 0 1rem;
+    margin-left: 0.5rem;
+}
+
 
 
 
