@@ -72,8 +72,7 @@ function EventModal({ show, handleJoin, handleClose, data, allUsers }) {
           CST
         </p>
         {/* {owner && <p>Owner: {allUsers[owner].displayName}</p>} */}
-        <span>Participants: </span>
-
+        <span>Participants: </span> {participants && participants.length == maxCap && <span>Event is full!</span>}
         <Table className="modal-participant-list">
           <tbody>
             {participants && participants.map((id) => (
@@ -105,7 +104,7 @@ function EventModal({ show, handleJoin, handleClose, data, allUsers }) {
               ))
             }
             {participants && participants.length == 0 && <tr><td>No participants yet!</td></tr>}
-            {participants && participants.length == maxCap && <tr><td>Event is full!</td></tr>}
+            
             
           </tbody>
         </Table>
