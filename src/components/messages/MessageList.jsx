@@ -11,11 +11,26 @@ const MessageList = ({ allUsers, user, allMessages }) => {
     return "";
   }
 
-  if (allUsers[user.uid]["unreadMessages"]) {
-    var allUserMessages = [
-      ...allUsers[user.uid]["unreadMessages"],
-      ...allUsers[user.uid]["readMessages"],
-    ];
+  if (
+    allUsers[user.uid]["unreadMessages"] ||
+    allUsers[user.uid]["readMessages"]
+  ) {
+    var allUserMessages = [];
+
+    if (allUsers[user.uid]["unreadMessages"]) {
+      allUserMessages = [
+        ...allUserMessages,
+        ...allUsers[user.uid]["unreadMessages"],
+      ];
+    }
+
+    if (allUsers[user.uid]["readMessages"]) {
+      allUserMessages = [
+        ...allUserMessages,
+        ...allUsers[user.uid]["readMessages"],
+      ];
+    }
+
     console.log(allUserMessages);
     return (
       <div className="event-list">
