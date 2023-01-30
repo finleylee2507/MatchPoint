@@ -10,6 +10,10 @@ const Message = ({ message, allUsers, user }) => {
 
   const markAsRead = () => {
     console.log("message clicked");
+
+    if (message.id == "welcome") {
+      return;
+    }
     let updatedMessageData = {};
 
     // Update the list of read messages
@@ -31,29 +35,6 @@ const Message = ({ message, allUsers, user }) => {
 
     // Call firebase function to update read and unread messages
     updateReadAndUnreadMessages(updatedMessageData, user.uid);
-
-    // Update the list of read messages
-    // let updatedUserReadMessages;
-    // if (!allUsers[user.uid].readMessages) {
-    //   updatedUserReadMessages = {
-    //     readMessages: [message.id],
-    //   };
-    // } else {
-    //   updatedUserReadMessages = {
-    //     readMessages: [...allUsers[user.uid].readMessages, message.id],
-    //   };
-    // }
-
-    // // Remove current message from unread messages list
-    // var userUnreadMessages = allUsers[user.uid].unreadMessages;
-    // var indexToDelete = userUnreadMessages.indexOf(message.id);
-    // delete userUnreadMessages[indexToDelete];
-
-    // let updatedUserUnreadMessages = {
-    //   unreadMessages: userUnreadMessages,
-    // };
-
-    // Call firebase function to update read and unread messages
   };
 
   return (
