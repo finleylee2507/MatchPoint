@@ -4,11 +4,22 @@ import { updateReadAndUnreadMessages } from "../../utilities/firebase";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Message = ({ message, allUsers, user }) => {
+const Message = ({
+  message,
+  allUsers,
+  user,
+  showModal,
+  setCurrentMessageToDisplay,
+}) => {
   if (message == undefined || allUsers == undefined || user == undefined) {
     return "";
   }
 
+  const handleMessageClick = () => {
+    markAsRead();
+    setCurrentMessageToDisplay(message);
+    showModal();
+  };
   const markAsRead = () => {
     console.log("message clicked");
 
@@ -95,7 +106,7 @@ const Message = ({ message, allUsers, user }) => {
   };
 
   return (
-    <div className="message" onClick={markAsRead}>
+    <div className="message" onClick={handleMessageClick}>
       <div>
         <div className="message-upper-container">
           <h1 className="card-title">{message.title}</h1>
