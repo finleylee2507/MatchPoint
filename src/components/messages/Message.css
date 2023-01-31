@@ -1,26 +1,47 @@
 .message {
-  cursor: pointer;
-  background-color: transparent;
-  box-shadow: 0 -1px gray, inset 0 -1px gray;
-  margin: 0 1vw;
-  padding: 1vw;
-  width: 90%;
+    cursor: pointer;
+    background-color: transparent;
+    box-shadow: 0 -1px gray, inset 0 -1px gray;
+    margin: 0 1vw;
+    padding: 1vw;
+    width: 90%;
 }
 
 .message:hover {
-  background-color: #c3beff;
-  transition: 0.3s;
+    background-color: #c3beff;
+    transition: 0.3s;
 }
 
 .subtitle {
-  font-size: 1.5vw;
-  color: gray;
-  margin-bottom: 0.7vw;
+    font-size: 1.5vw;
+    color: gray;
+    margin-bottom: 0.7vw;
+}
+
+.message-upper-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .message-content {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: 1.5vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1.5vw;
+}
+
+.delete-message-icon:hover {
+    transform: scale(1.2);
+    animation: jiggle 0.5s infinite linear;
+}
+
+@keyframes jiggle {
+    /* start at 0deg and this scale size.
+       scale size is repeated here to maintain smooth scaling */
+    0% {transform: rotate(0deg) scale(1.15,1.15);}
+    /* midway rotate 2deg right */
+    50% {transform: rotate(10deg) scale(1.15,1.15);}
+    /* end rotate -2deg left */
+    100% {transform: rotate(-10deg) scale(1.15,1.15)}
 }
