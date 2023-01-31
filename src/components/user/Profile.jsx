@@ -51,34 +51,6 @@ const Profile = ({ allUsers, user, allEvents }) => {
       </div>
     );
   }
-
-  // if (allUsers[user.uid]["events"]) {
-  //   return (
-  //     <UserEventList user={user} allUsers />
-  //   )
-  // } else {
-  //   console.log("no events");
-  //   return (
-  //     <p className="empty-page-message">You are not a part of any events ...</p>
-  //   );
 };
-
-// return (
-//     ("events" in currUser || currUser[events]) ?
-//         <div>
-//             {userEvents = undefined || userEvents.length === 0 ? (
-//                 <p className="empty-page-message">You are not a part of any events ...</p>
-//             ) : (
-//                 userEvents.map((e) => (
-//                     <UserEventCard
-//                         key={e}
-//                         event={allEvents[e]}
-//                     />
-//                 ))
-//             )}
-//         </div>
-//     :
-//     ""
-// )
 
 export default Profile;

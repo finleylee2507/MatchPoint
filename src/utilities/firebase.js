@@ -1,8 +1,8 @@
-// Firebase functionality goes here
-
-// Import the functions you need from the SDKs you need
 import { useEffect, useState } from "react";
+
+// Import Firebase SDK functions
 import { initializeApp } from "firebase/app";
+
 import {
   child,
   getDatabase,
@@ -13,6 +13,7 @@ import {
   set,
   update,
 } from "firebase/database";
+
 import {
   getAuth,
   GoogleAuthProvider,
@@ -20,6 +21,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+
 import {
   deleteObject,
   getDownloadURL,
@@ -28,7 +30,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 
-// Configuration Data
+// Firebase configuration dsata
 const firebaseConfig = {
   apiKey: "AIzaSyD0rTZHHcGBphDZed-iv-N3QCmvkOKo7To",
   authDomain: "matchpoint-9d3b2.firebaseapp.com",
@@ -47,7 +49,9 @@ const storage = getStorage();
 
 /* DATABASE FUNCTIONS */
 
-// Clear database of all unessential fields
+// HOLISTIC DATABASE FUNCTIONS
+
+// Clear entire database of all unessential fields
 export const clearDatabase = () => {
   console.log("Clearing database");
 
@@ -65,7 +69,7 @@ export const clearDatabase = () => {
     },
   };
 
-  // Remove all non-essential entries from users and messages tables
+  // Update messages and users tables in database with above data
   update(ref(database), data);
 
   // Remove events table all together
@@ -73,9 +77,8 @@ export const clearDatabase = () => {
   remove(eventsRef);
 };
 
-// Use this function to get data from a path
+// Get data from a specific path in the entire database
 export const useDbData = (path) => {
-  // console.log("Fetching data");
   const [data, setData] = useState();
   const [error, setError] = useState(null);
 
@@ -96,106 +99,18 @@ export const useDbData = (path) => {
   return [data, error];
 };
 
-// Add user to database
+// USER FUNCTIONALITY
+
+// Add a new user to the users table in the database
 export const addNewUser = (newUser, uid) => {
   set(ref(database, "users/" + uid), newUser);
 };
 
-//Add new event to database
-export const addNewEvent = (newEvent, eid, updatedUserEvents, uid) => {
-  set(ref(database, "events/" + eid), newEvent);
-
-  const userEventsRef = child(ref(database), `users/${uid}`);
-  update(userEventsRef, updatedUserEvents); // add event to user's list of events
-};
-
-export const createEventMessage = (newUserMessage, newMessage, mid, uid) => {
-  set(ref(database, "messages/" + mid), newMessage);
-  const userUnreadMessagesRef = child(ref(database), `users/${uid}`);
-  update(userUnreadMessagesRef, newUserMessage);
-};
-
-export const deleteEventMessage = (
-  newMessage,
-  updatedParticipantsMessages,
-  participants,
-  mid
-) => {
-  set(ref(database, "messages/" + mid), newMessage);
-  for (let participant of participants) {
-    let i = participants.indexOf(participant);
-    const userUnreadMessagesRef = child(ref(database), `users/${participant}`);
-    update(userUnreadMessagesRef, updatedParticipantsMessages[i]);
-  }
-};
-
-export const joinLeaveEventMessage = (
-  newMessage,
-  ownerUnreadMessages,
-  userUnreadMessages,
-  mid,
-  oid,
-  uid
-) => {
-  try {
-    set(ref(database, "messages/" + mid), newMessage); // add to general messages table
-
-    const ownerUnreadMessagesRef = child(ref(database), `users/${oid}`);
-    update(ownerUnreadMessagesRef, ownerUnreadMessages); // updates owners unread messages
-
-    const userUnreadMessagesRef = child(ref(database), `users/${uid}`);
-    update(userUnreadMessagesRef, userUnreadMessages); // updates users unread messages
-  } catch (error) {
-    console.log("Error in join event message");
-    console.log(error);
-  }
-};
-
-export const updateReadAndUnreadMessages = (newMessageData, uid) => {
-  console.log(newMessageData);
-
-  const userRef = child(ref(database), `users/${uid}`);
-  update(userRef, newMessageData);
-};
-
-export const deleteEvent = async (eid) => {
-  let isSuccessful = false;
-  try {
-    await remove(ref(database, "events/" + eid));
-    isSuccessful = true;
-  } catch (error) {
-    console.log(error);
-  }
-
-  return isSuccessful;
-};
-
-// Join an event
-export const joinEvent = async (
-  updatedParticipants,
-  updatedUserEvents,
-  ueid,
-  uid
-) => {
-  const participantsRef = child(ref(database), `events/${ueid}`);
-  const userEventsRef = child(ref(database), `users/${uid}`);
-
-  let isJoinSuccessful = false;
-  try {
-    await update(participantsRef, updatedParticipants); // join event
-    await update(userEventsRef, updatedUserEvents); // add event to user's list of events
-
-    isJoinSuccessful = true;
-  } catch (error) {
-    console.log(error);
-  }
-
-  return isJoinSuccessful;
-};
-
+// Delete an event from each of its participants' list of events
 export const deleteEventFromUsers = async (listOfUserIds, listOfNewEvents) => {
   let isDeleteSuccessful = true;
-  //iterate over user list
+
+  // Iterate over user list
   for (const uid of listOfUserIds) {
     const i = listOfUserIds.indexOf(uid);
     const userEventsRef = child(ref(database), `users/${uid}`);
@@ -210,10 +125,65 @@ export const deleteEventFromUsers = async (listOfUserIds, listOfNewEvents) => {
 
   return isDeleteSuccessful;
 };
-// //Update an event
+
+// EVENT FUNCTIONALITY
+
+// Generate a unique ID for a new event, add it to the DB, and return it
+export const getNewEventKey = () => {
+  const eventKey = push(child(ref(database), "events"));
+  return eventKey.key;
+};
+
+// Add new event to the events table in the database
+// Add the current event to the creator's list of events
+export const addNewEvent = (newEvent, eid, updatedUserEvents, uid) => {
+  set(ref(database, "events/" + eid), newEvent);
+
+  const userEventsRef = child(ref(database), `users/${uid}`);
+  update(userEventsRef, updatedUserEvents); // add event to user's list of events
+};
+
+// Delete a specific event from the events table in the database
+export const deleteEvent = async (eid) => {
+  let isSuccessful = false;
+  try {
+    await remove(ref(database, "events/" + eid));
+    isSuccessful = true;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return isSuccessful;
+};
+
+// Add the joining user to the list of participants for the eventj
+// Add the event to the joining user's list of participants
+export const joinEvent = async (
+  updatedParticipants,
+  updatedUserEvents,
+  ueid,
+  uid
+) => {
+  const participantsRef = child(ref(database), `events/${ueid}`);
+  const userEventsRef = child(ref(database), `users/${uid}`);
+
+  let isJoinSuccessful = false;
+  try {
+    await update(participantsRef, updatedParticipants);
+    await update(userEventsRef, updatedUserEvents);
+    isJoinSuccessful = true;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return isJoinSuccessful;
+};
+
+// Update a specific event in the events table in the database
 export const updateEvent = async (newEvent, eid) => {
   const eventRef = child(ref(database), `events/${eid}`);
   let isUpdateSuccessful = false;
+
   try {
     await update(eventRef, newEvent);
     isUpdateSuccessful = true;
@@ -224,16 +194,72 @@ export const updateEvent = async (newEvent, eid) => {
   return isUpdateSuccessful;
 };
 
-// Get new event key
-export const getNewEventKey = () => {
-  const eventKey = push(child(ref(database), "events"));
-  return eventKey.key;
-};
+// MESSAGES FUNCTIONALITY
 
+// Generate a unique ID for a new message, add it to the DB, and return it
 export const getNewMessageKey = () => {
   const messageKey = push(child(ref(database), "messages"));
   return messageKey.key;
 };
+
+// Add a new message to the messages table upon event creation
+// Add this message to the event creator's list of messages
+export const createEventMessage = (newUserMessage, newMessage, mid, uid) => {
+  set(ref(database, "messages/" + mid), newMessage);
+
+  const userUnreadMessagesRef = child(ref(database), `users/${uid}`);
+  update(userUnreadMessagesRef, newUserMessage);
+};
+
+// Add a new message to the messages table upon event deletion
+// Add this message to the list of messages for all participants of the deleted event
+export const deleteEventMessage = (
+  newMessage,
+  updatedParticipantsMessages,
+  participants,
+  mid
+) => {
+  set(ref(database, "messages/" + mid), newMessage);
+
+  for (let participant of participants) {
+    let i = participants.indexOf(participant);
+    const userUnreadMessagesRef = child(ref(database), `users/${participant}`);
+    update(userUnreadMessagesRef, updatedParticipantsMessages[i]);
+  }
+};
+
+// Add a new message to the message table upon a user joining or leaving an event
+// Add this message to the list of messages for the event creator
+// Add this message to the list of messages for the event joiner/leaver
+export const joinLeaveEventMessage = (
+  newMessage,
+  ownerUnreadMessages,
+  userUnreadMessages,
+  mid,
+  oid,
+  uid
+) => {
+  try {
+    set(ref(database, "messages/" + mid), newMessage);
+
+    const ownerUnreadMessagesRef = child(ref(database), `users/${oid}`);
+    update(ownerUnreadMessagesRef, ownerUnreadMessages);
+
+    const userUnreadMessagesRef = child(ref(database), `users/${uid}`);
+    update(userUnreadMessagesRef, userUnreadMessages);
+  } catch (error) {
+    console.log("Error in join event message");
+    console.log(error);
+  }
+};
+
+// Update the lists of read and unread messages for the given user
+export const updateReadAndUnreadMessages = (newMessageData, uid) => {
+  const userRef = child(ref(database), `users/${uid}`);
+  update(userRef, newMessageData);
+};
+
+// FILE FUNCTIONALITY
 
 export const uploadFile = async (file) => {
   let fileLink = `images/${file.name}`;
@@ -275,16 +301,20 @@ export const getImageLinkOfExistingImage = async (imageFileName) => {
 
   return imageLink;
 };
+
 /* USER AUTHENTICATION FUNCTIONS */
 
+// Open Google sign in popup and sign in the user
 export const signInWithGoogle = () => {
   signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
 };
 
+// Sign out the user
 const firebaseSignOut = () => signOut(getAuth(firebase));
-
 export { firebaseSignOut as signOut };
 
+// Get the authentication state of the user (is the user signed in or not)
+// If user is signed in, return value is a Google user object (console.log to see all)
 export const useAuthState = () => {
   const [user, setUser] = useState();
 

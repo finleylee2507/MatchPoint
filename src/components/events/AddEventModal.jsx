@@ -23,7 +23,6 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
     eventDescription: "",
   });
 
-  // console.log("Haha: ",user.uid);
   const clearStates = () => {
     setFormData({
       eventName: "",
@@ -63,7 +62,6 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
   const handleChange = (event) => {
     const { name, value, type, files } = event.target;
 
-    console.log(formData);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "file" ? files[0] : value,
@@ -79,7 +77,6 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
       e.stopPropagation();
       setSubmissionStatus(0);
       setValidated(true);
-      // console.log("huh");
       return;
     }
 

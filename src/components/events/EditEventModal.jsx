@@ -28,7 +28,6 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
 
   const initializeForm = () => {
     if (data) {
-      // console.log("Date: ", data.dateTimeString);
       let dateTimeObject = new Date(data.dateTimeString);
 
       //convert GMT time to CST
@@ -81,7 +80,6 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
   const handleChange = (event) => {
     const { name, value, type, files } = event.target;
 
-    //console.log(formData);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "file" ? files[0] : value,

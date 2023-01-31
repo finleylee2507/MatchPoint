@@ -1,28 +1,26 @@
-.message{
-    cursor: pointer;
-    background-color: transparent;
-    box-shadow: 0 -1px gray, inset 0 -1px gray;
-    margin: 0 1vw;
-    padding: 1vw;
-    width: 90%;
+.message {
+  cursor: pointer;
+  background-color: transparent;
+  box-shadow: 0 -1px gray, inset 0 -1px gray;
+  margin: 0 1vw;
+  padding: 1vw;
+  width: 90%;
 }
 
-.message:hover{
-    background-color: #C3BEFF;
-    transition: 0.3s;
+.message:hover {
+  background-color: #c3beff;
+  transition: 0.3s;
 }
 
-
-.subtitle{
-    font-size: 1.5vw;
-    color: gray;
-    margin-bottom: 0.7vw;
+.subtitle {
+  font-size: 1.5vw;
+  color: gray;
+  margin-bottom: 0.7vw;
 }
 
-.message-content{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 1.5vw;
+.message-content {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1.5vw;
 }
-

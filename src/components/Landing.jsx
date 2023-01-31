@@ -47,12 +47,7 @@ const Landing = (allUsers) => {
         "Welcome to MatchPoint! MatchPoint lets you seamlessly find open sporting events and sign up for them, allowing you to enjoy your favorite sports activities. Head over to the 'All Events' page now to see what's happening!",
     };
 
-    // const messageKey = getNewMessageKey();
-    // console.log("new message is: ");
-    // console.log(messageKey);
-
     if (!allUsers["allUsers"][user.uid]) {
-      console.log("time to create new user");
       const newUser = {
         displayName: user.displayName,
         email: user.email,
