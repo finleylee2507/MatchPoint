@@ -43,15 +43,11 @@
   padding: 10px 0px 10px 0px !important;
 }
 
-.card-title {
-  font-size: 3vw !important;
-  color: #5f4bc4;
+.title {
+    font-size: 5vw !important;
+    color: #5f4bc4;
 }
 
-.card-text {
-  font-size: 2vw !important;
-  margin-bottom: 8px !important;
-}
 
 hr.solid {
   border-top: 3px solid #bbb;
@@ -65,10 +61,14 @@ hr.solid {
   padding: 2vw;
 }
 
+.date-time{
+    font-size: 2.8vw !important;
+    color: gray !important;
+}
 .subheader {
-  font-size: 1.5vw;
-  color: gray;
-  margin-bottom: 0px;
+    font-size: 2.5vw !important;
+    color: black !important;
+    margin-bottom: 0px;
 }
 
 .participant-title {
@@ -126,6 +126,13 @@ hr.solid {
 }
 
 .location {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    color: black;
 }
+
+.icon-width{
+    padding-right: 0.7em;
+    font-size: 1.3em;
+}
+

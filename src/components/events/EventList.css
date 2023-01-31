@@ -19,12 +19,12 @@
 
 .add-event-button {
   margin-left: 10px;
-  width: 14vw;
-  background-color: white !important;
+  width: 17vw;
 }
 
 .search-button,
 .add-event-button {
+  background-color: white !important;
   color: #271ca1 !important;
   border-color: #271ca1 !important;
 }

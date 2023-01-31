@@ -168,7 +168,6 @@ const EventList = ({ eventData, user, allUsers }) => {
                 aria-label="Add event"
                 onClick={handleShowAddEventModal}
               >
-                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 Add Event
               </Button>
             </Stack>
@@ -510,7 +509,6 @@ const EventList = ({ eventData, user, allUsers }) => {
               aria-label="Add event"
               onClick={handleShowAddEventModal}
             >
-              <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               Add Event
             </Button>
           </Stack>

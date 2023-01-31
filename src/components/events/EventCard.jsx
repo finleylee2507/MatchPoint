@@ -8,6 +8,7 @@ import {
   faLocationDot,
   faPeopleGroup,
   faUserPlus,
+  faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import ellipsis from "../../assets/ellipsis.jpg";
 
@@ -68,31 +69,38 @@ const EventCard = ({
             <img className="image" src={imgSrc} alt="image of event" />
           </Col>
           <Col>
-            <Card.Title className="card-title">{name}</Card.Title>
-            <h2 className="text-muted">Date . Time</h2>
+            <Card.Title className="title">{name}</Card.Title>
+            <h2 className="date-time">Date . Time</h2>
 
             <div className="location">
-              <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
+              <FontAwesomeIcon
+                className="icon-width"
+                icon={faLocationDot}
+              ></FontAwesomeIcon>
               <a
                 href={`https://maps.google.com/?q=${cardData.location}`}
                 className="subheader"
                 target="_blank"
               >
                 {" "}
-                Location: {cardData.location}
+                {cardData.location}
               </a>
             </div>
 
-            <Button
-              className="card-button see-more-button"
-              onClick={() => {
-                openModal(cardData);
-              }}
-              variant="primary"
-              size="lg"
-            >
-              See more
-            </Button>
+            <div className="see-more">
+              <FontAwesomeIcon
+                className="icon-width"
+                icon={faCircleInfo}
+              ></FontAwesomeIcon>
+              <a
+                className="subheader"
+                onClick={() => {
+                  openModal(cardData);
+                }}
+              >
+                See Event Details
+              </a>
+            </div>
           </Col>
 
           <Col>
@@ -152,7 +160,10 @@ const EventCard = ({
             <h3 className="details-header">Event Size</h3>
             <div className="details">
               <div className="left">
-                <FontAwesomeIcon icon={faPeopleGroup}></FontAwesomeIcon>
+                <FontAwesomeIcon
+                  className="icon-width"
+                  icon={faPeopleGroup}
+                ></FontAwesomeIcon>
               </div>
               <div className="right">
                 <h3 className="details-text">{maxCap}</h3>
@@ -163,7 +174,10 @@ const EventCard = ({
             <h3 className="details-header">Spots Available</h3>
             <div className="details">
               <div className="left">
-                <FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>
+                <FontAwesomeIcon
+                  className="icon-width"
+                  icon={faUserPlus}
+                ></FontAwesomeIcon>
               </div>
               <div className="right">
                 <h3 className="details-text">{maxCap - participants.length}</h3>
@@ -174,7 +188,10 @@ const EventCard = ({
             <h3 className="details-header">Experience Level</h3>
             <div className="details">
               <div className="left">
-                <FontAwesomeIcon icon={faAward}></FontAwesomeIcon>
+                <FontAwesomeIcon
+                  className="icon-width"
+                  icon={faAward}
+                ></FontAwesomeIcon>
               </div>
               <div className="right">
                 <h3 className="details-text">{cardData.skillLevel}</h3>
