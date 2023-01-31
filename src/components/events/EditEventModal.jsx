@@ -139,6 +139,7 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
       }}
       centered
       backdrop="static"
+      fullscreen="sm-down"
     >
       <Modal.Header closeButton>
         <Modal.Title>Edit the event</Modal.Title>
