@@ -140,6 +140,7 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
       centered
       backdrop="static"
       fullscreen="sm-down"
+      scrollable="true"
     >
       <Modal.Header closeButton>
         <Modal.Title>Edit the event</Modal.Title>

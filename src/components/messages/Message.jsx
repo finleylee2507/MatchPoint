@@ -121,7 +121,7 @@ const Message = ({
         </div>
 
         <h3 className="subtitle">Event name</h3>
-        <p className="message-content">{message.content}</p>
+        {/*<p className="message-content">{message.content}</p>*/}
       </div>
     </div>
   );

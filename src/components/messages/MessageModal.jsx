@@ -4,7 +4,13 @@ import { Button } from "react-bootstrap";
 
 const MessageModal = ({ show, handleClose, messageData }) => {
   return (
-    <Modal show={show} backdrop="static" fullscreen="sm-down" size="lg">
+    <Modal
+      show={show}
+      backdrop="static"
+      fullscreen="sm-down"
+      size="lg"
+      scrollable="true"
+    >
       <Modal.Header>
         <Modal.Title>{messageData.title}</Modal.Title>
       </Modal.Header>

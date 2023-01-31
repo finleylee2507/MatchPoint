@@ -128,6 +128,7 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
       centered
       backdrop="static"
       fullscreen="sm-down"
+      scrollable="true"
     >
       <Modal.Header closeButton>
         <Modal.Title>Create an event</Modal.Title>
