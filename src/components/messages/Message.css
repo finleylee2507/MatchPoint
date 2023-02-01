@@ -7,6 +7,10 @@
     width: 90%;
 }
 
+.message.read{
+    /*background-color: #e1dede;*/
+}
+
 .message:hover {
     background-color: #c3beff;
     transition: 0.3s;
@@ -19,9 +23,11 @@
 }
 
 .message-upper-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: flex-start;*/
+
 }
 
 .message-content {
@@ -35,6 +41,12 @@
     transform: scale(1.2);
     animation: jiggle 0.5s infinite linear;
 }
+
+.card-title.read{
+    color:#808080;
+    opacity:0.2;
+}
+
 
 @keyframes jiggle {
     /* start at 0deg and this scale size.

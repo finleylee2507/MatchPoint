@@ -22,6 +22,7 @@ const MessageList = ({ allUsers, user, allMessages }) => {
   console.log(allUsers);
   console.log("All messages: ", allMessages);
 
+  //render logic
   if (
     user == undefined ||
     allUsers == undefined ||
@@ -54,14 +55,15 @@ const MessageList = ({ allUsers, user, allMessages }) => {
 
   return (
     <div className="event-list">
-      {Object.entries(allUserMessages).map(([id, m]) => (
+      {Object.entries(allUserMessages).map(([id, messageId]) => (
         <Message
           key={id}
-          message={allMessages[m]}
+          message={allMessages[messageId]}
           allUsers={allUsers}
           user={user}
           setCurrentMessageToDisplay={handleSetCurrentMessageToDisplay}
           showModal={handleShowMessageModal}
+          isRead={!allUsers[user.uid]["unreadMessages"].includes(messageId)}
         />
       ))}
 
