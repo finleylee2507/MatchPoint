@@ -12,5 +12,29 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "emulators": {
+    "auth": {
+      "port": 5174
+    },
+    "firestore": {
+      "port": 5175
+    },
+    "database": {
+      "port": 5176
+    },
+    "hosting": {
+      "port": 5177
+    },
+    "storage": {
+      "port": 5178
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  },
+  "storage": {
+    "rules": "storage.rules"
   }
 }
