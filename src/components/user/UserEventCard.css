@@ -109,3 +109,7 @@ hr.solid {
   padding: 20px !important;
   cursor: pointer;
 }
+.card-info{
+  display: flex;
+  align-items: center;
+}
