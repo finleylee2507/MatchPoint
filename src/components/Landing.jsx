@@ -78,7 +78,9 @@ const Landing = (allUsers) => {
             className="small-logo"
             alt="small MatchPoint app image"
           />
-          <h1 className="app-name">MatchPoint</h1>
+          <h1 className="app-name" data-cy="app-name">
+            MatchPoint
+          </h1>
         </div>
 
         <h3>Find open events, join teams, and much more.</h3>
