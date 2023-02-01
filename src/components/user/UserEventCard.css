@@ -104,3 +104,8 @@ hr.solid {
   padding-left: 3vw;
   padding-right: 3vw;
 }
+
+.user-event-card-body{
+  padding: 20px !important;
+  cursor: pointer;
+}

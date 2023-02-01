@@ -1,17 +1,22 @@
 // User Event Card
-import React from "react";
+import React, {useState} from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import "./UserEventCard.css";
 
-const UserEventCard = ({ event }) => {
+const UserEventCard = ({ event, displayName, allUsers, displayModalHook }) => {
+  
+  const handleOnClick = () => {
+    
+    displayModalHook({eventData:event, isShow:true})
+  }
   return (
     <Card>
-      <Card.Body>
+      <Card.Body className="user-event-card-body" onClick={handleOnClick}>
         <Card.Title>{event.name}</Card.Title>
 
         <Card.Text>date: something</Card.Text>
 
-        <Card.Text>owner: {event.owner}</Card.Text>
+        <Card.Text>owner: {allUsers[event.owner].displayName}</Card.Text>
 
         <Card.Text>location: {event.location}</Card.Text>
 
