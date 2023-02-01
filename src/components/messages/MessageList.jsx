@@ -26,56 +26,54 @@ const MessageList = ({ allUsers, user, allMessages }) => {
     user == undefined ||
     allUsers == undefined ||
     allMessages == undefined ||
-    allUsers[user.uid] == undefined
+    allUsers[user.uid] == undefined ||
+    (allUsers[user.uid]["unreadMessages"] == undefined &&
+      allUsers[user.uid]["readMessages"] == undefined)
   ) {
-    return <p className="empty-page-message">You have no messages ...</p>;
+    return (
+      <div className="event-list">
+        <p className="empty-page-message">You have no messages ...</p>
+      </div>
+    );
   }
 
   let allUserMessages = [];
-  if (
-    allUsers[user.uid]["unreadMessages"] ||
-    allUsers[user.uid]["readMessages"]
-  ) {
-    if (allUsers[user.uid]["unreadMessages"]) {
-      allUserMessages = [
-        ...allUserMessages,
-        ...allUsers[user.uid]["unreadMessages"],
-      ];
-    }
-
-    if (allUsers[user.uid]["readMessages"]) {
-      allUserMessages = [
-        ...allUserMessages,
-        ...allUsers[user.uid]["readMessages"],
-      ];
-    }
-
-    return (
-      <div className="event-list">
-        {Object.entries(allUserMessages).map(([id, m]) => (
-          <Message
-            key={id}
-            message={allMessages[m]}
-            allUsers={allUsers}
-            user={user}
-            setCurrentMessageToDisplay={handleSetCurrentMessageToDisplay}
-            showModal={handleShowMessageModal}
-          />
-        ))}
-
-        {currentMessageToDisplay && (
-          <MessageModal
-            handleClose={handleCloseMessageModal}
-            messageData={currentMessageToDisplay}
-            handleClose={handleCloseMessageModal}
-            show={showMessageModal}
-          />
-        )}
-      </div>
-    );
-  } else {
-    return <p className="empty-page-message">You have no messages ...</p>;
+  if (allUsers[user.uid]["unreadMessages"]) {
+    allUserMessages = [
+      ...allUserMessages,
+      ...allUsers[user.uid]["unreadMessages"],
+    ];
   }
+
+  if (allUsers[user.uid]["readMessages"]) {
+    allUserMessages = [
+      ...allUserMessages,
+      ...allUsers[user.uid]["readMessages"],
+    ];
+  }
+
+  return (
+    <div className="event-list">
+      {Object.entries(allUserMessages).map(([id, m]) => (
+        <Message
+          key={id}
+          message={allMessages[m]}
+          allUsers={allUsers}
+          user={user}
+          setCurrentMessageToDisplay={handleSetCurrentMessageToDisplay}
+          showModal={handleShowMessageModal}
+        />
+      ))}
+
+      {currentMessageToDisplay && (
+        <MessageModal
+          handleClose={handleCloseMessageModal}
+          messageData={currentMessageToDisplay}
+          show={showMessageModal}
+        />
+      )}
+    </div>
+  );
 };
 
 export default MessageList;

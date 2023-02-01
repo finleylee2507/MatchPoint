@@ -30,7 +30,7 @@ function ParticipantsModal({ show, handleClose, data, allUsers }) {
           <tbody>
             {participants &&
               participants.map((id) => (
-                <tr className="participant-list-items">
+                <tr className="participant-list-items" key={id}>
                   <td>
                     <img
                       className="profile-image-modal"
@@ -47,7 +47,7 @@ function ParticipantsModal({ show, handleClose, data, allUsers }) {
             {participants &&
               participants.length < maxCap &&
               [...Array(maxCap - participants.length)].map((_, i) => (
-                <tr className="participant-list-items">
+                <tr className="participant-list-items" key={i}>
                   <td>
                     <img className="profile-image-modal" src={logo} />
                   </td>

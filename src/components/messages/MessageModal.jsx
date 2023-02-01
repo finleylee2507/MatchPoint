@@ -10,6 +10,7 @@ const MessageModal = ({ show, handleClose, messageData }) => {
       fullscreen="sm-down"
       size="lg"
       scrollable="true"
+      centered
     >
       <Modal.Header>
         <Modal.Title>{messageData.title}</Modal.Title>
