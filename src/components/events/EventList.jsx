@@ -20,8 +20,6 @@ import EventCard from "./EventCard";
 import EventModal from "./EventModal";
 import AddEventModal from "./AddEventModal";
 import "./EventList.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DeleteEventModal from "./DeleteEventModal";
 import EditEventModal from "./EditEventModal";
 import { toast, ToastContainer } from "react-toastify";
@@ -42,7 +40,7 @@ const EventList = ({ eventData, user, allUsers }) => {
   const [eventToDelete, setEventToDelete] = useState(null);
   const [eventToEdit, setEventToEdit] = useState(null);
   const handleCloseAddEventModal = () => setShowAddEventModal(false);
-  const handleShowAddEventModal = (data) => {
+  const handleShowAddEventModal = () => {
     setShowAddEventModal(true);
   };
   const handleAddEventSubmit = async (
@@ -60,8 +58,7 @@ const EventList = ({ eventData, user, allUsers }) => {
       }
     } else {
       //set image link to default image
-      let fileLink = defaultCoverURL;
-      newEventData.imgSrc = fileLink;
+      newEventData.imgSrc = defaultCoverURL;
     }
 
     //get key from database
@@ -133,13 +130,11 @@ const EventList = ({ eventData, user, allUsers }) => {
       return prevState.filter((event) => {
         let eventName = event.name.toLowerCase();
 
-        let isMatch = searchTerms.some((term) => eventName.includes(term));
-
-        return isMatch;
+        return searchTerms.some((term) => eventName.includes(term));
       });
     });
   };
-  if (eventData == undefined || user == undefined || allUsers == undefined) {
+  if (eventData === undefined || user === undefined || allUsers === undefined) {
     return (
       <div className="event-list">
         <ToastContainer />
@@ -229,9 +224,9 @@ const EventList = ({ eventData, user, allUsers }) => {
     let newJoinMessage = {
       title: "New Event Participant",
       id: newMessageKey,
-      content: `${allUsers[user.uid].displayName} has joined the event '${
+      content: `${allUsers[user.uid].displayName} has joined the event "${
         data.name
-      }.`,
+      }".`,
     };
 
     // Create an updated list of unread messages for the current user (joiner)
@@ -309,9 +304,9 @@ const EventList = ({ eventData, user, allUsers }) => {
     let newJoinMessage = {
       title: "A Participant Left the Event",
       id: newMessageKey,
-      content: `${allUsers[user.uid].displayName} has left the event '${
+      content: `${allUsers[user.uid].displayName} has left the event "${
         data.name
-      }.`,
+      }".`,
     };
 
     // Create an updated list of unread messages for the current user (joiner)
