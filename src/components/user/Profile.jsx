@@ -7,23 +7,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import React, {useState} from "react";
 import EventModal from "../events/EventModal";
-
-const UserEventList = ({ user, allEvents, allUsers, displayModalHook }) => {
-  if (user["events"]) {
-    return user["events"].map((e) => (
-      <UserEventCard key={e} event={allEvents[e]} allUsers={allUsers} displayModalHook={displayModalHook}/>
-    ));
-  } else {
-    return (
-      <div>
-        <p>
-          You don't have any upcoming events. Please create one, or join one
-          from the All Events tab!
-        </p>
-      </div>
-    );
-  }
-};
+import UserEventList from "./UserEventList";
 const Profile = ({ allUsers, user, allEvents }) => {
 
   const [showEventModal, setShowEventModal] = useState(false)
