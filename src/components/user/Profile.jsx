@@ -5,14 +5,14 @@ import "./Profile.css";
 import UserAvatar from "./UserAvatar";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import EventModal from "../events/EventModal";
 import UserEventList from "./UserEventList";
 const Profile = ({ allUsers, user, allEvents }) => {
 
   const [showEventModal, setShowEventModal] = useState(false)
   const [eventData, setEventData] = useState({})
-  const displayModalHook = ({eventData, isShow}) => {
+  const displayModalHook = ({ eventData, isShow }) => {
     setShowEventModal(isShow)
     setEventData(eventData)
   }
@@ -42,12 +42,11 @@ const Profile = ({ allUsers, user, allEvents }) => {
             "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
           }
         />
-        <p className="user-profile-title">{`Hi, ${
-          allUsers[user.uid].displayName
-        }`}</p>
+        <p className="user-profile-title">{`Hi, ${allUsers[user.uid].displayName
+          }`}</p>
         <Tabs defaultActiveKey="upcoming" className="mb-3">
           <Tab eventKey="upcoming" title="Upcoming">
-            <UserEventList user={allUsers[user.uid]} allEvents={allEvents} allUsers={allUsers} displayModalHook={displayModalHook}/>
+            <UserEventList user={allUsers[user.uid]} allEvents={allEvents} allUsers={allUsers} displayModalHook={displayModalHook} />
           </Tab>
 
           <Tab eventKey="past" title="Past"></Tab>

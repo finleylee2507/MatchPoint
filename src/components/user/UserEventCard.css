@@ -9,7 +9,7 @@
 }
 
 .card {
-  width: 85vw;
+  width: 100%;
   margin-top: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -38,7 +38,7 @@
 }
 
 .card-title {
-  font-size: 3vw !important;
+  font-size: max(20px, 3vw) !important;
   color: #5f4bc4;
 }
 
@@ -105,11 +105,14 @@ hr.solid {
   padding-right: 3vw;
 }
 
-.user-event-card-body{
+.user-event-card-body {
   padding: 20px !important;
   cursor: pointer;
 }
-.card-info{
+
+.card-info {
   display: flex;
   align-items: center;
+  font-size: medium;
+  margin: 10px;
 }
