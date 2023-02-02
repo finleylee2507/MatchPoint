@@ -205,86 +205,88 @@ const EventList = ({ eventData, user, allUsers }) => {
     }
 
     let shouldJoin = false;
+    let isConflict = true; //make sure we're not joining an event that conflicts with existing events
 
-    //make sure we're not joining an event that conflicts with existing events
-    joinConfirmationModal({ isShow: true })
-      .then((msg) => {
-        console.log(msg);
-      })
-      .catch((e) => {
+    if (isConflict) {
+      try {
+        shouldJoin = await joinConfirmationModal({ isShow: true });
+      } catch (e) {
         console.log(e);
+      }
+    }
+
+    if (shouldJoin) {
+      const ueid = data.id;
+      const updatedParticipants = {
+        participants: [...data.participants, user.uid],
+      };
+
+      console.log("Updated participants: ", updatedParticipants);
+      let updatedUserEvents;
+      if (!allUsers[user.uid].events) {
+        updatedUserEvents = {
+          events: [ueid],
+        };
+      } else {
+        updatedUserEvents = {
+          events: [...allUsers[user.uid].events, ueid],
+        };
+      }
+
+      // Message logic
+      // Get a new message key
+      let newMessageKey = getNewMessageKey();
+
+      // Create a new message for the general messages table
+      let newJoinMessage = {
+        title: "New Event Participant",
+        id: newMessageKey,
+        content: `${allUsers[user.uid].displayName} has joined the event "${
+          data.name
+        }".`,
+      };
+
+      // Create an updated list of unread messages for the current user (joiner)
+      let userUpdatedUnreadMessages = {
+        unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+      };
+
+      // Create an updated list of unread messages for the owner of the event
+      let ownerUpdatedUnreadMessages = {
+        unreadMessages: [...allUsers[data.owner].unreadMessages, newMessageKey],
+      };
+
+      let joinResult = await joinEvent(
+        updatedParticipants,
+        updatedUserEvents,
+        ueid,
+        user.uid
+      );
+
+      joinLeaveEventMessage(
+        newJoinMessage, // general table
+        ownerUpdatedUnreadMessages, // updated owner
+        userUpdatedUnreadMessages, // updated user
+        newMessageKey,
+        data.owner,
+        user.uid
+      );
+
+      if (!joinResult) {
+        toast.error(
+          "Hmm...Something went wrong. Please try again or contact the dev team.",
+          {
+            position: toast.POSITION.TOP_RIGHT,
+          }
+        );
+
+        return;
+      }
+
+      toast.success("Successfully joined event!", {
+        position: toast.POSITION.TOP_RIGHT,
       });
-
-    // const ueid = data.id;
-    // const updatedParticipants = {
-    //   participants: [...data.participants, user.uid],
-    // };
-
-    // console.log("Updated participants: ", updatedParticipants);
-    // let updatedUserEvents;
-    // if (!allUsers[user.uid].events) {
-    //   updatedUserEvents = {
-    //     events: [ueid],
-    //   };
-    // } else {
-    //   updatedUserEvents = {
-    //     events: [...allUsers[user.uid].events, ueid],
-    //   };
-    // }
-    //
-    // // Message logic
-    // // Get a new message key
-    // let newMessageKey = getNewMessageKey();
-    //
-    // // Create a new message for the general messages table
-    // let newJoinMessage = {
-    //   title: "New Event Participant",
-    //   id: newMessageKey,
-    //   content: `${allUsers[user.uid].displayName} has joined the event "${
-    //     data.name
-    //   }".`,
-    // };
-    //
-    // // Create an updated list of unread messages for the current user (joiner)
-    // let userUpdatedUnreadMessages = {
-    //   unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
-    // };
-    //
-    // // Create an updated list of unread messages for the owner of the event
-    // let ownerUpdatedUnreadMessages = {
-    //   unreadMessages: [...allUsers[data.owner].unreadMessages, newMessageKey],
-    // };
-    //
-    // let joinResult = await joinEvent(
-    //   updatedParticipants,
-    //   updatedUserEvents,
-    //   ueid,
-    //   user.uid
-    // );
-    //
-    // joinLeaveEventMessage(
-    //   newJoinMessage, // general table
-    //   ownerUpdatedUnreadMessages, // updated owner
-    //   userUpdatedUnreadMessages, // updated user
-    //   newMessageKey,
-    //   data.owner,
-    //   user.uid
-    // );
-    //
-    // if (!joinResult) {
-    //   toast.error(
-    //     "Hmm...Something went wrong. Please try again or contact the dev team.",
-    //     {
-    //       position: toast.POSITION.TOP_RIGHT,
-    //     }
-    //   );
-    //
-    //   return;
-    // }
-    //
-    // toast.success("Successfully joined event!", {
-    //   position: toast.POSITION.TOP_RIGHT,
-    // });
+    }
   };
 
   const handleLeaveEvent = async (data) => {
