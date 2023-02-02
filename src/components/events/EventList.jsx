@@ -41,7 +41,6 @@ const EventList = ({ eventData, user, allUsers }) => {
   const [eventToShowParticipants, setEventToShowParticipants] = useState(null);
   const [eventToDelete, setEventToDelete] = useState(null);
   const [eventToEdit, setEventToEdit] = useState(null);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const joinConfirmationModal = create(JoinConfirmationModal);
   const handleCloseAddEventModal = () => setShowAddEventModal(false);
   const handleShowAddEventModal = () => {
@@ -204,15 +203,93 @@ const EventList = ({ eventData, user, allUsers }) => {
       return;
     }
 
-    let shouldJoin = false;
-    let isConflict = true; //make sure we're not joining an event that conflicts with existing events
+    let shouldJoin = true;
+
+    function checkConflict() {
+      let isConflict = false; //make sure we're not joining an event that conflicts with existing events
+
+      //initialize target event (the one we're trying to join)
+      let targetEventStartDate = new Date(data.dateTimeString);
+      let targetEventDuration = data.duration;
+      let targetEventEndDate = new Date(targetEventStartDate);
+
+      //get hours
+      let targetEventDurationHour = Math.floor(targetEventDuration);
+      let targetEventDurationMinutes = Math.round(
+        (targetEventDuration % 1) * 60
+      );
+
+      targetEventEndDate.setHours(
+        targetEventStartDate.getHours() + targetEventDurationHour
+      );
+
+      targetEventEndDate.setMinutes(
+        targetEventEndDate.getMinutes() + targetEventDurationMinutes
+      );
+
+      // console.log(
+      //   "Target event start date: ",
+      //   targetEventStartDate,
+      //   "end date: ",
+      //   targetEventEndDate,
+      //   " duration: ",
+      //   targetEventDuration
+      // );
+
+      let conflictingEventName;
+      if (allUsers[user.uid].events) {
+        for (let eventId of allUsers[user.uid].events) {
+          //initialize current event
+          let currEventObject = eventData[eventId];
+          let currEventStartDate = new Date(currEventObject.dateTimeString);
+          let currEventEndDate = new Date(currEventStartDate);
+          let currEventDuration = currEventObject.duration;
+
+          //get hours
+          let currEventDurationHour = Math.floor(currEventDuration);
+          let currEventDurationMinutes = Math.round(
+            (currEventDuration % 1) * 60
+          );
+
+          // console.log("Minutes: ", currEventDurationMinutes);
+          currEventEndDate.setHours(
+            currEventStartDate.getHours() + currEventDurationHour
+          );
+
+          currEventEndDate.setMinutes(
+            currEventEndDate.getMinutes() + currEventDurationMinutes
+          );
+
+          // console.log(
+          //   "Current event start date: ",
+          //   currEventStartDate,
+          //   "end date: ",
+          //   currEventEndDate,
+          //   " duration: ",
+          //   currEventDuration
+          // );
+
+          //check overlap with target event
+          if (
+            targetEventStartDate <= currEventEndDate &&
+            targetEventEndDate >= currEventStartDate
+          ) {
+            isConflict = true;
+            conflictingEventName = currEventObject.name;
+            break;
+          }
+        }
+      }
+      return { isConflict, conflictingEventName };
+    }
+
+    let { isConflict, conflictingEventName } = checkConflict();
 
     if (isConflict) {
-      try {
-        shouldJoin = await joinConfirmationModal({ isShow: true });
-      } catch (e) {
-        console.log(e);
-      }
+      shouldJoin = await joinConfirmationModal({
+        isShow: true,
+        conflictingEventName: conflictingEventName,
+      });
     }
 
     if (shouldJoin) {
