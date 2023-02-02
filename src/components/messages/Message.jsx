@@ -12,6 +12,7 @@ const Message = ({
   showModal,
   setCurrentMessageToDisplay,
   isRead,
+  displayDeletedMesasge,
 }) => {
   if (message === undefined || allUsers === undefined || user === undefined) {
     return "";
@@ -105,6 +106,7 @@ const Message = ({
       updatedMessageData.readMessages = userReadMessages;
       // Call firebase function to update read and unread messages
       updateReadAndUnreadMessages(updatedMessageData, user.uid);
+      displayDeletedMesasge();
     }
   };
 

@@ -22,11 +22,11 @@ import AddEventModal from "./AddEventModal";
 import "./EventList.css";
 import DeleteEventModal from "./DeleteEventModal";
 import EditEventModal from "./EditEventModal";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ParticipantsModal from "./ParticipantsModal";
 import { Container, create } from "react-modal-promise";
 import JoinConfirmationModal from "./JoinConfirmationModal";
+import { toast, ToastContainer } from "react-toastify";
 
 const EventList = ({ eventData, user, allUsers }) => {
   const [searchFilter, setSearchFilter] = useState("");
@@ -140,7 +140,7 @@ const EventList = ({ eventData, user, allUsers }) => {
   if (eventData === undefined || user === undefined || allUsers === undefined) {
     return (
       <div className="event-list">
-        <ToastContainer />
+        <ToastContainer autoClose={2000} />
         <div className="event-list-tool-bar">
           <Form className="d-flex">
             <Stack direction="horizontal" gap={2}>
@@ -229,13 +229,6 @@ const EventList = ({ eventData, user, allUsers }) => {
       let [targetEventStartDate, targetEventEndDate] =
         calculateDateObjects(data);
 
-      // console.log(
-      //   "Target event start date: ",
-      //   targetEventStartDate,
-      //   "end date: ",
-      //   targetEventEndDate
-      // );
-
       let conflictingEventName;
       if (allUsers[user.uid].events) {
         for (let eventId of allUsers[user.uid].events) {
@@ -243,13 +236,6 @@ const EventList = ({ eventData, user, allUsers }) => {
           let currEventObject = eventData[eventId];
           let [currEventStartDate, currEventEndDate] =
             calculateDateObjects(currEventObject);
-
-          // console.log(
-          //   "Current event start date: ",
-          //   currEventStartDate,
-          //   "end date: ",
-          //   currEventEndDate
-          // );
 
           //check overlap with target event
           if (
@@ -555,7 +541,7 @@ const EventList = ({ eventData, user, allUsers }) => {
 
   return (
     <div className="event-list">
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
       <div className="event-list-tool-bar">
         <Form className="d-flex">
           <Stack direction="horizontal" gap={2}>
