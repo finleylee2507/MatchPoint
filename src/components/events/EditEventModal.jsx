@@ -20,6 +20,7 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
       .substring(0, 5),
     skillLevel: "",
     eventDescription: "",
+    eventDuration: "",
   });
 
   useEffect(() => {
@@ -54,6 +55,7 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
         imageFile: null,
         skillLevel: data.skillLevel,
         eventDescription: data.desc,
+        eventDuration: data.duration,
       }));
     }
   };
@@ -111,6 +113,7 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
       dateTimeString: dateTimeString,
       skillLevel: formData.skillLevel,
       desc: formData.eventDescription,
+      duration: formData.eventDuration,
     };
 
     console.log("new event: ", newEvent);
@@ -247,6 +250,23 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
+          <Form.Group className="mb-3" controlId="event-duration">
+            <Form.Label>Duration (hour)</Form.Label>
+            <Form.Control
+              type="number"
+              min="1"
+              max="10"
+              step="0.1"
+              name="eventDuration"
+              value={formData.eventDuration}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid duration of event.
+            </Form.Control.Feedback>
+          </Form.Group>
           <Form.Group className="mb-3" controlId="event-time">
             <Form.Label>Skill Level:</Form.Label>
             <Form.Select

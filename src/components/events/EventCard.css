@@ -62,13 +62,14 @@ hr.solid {
 }
 
 .date-time{
-    font-size: 2.8vw !important;
+    font-size: 1.8vw !important;
     color: gray !important;
 }
 .subheader {
-    font-size: 2.5vw !important;
+    font-size: 1.5vw !important;
     color: black !important;
     margin-bottom: 0px;
+    cursor:pointer;
 }
 
 .participant-title {

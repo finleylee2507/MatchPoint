@@ -25,8 +25,11 @@ const EventCard = ({
   handleLeave,
   handleSetEventToShowParticipants,
   handleShowParticipantsModal,
+  calculateDateObjects,
 }) => {
   const { name, location, maxCap, imgSrc, participants, owner } = cardData;
+  const [currStartDate, setCurrStartDate] = useState(null);
+  const [currEndDate, setCurrEndDate] = useState(null);
   const [participantsToShow, setParticipantsToShow] = useState([]);
   useEffect(() => {
     if (cardData && allUsers) {
@@ -38,9 +41,11 @@ const EventCard = ({
         });
       }
       setParticipantsToShow(tempList);
+      let [startDate, endDate] = calculateDateObjects(cardData);
+      setCurrStartDate(startDate);
+      setCurrEndDate(endDate);
     }
   }, [cardData]);
-  console.log("All users: ", allUsers);
   const handleDelete = () => {
     //pass to-be-deleted event to the parent component
     handleSetEventToDelete(cardData);
@@ -70,14 +75,27 @@ const EventCard = ({
           </Col>
           <Col>
             <Card.Title className="title">{name}</Card.Title>
-            <h2 className="date-time">{(new Date(cardData.dateTimeString)).toLocaleString("en-US", {
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              hour12: false,
-              timeZone: "CST",
-            })}</h2>
+            <h2 className="date-time">
+              {currStartDate &&
+                currStartDate.toLocaleString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: false,
+                  timeZone: "CST",
+                })}{" "}
+              —{" "}
+              {currEndDate &&
+                currEndDate.toLocaleString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: false,
+                  timeZone: "CST",
+                })}
+            </h2>
 
             <div className="location">
               <FontAwesomeIcon
