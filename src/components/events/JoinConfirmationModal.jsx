@@ -7,7 +7,9 @@ const JoinConfirmationModal = ({ isShow, onResolve, conflictingEventName }) => (
       <Modal.Title>Join event?</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-      {`The event that you're trying to join conflicts with one of your other events titled "${conflictingEventName}". Are you sure you want to join?`}
+      The event that you're trying to join conflicts with one of your other
+      events titled <b>{conflictingEventName}</b>. Are you sure you want to
+      join?
     </Modal.Body>
     <Modal.Footer>
       <Button variant="primary" onClick={() => onResolve(true)}>

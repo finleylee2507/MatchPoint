@@ -193,6 +193,25 @@ const EventList = ({ eventData, user, allUsers }) => {
   const handleSetEventToShowParticipants = (data) => {
     setEventToShowParticipants(data);
   };
+
+  const calculateDateObjects = (data) => {
+    console.log("Current data: ", data);
+    //initialize target event (the one we're trying to join)
+    let eventStartDate = new Date(data.dateTimeString);
+    let eventDuration = data.duration;
+    let eventEndDate = new Date(eventStartDate);
+
+    //get hours
+    let eventDurationHour = Math.floor(eventDuration);
+    let eventDurationMinutes = Math.round((eventDuration % 1) * 60);
+
+    eventEndDate.setHours(eventStartDate.getHours() + eventDurationHour);
+
+    eventEndDate.setMinutes(eventEndDate.getMinutes() + eventDurationMinutes);
+
+    return [eventStartDate, eventEndDate];
+  };
+
   const handleJoinEvent = async (data) => {
     console.log("Joining");
     //make sure not joining an event that's full
@@ -205,35 +224,16 @@ const EventList = ({ eventData, user, allUsers }) => {
 
     let shouldJoin = true;
 
-    function checkConflict() {
+    const checkConflict = () => {
       let isConflict = false; //make sure we're not joining an event that conflicts with existing events
-
-      //initialize target event (the one we're trying to join)
-      let targetEventStartDate = new Date(data.dateTimeString);
-      let targetEventDuration = data.duration;
-      let targetEventEndDate = new Date(targetEventStartDate);
-
-      //get hours
-      let targetEventDurationHour = Math.floor(targetEventDuration);
-      let targetEventDurationMinutes = Math.round(
-        (targetEventDuration % 1) * 60
-      );
-
-      targetEventEndDate.setHours(
-        targetEventStartDate.getHours() + targetEventDurationHour
-      );
-
-      targetEventEndDate.setMinutes(
-        targetEventEndDate.getMinutes() + targetEventDurationMinutes
-      );
+      let [targetEventStartDate, targetEventEndDate] =
+        calculateDateObjects(data);
 
       // console.log(
       //   "Target event start date: ",
       //   targetEventStartDate,
       //   "end date: ",
-      //   targetEventEndDate,
-      //   " duration: ",
-      //   targetEventDuration
+      //   targetEventEndDate
       // );
 
       let conflictingEventName;
@@ -241,32 +241,14 @@ const EventList = ({ eventData, user, allUsers }) => {
         for (let eventId of allUsers[user.uid].events) {
           //initialize current event
           let currEventObject = eventData[eventId];
-          let currEventStartDate = new Date(currEventObject.dateTimeString);
-          let currEventEndDate = new Date(currEventStartDate);
-          let currEventDuration = currEventObject.duration;
-
-          //get hours
-          let currEventDurationHour = Math.floor(currEventDuration);
-          let currEventDurationMinutes = Math.round(
-            (currEventDuration % 1) * 60
-          );
-
-          // console.log("Minutes: ", currEventDurationMinutes);
-          currEventEndDate.setHours(
-            currEventStartDate.getHours() + currEventDurationHour
-          );
-
-          currEventEndDate.setMinutes(
-            currEventEndDate.getMinutes() + currEventDurationMinutes
-          );
+          let [currEventStartDate, currEventEndDate] =
+            calculateDateObjects(currEventObject);
 
           // console.log(
           //   "Current event start date: ",
           //   currEventStartDate,
           //   "end date: ",
-          //   currEventEndDate,
-          //   " duration: ",
-          //   currEventDuration
+          //   currEventEndDate
           // );
 
           //check overlap with target event
@@ -281,7 +263,7 @@ const EventList = ({ eventData, user, allUsers }) => {
         }
       }
       return { isConflict, conflictingEventName };
-    }
+    };
 
     let { isConflict, conflictingEventName } = checkConflict();
 
@@ -653,6 +635,7 @@ const EventList = ({ eventData, user, allUsers }) => {
             handleLeave={handleLeaveEvent}
             handleJoin={handleJoinEvent}
             handleShowParticipantsModal={handleShowParticipantsModal}
+            calculateDateObjects={calculateDateObjects}
             key={e.id}
             cardData={e}
             user={user}
