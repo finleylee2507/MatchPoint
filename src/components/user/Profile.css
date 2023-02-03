@@ -21,3 +21,18 @@
   align-items: center;
   padding-bottom: 3vw;
 }
+
+.profile-tab {
+  border-bottom: none !important;
+}
+
+/* Uncomment this to add a separator between the tabs and the content 
+
+.profile-tabs{
+  border-bottom: 11px solid #271ca1 !important;
+}
+
+*/
+
+
+  

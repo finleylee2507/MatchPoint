@@ -1,4 +1,3 @@
-
 // Event Card
 import React from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
@@ -18,7 +17,19 @@ const UserEventCard = ({ event, allUsers }) => {
       <div className="card-header">
         <Card.Title className="title">{event.name}</Card.Title>
         <div className="date-location-container">
-          <p>Event Date - {event.location}</p>
+          <p>
+            {" "}
+            {new Date(event.dateTimeString).toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+              timeZone: "CST",
+            }) +
+              " - " +
+              event.location}
+          </p>
         </div>
         <hr className="solid"></hr>
         <div className="description-container">
