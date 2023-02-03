@@ -27,6 +27,8 @@ import ParticipantsModal from "./ParticipantsModal";
 import { Container, create } from "react-modal-promise";
 import JoinConfirmationModal from "./JoinConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const EventList = ({ eventData, user, allUsers }) => {
   const [searchFilter, setSearchFilter] = useState("");
@@ -566,7 +568,14 @@ const EventList = ({ eventData, user, allUsers }) => {
               aria-label="Add event"
               onClick={handleShowAddEventModal}
             >
-              <span className="add-event-text">Add Event</span>
+              <div className="add-event-button-inner-wrapper">
+                <FontAwesomeIcon
+                  className="plus-icon"
+                  icon={faPlus}
+                  size="lg"
+                ></FontAwesomeIcon>
+                <span className="add-event-text">Add Event</span>
+              </div>
             </Button>
           </Stack>
         </Form>
