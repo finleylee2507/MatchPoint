@@ -121,9 +121,9 @@ const Message = ({
           className={"unread-dot" + (isRead ? " read" : "")}
         />
 
-        <h1 className={"card-title" + (isRead ? " read" : "")}>
+        <h2 className={"message-card-title" + (isRead ? " read" : "")}>
           {message.title}
-        </h1>
+        </h2>
         {message.id !== "welcome" && (
           <FontAwesomeIcon
             icon={faTrashCan}
@@ -133,9 +133,6 @@ const Message = ({
           />
         )}
       </div>
-
-      {/*<h3 className="subtitle">Event name</h3>*/}
-      {/*<p className="message-content">{message.content}</p>*/}
     </div>
   );
 };
