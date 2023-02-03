@@ -567,7 +567,7 @@ const EventList = ({ eventData, user, allUsers }) => {
               aria-label="Add event"
               onClick={handleShowAddEventModal}
             >
-              Add Event
+              <span className="add-event-text">Add Event</span>
             </Button>
           </Stack>
         </Form>
