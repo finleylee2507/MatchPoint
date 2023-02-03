@@ -43,9 +43,11 @@ const Profile = ({ allUsers, user, allEvents }) => {
           }`}</p>
         <Tabs defaultActiveKey="upcoming" className="mb-3">
           <Tab eventKey="upcoming" title="Upcoming">
-            <UserEventList user={allUsers[user.uid]} allEvents={allEvents} allUsers={allUsers} displayModalHook={displayModalHook} />
+            <UserEventList past={false} user={allUsers[user.uid]} allEvents={allEvents} allUsers={allUsers} displayModalHook={displayModalHook} />
           </Tab>
-          <Tab eventKey="past" title="Past"></Tab>
+          <Tab eventKey="past" title="Past">
+            <UserEventList past={true} user={allUsers[user.uid]} allEvents={allEvents} allUsers={allUsers} displayModalHook={displayModalHook} />
+          </Tab>
         </Tabs>
       </div>
     );

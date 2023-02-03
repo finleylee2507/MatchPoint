@@ -2,10 +2,12 @@
 import React from "react";
 import './Profile.css'
 import UserEventCard from "./UserEventCard";
-const UserEventList = ({ user, allEvents, allUsers, displayModalHook }) => {
+const UserEventList = ({ past, user, allEvents, allUsers, displayModalHook }) => {
     if (user["events"]) {
-      console.log(user["events"])
-      return user["events"].map((e) => (
+      let new_user_events = user["events"];
+      if(!past) new_user_events = new_user_events.filter((event) => (new Date(allEvents[event].dateTimeString)) >= (new Date()));
+      else new_user_events = new_user_events.filter((event) => (new Date(allEvents[event].dateTimeString)) < (new Date()));
+      return new_user_events.map((e) => (
         <UserEventCard key={e} event={allEvents[e]} allUsers={allUsers} displayModalHook={displayModalHook}/>
       ));
     } else {
