@@ -5,9 +5,19 @@
 
 .user-profile-container {
   padding: 24px;
+  background-color: #e3e0ff;
+  min-height: 100vh;
 }
 
 .user-profile-title {
   font-size: 32px;
   font-weight: 600;
+  padding-left: 1.5vw;
+}
+
+.profile-top{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 3vw;
 }

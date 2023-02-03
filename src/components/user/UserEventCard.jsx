@@ -1,7 +1,7 @@
-// User Event Card
-import React, { useState } from "react";
+
+// Event Card
+import React from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import UserAvatar from "./UserAvatar";
 import "./UserEventCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,63 +10,30 @@ import {
   faPeopleGroup,
   faUserPlus,
   faCircleInfo,
-  faUser,
-  faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
-const UserEventCard = ({ event, displayName, allUsers, displayModalHook }) => {
-  console.log(event)
-  const handleOnClick = () => {
 
-    displayModalHook({ eventData: event, isShow: true })
-  }
+const UserEventCard = ({ event, allUsers }) => {
   return (
-    <Card>
-      <Card.Body className="user-event-card-body" onClick={handleOnClick}>
-        <Row>
-          <Col xs={5} className="circular-image-wrapper">
-            <img className="image" src={event.imgSrc} />
-          </Col>
-          <Col>
-            <Card.Title className="title">{event.name}</Card.Title>
-
-            <div className="card-info">
-              <FontAwesomeIcon
-                className="icon-width"
-                icon={faCalendar}
-
-              />
-              <div>{(new Date(event.dateTimeString)).toLocaleString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: false,
-                timeZone: "CST",
-              })}</div>
-            </div>
-
-            <div className="card-info">
-              <FontAwesomeIcon
-                className="icon-width"
-                icon={faUser}
-              />
-              <div>Owner: {allUsers[event.owner].displayName}</div>
-            </div>
-            <div className="card-info">
-              <FontAwesomeIcon
-                className="icon-width"
-                icon={faLocationDot}
-              />
-              <div>Location: {event.location}</div>
-            </div>
-          </Col>
-        </Row>
-
-
-      </Card.Body>
+    <Card className="user-card">
+      <div className="card-header">
+        <Card.Title className="title">{event.name}</Card.Title>
+        <div className="date-location-container">
+          <p>Event Date - {event.location}</p>
+        </div>
+        <hr className="solid"></hr>
+        <div className="description-container">
+          <p>{event.desc}</p>
+        </div>
+        <div className="participants-container">
+          <p>Participants should be here</p>
+        </div>
+      </div>
+      <div className="card-footer">
+        <p>buttons will be here</p>
+      </div>
     </Card>
   );
 };
 
+// As a user, I want to be able to edit/delet/join the event from my profiel too
 export default UserEventCard;

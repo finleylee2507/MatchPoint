@@ -36,11 +36,12 @@ const Profile = ({ allUsers, user, allEvents }) => {
           data={eventData}
           allUsers={allUsers}
         />
-        <UserAvatar
-          imgSrc={user.photoURL}
-        />
-        <p className="user-profile-title">{`Hi, ${allUsers[user.uid].displayName
-          }`}</p>
+        <div className="profile-top">
+          <UserAvatar
+            imgSrc={user.photoURL}
+          />
+          <p className="user-profile-title">{allUsers[user.uid].displayName}</p>
+        </div>
         <Tabs defaultActiveKey="upcoming" className="mb-3">
           <Tab eventKey="upcoming" title="Upcoming">
             <UserEventList past={false} user={allUsers[user.uid]} allEvents={allEvents} allUsers={allUsers} displayModalHook={displayModalHook} />
