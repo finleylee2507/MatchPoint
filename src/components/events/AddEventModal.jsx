@@ -21,6 +21,7 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
       .substring(0, 5),
     skillLevel: "",
     eventDescription: "",
+    eventDuration: "",
   });
 
   const clearStates = () => {
@@ -39,6 +40,7 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
         .substring(0, 5),
       skillLevel: "",
       eventDescription: "",
+      eventDuration: "",
     });
     setValidated(false);
     setSubmissionStatus(0);
@@ -98,6 +100,7 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
       participants: [],
       dateTimeString: dateTimeString,
       skillLevel: formData.skillLevel,
+      duration: formData.eventDuration,
     };
 
     const newMessage = {
@@ -236,6 +239,23 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
+          <Form.Group className="mb-3" controlId="event-duration">
+            <Form.Label>Duration (hour)</Form.Label>
+            <Form.Control
+              type="number"
+              min="1"
+              max="10"
+              step="0.1"
+              name="eventDuration"
+              value={formData.eventDuration}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid duration of event.
+            </Form.Control.Feedback>
+          </Form.Group>
           <Form.Group className="mb-3" controlId="event-time">
             <Form.Label>Skill Level:</Form.Label>
             <Form.Select

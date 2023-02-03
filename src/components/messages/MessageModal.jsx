@@ -11,8 +11,9 @@ const MessageModal = ({ show, handleClose, messageData }) => {
       size="lg"
       scrollable="true"
       centered
+      onHide={handleClose}
     >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>{messageData.title}</Modal.Title>
       </Modal.Header>
 

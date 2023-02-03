@@ -19,8 +19,14 @@ const DeleteEventModal = ({ show, handleClose, handleDelete }) => {
   };
   return (
     <Modal show={show} centered backdrop="static" onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Are you sure you want to delete this event?</Modal.Title>
+      </Modal.Header>
       <Modal.Body>
-        <p>Are you sure you want to delete this event?</p>
+        <p>
+          Since you are the creator of this event, deleting it will delete the
+          event for all participants. Are you sure?{" "}
+        </p>
       </Modal.Body>
 
       <Modal.Footer>

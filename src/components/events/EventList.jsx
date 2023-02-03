@@ -20,13 +20,13 @@ import EventCard from "./EventCard";
 import EventModal from "./EventModal";
 import AddEventModal from "./AddEventModal";
 import "./EventList.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DeleteEventModal from "./DeleteEventModal";
 import EditEventModal from "./EditEventModal";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ParticipantsModal from "./ParticipantsModal";
+import { Container, create } from "react-modal-promise";
+import JoinConfirmationModal from "./JoinConfirmationModal";
+import { toast, ToastContainer } from "react-toastify";
 
 const EventList = ({ eventData, user, allUsers }) => {
   const [searchFilter, setSearchFilter] = useState("");
@@ -41,8 +41,9 @@ const EventList = ({ eventData, user, allUsers }) => {
   const [eventToShowParticipants, setEventToShowParticipants] = useState(null);
   const [eventToDelete, setEventToDelete] = useState(null);
   const [eventToEdit, setEventToEdit] = useState(null);
+  const joinConfirmationModal = create(JoinConfirmationModal);
   const handleCloseAddEventModal = () => setShowAddEventModal(false);
-  const handleShowAddEventModal = (data) => {
+  const handleShowAddEventModal = () => {
     setShowAddEventModal(true);
   };
   const handleAddEventSubmit = async (
@@ -60,8 +61,7 @@ const EventList = ({ eventData, user, allUsers }) => {
       }
     } else {
       //set image link to default image
-      let fileLink = defaultCoverURL;
-      newEventData.imgSrc = fileLink;
+      newEventData.imgSrc = defaultCoverURL;
     }
 
     //get key from database
@@ -133,16 +133,14 @@ const EventList = ({ eventData, user, allUsers }) => {
       return prevState.filter((event) => {
         let eventName = event.name.toLowerCase();
 
-        let isMatch = searchTerms.some((term) => eventName.includes(term));
-
-        return isMatch;
+        return searchTerms.some((term) => eventName.includes(term));
       });
     });
   };
-  if (eventData == undefined || user == undefined || allUsers == undefined) {
+  if (eventData === undefined || user === undefined || allUsers === undefined) {
     return (
       <div className="event-list">
-        <ToastContainer />
+        <ToastContainer autoClose={2000} />
         <div className="event-list-tool-bar">
           <Form className="d-flex">
             <Stack direction="horizontal" gap={2}>
@@ -195,6 +193,25 @@ const EventList = ({ eventData, user, allUsers }) => {
   const handleSetEventToShowParticipants = (data) => {
     setEventToShowParticipants(data);
   };
+
+  const calculateDateObjects = (data) => {
+    console.log("Current data: ", data);
+    //initialize target event (the one we're trying to join)
+    let eventStartDate = new Date(data.dateTimeString);
+    let eventDuration = data.duration;
+    let eventEndDate = new Date(eventStartDate);
+
+    //get hours
+    let eventDurationHour = Math.floor(eventDuration);
+    let eventDurationMinutes = Math.round((eventDuration % 1) * 60);
+
+    eventEndDate.setHours(eventStartDate.getHours() + eventDurationHour);
+
+    eventEndDate.setMinutes(eventEndDate.getMinutes() + eventDurationMinutes);
+
+    return [eventStartDate, eventEndDate];
+  };
+
   const handleJoinEvent = async (data) => {
     console.log("Joining");
     //make sure not joining an event that's full
@@ -204,76 +221,117 @@ const EventList = ({ eventData, user, allUsers }) => {
       });
       return;
     }
-    const ueid = data.id;
-    const updatedParticipants = {
-      participants: [...data.participants, user.uid],
+
+    let shouldJoin = true;
+
+    const checkConflict = () => {
+      let isConflict = false; //make sure we're not joining an event that conflicts with existing events
+      let [targetEventStartDate, targetEventEndDate] =
+        calculateDateObjects(data);
+
+      let conflictingEventName;
+      if (allUsers[user.uid].events) {
+        for (let eventId of allUsers[user.uid].events) {
+          //initialize current event
+          let currEventObject = eventData[eventId];
+          let [currEventStartDate, currEventEndDate] =
+            calculateDateObjects(currEventObject);
+
+          //check overlap with target event
+          if (
+            targetEventStartDate <= currEventEndDate &&
+            targetEventEndDate >= currEventStartDate
+          ) {
+            isConflict = true;
+            conflictingEventName = currEventObject.name;
+            break;
+          }
+        }
+      }
+      return { isConflict, conflictingEventName };
     };
 
-    console.log("Updated participants: ", updatedParticipants);
-    let updatedUserEvents;
-    if (!allUsers[user.uid].events) {
-      updatedUserEvents = {
-        events: [ueid],
-      };
-    } else {
-      updatedUserEvents = {
-        events: [...allUsers[user.uid].events, ueid],
-      };
+    let { isConflict, conflictingEventName } = checkConflict();
+
+    if (isConflict) {
+      shouldJoin = await joinConfirmationModal({
+        isShow: true,
+        conflictingEventName: conflictingEventName,
+      });
     }
 
-    // Message logic
-    // Get a new message key
-    let newMessageKey = getNewMessageKey();
+    if (shouldJoin) {
+      const ueid = data.id;
+      const updatedParticipants = {
+        participants: [...data.participants, user.uid],
+      };
 
-    // Create a new message for the general messages table
-    let newJoinMessage = {
-      title: "New Event Participant",
-      id: newMessageKey,
-      content: `${allUsers[user.uid].displayName} has joined the event '${
-        data.name
-      }.`,
-    };
+      console.log("Updated participants: ", updatedParticipants);
+      let updatedUserEvents;
+      if (!allUsers[user.uid].events) {
+        updatedUserEvents = {
+          events: [ueid],
+        };
+      } else {
+        updatedUserEvents = {
+          events: [...allUsers[user.uid].events, ueid],
+        };
+      }
 
-    // Create an updated list of unread messages for the current user (joiner)
-    let userUpdatedUnreadMessages = {
-      unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
-    };
+      // Message logic
+      // Get a new message key
+      let newMessageKey = getNewMessageKey();
 
-    // Create an updated list of unread messages for the owner of the event
-    let ownerUpdatedUnreadMessages = {
-      unreadMessages: [...allUsers[data.owner].unreadMessages, newMessageKey],
-    };
+      // Create a new message for the general messages table
+      let newJoinMessage = {
+        title: "New Event Participant",
+        id: newMessageKey,
+        content: `${allUsers[user.uid].displayName} has joined the event "${
+          data.name
+        }".`,
+      };
 
-    let joinResult = await joinEvent(
-      updatedParticipants,
-      updatedUserEvents,
-      ueid,
-      user.uid
-    );
+      // Create an updated list of unread messages for the current user (joiner)
+      let userUpdatedUnreadMessages = {
+        unreadMessages: [...allUsers[user.uid].unreadMessages, newMessageKey],
+      };
 
-    joinLeaveEventMessage(
-      newJoinMessage, // general table
-      ownerUpdatedUnreadMessages, // updated owner
-      userUpdatedUnreadMessages, // updated user
-      newMessageKey,
-      data.owner,
-      user.uid
-    );
+      // Create an updated list of unread messages for the owner of the event
+      let ownerUpdatedUnreadMessages = {
+        unreadMessages: [...allUsers[data.owner].unreadMessages, newMessageKey],
+      };
 
-    if (!joinResult) {
-      toast.error(
-        "Hmm...Something went wrong. Please try again or contact the dev team.",
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
+      let joinResult = await joinEvent(
+        updatedParticipants,
+        updatedUserEvents,
+        ueid,
+        user.uid
       );
 
-      return;
-    }
+      joinLeaveEventMessage(
+        newJoinMessage, // general table
+        ownerUpdatedUnreadMessages, // updated owner
+        userUpdatedUnreadMessages, // updated user
+        newMessageKey,
+        data.owner,
+        user.uid
+      );
 
-    toast.success("Successfully joined event!", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
+      if (!joinResult) {
+        toast.error(
+          "Hmm...Something went wrong. Please try again or contact the dev team.",
+          {
+            position: toast.POSITION.TOP_RIGHT,
+          }
+        );
+
+        return;
+      }
+
+      toast.success("Successfully joined event!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
 
   const handleLeaveEvent = async (data) => {
@@ -309,9 +367,9 @@ const EventList = ({ eventData, user, allUsers }) => {
     let newJoinMessage = {
       title: "A Participant Left the Event",
       id: newMessageKey,
-      content: `${allUsers[user.uid].displayName} has left the event '${
+      content: `${allUsers[user.uid].displayName} has left the event "${
         data.name
-      }.`,
+      }".`,
     };
 
     // Create an updated list of unread messages for the current user (joiner)
@@ -483,7 +541,7 @@ const EventList = ({ eventData, user, allUsers }) => {
 
   return (
     <div className="event-list">
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
       <div className="event-list-tool-bar">
         <Form className="d-flex">
           <Stack direction="horizontal" gap={2}>
@@ -547,6 +605,8 @@ const EventList = ({ eventData, user, allUsers }) => {
         data={eventToShowParticipants}
         allUsers={allUsers}
       />
+
+      <Container />
       {!events || events.length === 0 ? (
         <p className="empty-page-message">No events to display...</p>
       ) : (
@@ -561,6 +621,7 @@ const EventList = ({ eventData, user, allUsers }) => {
             handleLeave={handleLeaveEvent}
             handleJoin={handleJoinEvent}
             handleShowParticipantsModal={handleShowParticipantsModal}
+            calculateDateObjects={calculateDateObjects}
             key={e.id}
             cardData={e}
             user={user}

@@ -16,6 +16,8 @@ function ParticipantsModal({ show, handleClose, data, allUsers }) {
       info={data}
       centered
       backdrop="static"
+      scrollable="true"
+      fullscreen="sm-down"
     >
       <Modal.Header closeButton>
         <Modal.Title>Event Participants</Modal.Title>

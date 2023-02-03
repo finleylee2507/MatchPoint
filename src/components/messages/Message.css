@@ -7,6 +7,16 @@
     width: 90%;
 }
 
+.message.read{
+    /*background-color: #e1dede;*/
+}
+
+.unread-dot{
+    color: #4d33d3;
+}
+.unread-dot.read{
+    visibility: hidden;
+}
 .message:hover {
     background-color: #c3beff;
     transition: 0.3s;
@@ -19,22 +29,34 @@
 }
 
 .message-upper-container {
+
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap:5rem;
+
 }
 
-.message-content {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 1.5vw;
-}
+/*.message-content {*/
+/*    text-overflow: ellipsis;*/
+/*    overflow: hidden;*/
+/*    white-space: nowrap;*/
+/*    font-size: 1.5vw;*/
+/*}*/
 
+.delete-message-icon{
+    margin-left: auto;
+}
 .delete-message-icon:hover {
     transform: scale(1.2);
     animation: jiggle 0.5s infinite linear;
 }
+
+.card-title.read{
+    color:#808080;
+    opacity:0.2;
+    font-weight: 300;
+}
+
 
 @keyframes jiggle {
     /* start at 0deg and this scale size.

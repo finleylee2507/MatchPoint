@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Message from "./Message.jsx";
 import MessageModal from "./MessageModal";
+import { toast, ToastContainer } from "react-toastify";
 
 // import { getUserMessages } from "../../utilities/firebase";
 // import messageData from "../../utilities/data/message.json";
@@ -15,6 +16,11 @@ const MessageList = ({ allUsers, user, allMessages }) => {
     setShowMessageModal(false);
   };
 
+  const displayDeletedMessage = () => {
+    toast.success("Successfully deleted message!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  };
   const handleSetCurrentMessageToDisplay = (data) => {
     setCurrentMessageToDisplay(data);
   };
@@ -22,6 +28,7 @@ const MessageList = ({ allUsers, user, allMessages }) => {
   console.log(allUsers);
   console.log("All messages: ", allMessages);
 
+  //render logic
   if (
     user == undefined ||
     allUsers == undefined ||
@@ -54,14 +61,17 @@ const MessageList = ({ allUsers, user, allMessages }) => {
 
   return (
     <div className="event-list">
-      {Object.entries(allUserMessages).map(([id, m]) => (
+      <ToastContainer autoClose={500} />
+      {Object.entries(allUserMessages).map(([id, messageId]) => (
         <Message
           key={id}
-          message={allMessages[m]}
+          message={allMessages[messageId]}
           allUsers={allUsers}
           user={user}
           setCurrentMessageToDisplay={handleSetCurrentMessageToDisplay}
           showModal={handleShowMessageModal}
+          isRead={!allUsers[user.uid]["unreadMessages"].includes(messageId)}
+          displayDeletedMesasge={displayDeletedMessage}
         />
       ))}
 

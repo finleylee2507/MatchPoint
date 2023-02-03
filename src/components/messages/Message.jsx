@@ -2,6 +2,7 @@ import React from "react";
 import "./Message.css";
 import { updateReadAndUnreadMessages } from "../../utilities/firebase";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Message = ({
@@ -10,8 +11,10 @@ const Message = ({
   user,
   showModal,
   setCurrentMessageToDisplay,
+  isRead,
+  displayDeletedMesasge,
 }) => {
-  if (message == undefined || allUsers == undefined || user == undefined) {
+  if (message === undefined || allUsers === undefined || user === undefined) {
     return "";
   }
 
@@ -22,8 +25,9 @@ const Message = ({
   };
   const markAsRead = () => {
     console.log("message clicked");
-
-    if (message.id == "welcome") {
+    console.log("Is read? ", isRead);
+    console.log(message.id);
+    if (message.id === "welcome") {
       return;
     }
     let updatedMessageData = {};
@@ -102,27 +106,36 @@ const Message = ({
       updatedMessageData.readMessages = userReadMessages;
       // Call firebase function to update read and unread messages
       updateReadAndUnreadMessages(updatedMessageData, user.uid);
+      displayDeletedMesasge();
     }
   };
 
   return (
-    <div className="message" onClick={handleMessageClick}>
-      <div>
-        <div className="message-upper-container">
-          <h1 className="card-title">{message.title}</h1>
-          {message.id !== "welcome" && (
-            <FontAwesomeIcon
-              icon={faTrashCan}
-              className="delete-message-icon"
-              size="lg"
-              onClick={deleteMessage}
-            />
-          )}
-        </div>
+    <div
+      className={"message " + (isRead ? " read" : "")}
+      onClick={handleMessageClick}
+    >
+      <div className="message-upper-container">
+        <FontAwesomeIcon
+          icon={faCircle}
+          className={"unread-dot" + (isRead ? " read" : "")}
+        />
 
-        <h3 className="subtitle">Event name</h3>
-        {/*<p className="message-content">{message.content}</p>*/}
+        <h1 className={"card-title" + (isRead ? " read" : "")}>
+          {message.title}
+        </h1>
+        {message.id !== "welcome" && (
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="delete-message-icon"
+            size="lg"
+            onClick={deleteMessage}
+          />
+        )}
       </div>
+
+      {/*<h3 className="subtitle">Event name</h3>*/}
+      {/*<p className="message-content">{message.content}</p>*/}
     </div>
   );
 };

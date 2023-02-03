@@ -81,11 +81,12 @@ const Landing = (allUsers) => {
           <h1 className="app-name">MatchPoint</h1>
         </div>
 
-        <h3>Find open events, join teams, and much more.</h3>
+        <h3>Find open events, create events, and much more.</h3>
         <p className="blurb">
-          MatchPoint lets you seamlessly find open sporting events and sign up
-          for them, join teams with your friends, and join leagues with your
-          teams!
+          Lookin' to get out of the house and knock the ball around? Wanna shoot
+          some hoops? MatchPoint is a seamless platform that allows you to
+          create or join sporting events that pique your interests! All levels
+          are welcome!
         </p>
         <SignInButton />
         <ClearDBButton />
