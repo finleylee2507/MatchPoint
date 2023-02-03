@@ -4,6 +4,7 @@ import './Profile.css'
 import UserEventCard from "./UserEventCard";
 const UserEventList = ({ user, allEvents, allUsers, displayModalHook }) => {
     if (user["events"]) {
+      console.log(user["events"])
       return user["events"].map((e) => (
         <UserEventCard key={e} event={allEvents[e]} allUsers={allUsers} displayModalHook={displayModalHook}/>
       ));

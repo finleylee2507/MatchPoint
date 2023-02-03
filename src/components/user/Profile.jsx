@@ -28,7 +28,6 @@ const Profile = ({ allUsers, user, allEvents }) => {
       </div>
     );
   } else if (allUsers[user.uid]) {
-    console.log("In here");
     return (
       <div className="user-profile-container">
         <EventModal
@@ -38,9 +37,7 @@ const Profile = ({ allUsers, user, allEvents }) => {
           allUsers={allUsers}
         />
         <UserAvatar
-          imgSrc={
-            "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
-          }
+          imgSrc={user.photoURL}
         />
         <p className="user-profile-title">{`Hi, ${allUsers[user.uid].displayName
           }`}</p>
@@ -48,7 +45,6 @@ const Profile = ({ allUsers, user, allEvents }) => {
           <Tab eventKey="upcoming" title="Upcoming">
             <UserEventList user={allUsers[user.uid]} allEvents={allEvents} allUsers={allUsers} displayModalHook={displayModalHook} />
           </Tab>
-
           <Tab eventKey="past" title="Past"></Tab>
         </Tabs>
       </div>
