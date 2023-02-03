@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import "./AddEventModal.css";
 
-const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
+const EditEventModal = ({
+  show,
+  handleClose,
+  handleSubmit,
+  user,
+  data,
+  checkConflict,
+  createConfirmationModal,
+  allEvents,
+}) => {
   const [formData, setFormData] = useState({
     //used to store form data
     eventName: "haha",
@@ -108,7 +117,7 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
     const newEvent = {
       ...data,
       name: formData.eventName,
-      maxCap: formData.eventCapacity,
+      maxCap: parseInt(formData.eventCapacity, 10),
       location: formData.eventLocation,
       dateTimeString: dateTimeString,
       skillLevel: formData.skillLevel,
@@ -116,21 +125,40 @@ const EditEventModal = ({ show, handleClose, handleSubmit, user, data }) => {
       duration: formData.eventDuration,
     };
 
-    console.log("new event: ", newEvent);
+    //check if the to-be-created event conflicts with any current events
+    let [isConflict, conflictingEventName] = checkConflict(newEvent);
+    let shouldCreate = true;
 
-    //call parent's function to submit event to database
-    try {
-      const submissionResult = await handleSubmit(newEvent, formData.imageFile);
-      console.log(submissionResult);
-      setSubmissionStatus(0);
+    if (isConflict) {
+      shouldCreate = await createConfirmationModal({
+        isShow: true,
+        conflictingEventName: conflictingEventName,
+        actionItem: "create",
+      });
+    }
 
+    if (shouldCreate) {
+      //call parent's function to submit event to database
+      try {
+        const submissionResult = await handleSubmit(
+          newEvent,
+          formData.imageFile
+        );
+        console.log(submissionResult);
+        setSubmissionStatus(0);
+
+        clearStates();
+
+        //close modal
+        handleClose();
+      } catch (error) {
+        console.log(error);
+        setSubmissionStatus(0);
+      }
+    } else {
+      //the user selects "no"
       clearStates();
-
-      //close modal
       handleClose();
-    } catch (error) {
-      console.log(error);
-      setSubmissionStatus(0);
     }
   };
   return (

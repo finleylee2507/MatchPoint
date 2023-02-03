@@ -3,7 +3,14 @@ import { Alert, Button, Form, Modal, Spinner } from "react-bootstrap";
 import "./AddEventModal.css";
 import { getNewMessageKey } from "../../utilities/firebase";
 
-const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
+const AddEventModal = ({
+  show,
+  handleClose,
+  handleSubmit,
+  user,
+  checkConflict,
+  createConfirmationModal,
+}) => {
   const [formData, setFormData] = useState({
     //used to store form data
     eventName: "",
@@ -89,7 +96,7 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
     const dateTimeString = eventDateTime.toUTCString();
     const newEvent = {
       name: formData.eventName,
-      maxCap: formData.eventCapacity,
+      maxCap: parseInt(formData.eventCapacity, 10),
       location: formData.eventLocation,
       owner: user.uid,
       //uncollected fields that exist in database
@@ -103,22 +110,40 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
       duration: formData.eventDuration,
     };
 
-    const newMessage = {
-      content: `You have successfully created the event '${formData.eventName}'`,
-      title: "Event Successfully Created",
-    };
+    //check if the to-be-created event conflicts with any current events
+    let [isConflict, conflictingEventName] = checkConflict(newEvent);
+    let shouldCreate = true;
 
-    //call parent's function to submit event to database
-    try {
-      await handleSubmit(newEvent, newMessage, formData.imageFile);
+    if (isConflict) {
+      shouldCreate = await createConfirmationModal({
+        isShow: true,
+        conflictingEventName: conflictingEventName,
+        actionItem: "create",
+      });
+    }
 
+    if (shouldCreate) {
+      const newMessage = {
+        content: `You have successfully created the event '${formData.eventName}'`,
+        title: "Event Successfully Created",
+      };
+
+      //call parent's function to submit event to database
+      try {
+        await handleSubmit(newEvent, newMessage, formData.imageFile);
+
+        clearStates();
+
+        //close modal
+        handleClose();
+      } catch (error) {
+        console.log(error);
+        setSubmissionStatus(0);
+      }
+    } else {
+      //if the user selects "no"
       clearStates();
-
-      //close modal
       handleClose();
-    } catch (error) {
-      console.log(error);
-      setSubmissionStatus(0);
     }
   };
   return (
@@ -192,6 +217,7 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
               type="number"
               min="1"
               max="100"
+              step="1"
               name="eventCapacity"
               value={formData.eventCapacity}
               onChange={handleChange}
