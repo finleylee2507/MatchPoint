@@ -58,7 +58,7 @@ if (!window.EMULATION && import.meta.env.NODE_ENV !== "production") {
   signInWithCredential(
     auth,
     GoogleAuthProvider.credential(
-      '{"sub": "mTJFOKszA0oZgiFJpcCM4qX24XCA", "email": "testelina@gmail.com", "displayName":"Elina Rawat", "email_verified": false}'
+      '{"sub": "6fsxDCNu0SzrD6CPQhi7URfJLiwK", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
     )
   );
 

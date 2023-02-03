@@ -21,6 +21,11 @@ const App = () => {
   const [users, usersError] = useDbData("/users");
   const [messages, messagesError] = useDbData("/messages");
 
+  console.log("Users are");
+  console.log(users);
+  console.log("Messages are");
+  console.log(messages);
+
   if (eventsError) {
     console.log(eventsError);
   } else if (usersError) {
