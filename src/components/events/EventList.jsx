@@ -41,7 +41,7 @@ const EventList = ({ eventData, user, allUsers }) => {
   const [eventToShowParticipants, setEventToShowParticipants] = useState(null);
   const [eventToDelete, setEventToDelete] = useState(null);
   const [eventToEdit, setEventToEdit] = useState(null);
-  const joinConfirmationModal = create(JoinConfirmationModal);
+  const confirmationModal = create(JoinConfirmationModal);
   const handleCloseAddEventModal = () => setShowAddEventModal(false);
   const handleShowAddEventModal = () => {
     setShowAddEventModal(true);
@@ -211,6 +211,31 @@ const EventList = ({ eventData, user, allUsers }) => {
 
     return [eventStartDate, eventEndDate];
   };
+  const checkConflict = (data) => {
+    let isConflict = false; //make sure we're not joining an event that conflicts with existing events
+    let [targetEventStartDate, targetEventEndDate] = calculateDateObjects(data);
+
+    let conflictingEventName;
+    if (allUsers[user.uid].events) {
+      for (let eventId of allUsers[user.uid].events) {
+        //initialize current event
+        let currEventObject = eventData[eventId];
+        let [currEventStartDate, currEventEndDate] =
+          calculateDateObjects(currEventObject);
+
+        //check overlap with target event
+        if (
+          targetEventStartDate <= currEventEndDate &&
+          targetEventEndDate >= currEventStartDate
+        ) {
+          isConflict = true;
+          conflictingEventName = currEventObject.name;
+          break;
+        }
+      }
+    }
+    return [isConflict, conflictingEventName];
+  };
 
   const handleJoinEvent = async (data) => {
     console.log("Joining");
@@ -224,39 +249,13 @@ const EventList = ({ eventData, user, allUsers }) => {
 
     let shouldJoin = true;
 
-    const checkConflict = () => {
-      let isConflict = false; //make sure we're not joining an event that conflicts with existing events
-      let [targetEventStartDate, targetEventEndDate] =
-        calculateDateObjects(data);
-
-      let conflictingEventName;
-      if (allUsers[user.uid].events) {
-        for (let eventId of allUsers[user.uid].events) {
-          //initialize current event
-          let currEventObject = eventData[eventId];
-          let [currEventStartDate, currEventEndDate] =
-            calculateDateObjects(currEventObject);
-
-          //check overlap with target event
-          if (
-            targetEventStartDate <= currEventEndDate &&
-            targetEventEndDate >= currEventStartDate
-          ) {
-            isConflict = true;
-            conflictingEventName = currEventObject.name;
-            break;
-          }
-        }
-      }
-      return { isConflict, conflictingEventName };
-    };
-
-    let { isConflict, conflictingEventName } = checkConflict();
+    let [isConflict, conflictingEventName] = checkConflict(data);
 
     if (isConflict) {
-      shouldJoin = await joinConfirmationModal({
+      shouldJoin = await confirmationModal({
         isShow: true,
         conflictingEventName: conflictingEventName,
+        actionItem: "join",
       });
     }
 
@@ -585,6 +584,9 @@ const EventList = ({ eventData, user, allUsers }) => {
         handleClose={handleCloseAddEventModal}
         handleSubmit={handleAddEventSubmit}
         user={user}
+        allEvents={eventData}
+        checkConflict={checkConflict}
+        createConfirmationModal={confirmationModal}
       />
 
       <DeleteEventModal
@@ -598,6 +600,10 @@ const EventList = ({ eventData, user, allUsers }) => {
         handleClose={handleCloseEditEventModal}
         handleSubmit={handleEditEventSubmit}
         data={eventToEdit}
+        user={user}
+        allEvents={eventData}
+        checkConflict={checkConflict}
+        createConfirmationModal={confirmationModal}
       />
       <ParticipantsModal
         show={showParticipantsModal}
