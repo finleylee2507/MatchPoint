@@ -504,14 +504,13 @@ const EventList = ({ eventData, user, allUsers }) => {
             >
               Search
             </Button>
-            <button
-              data-cy="add-event"
+            <Button
               className="add-event-button"
               aria-label="Add event"
               onClick={handleShowAddEventModal}
             >
               Add Event
-            </button>
+            </Button>
           </Stack>
         </Form>
       </div>

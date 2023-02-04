@@ -14,7 +14,7 @@ const SignOutButton = () => {
   }
 
   return (
-    <button className="nav-button" onClick={signOutUser}>
+    <button data-cy="sign-out" className="nav-button" onClick={signOutUser}>
       Sign out
     </button>
   );
