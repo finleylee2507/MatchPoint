@@ -16,8 +16,8 @@
   border: none;
   background-color: #271ca1;
   border-radius: 15px;
-  padding: 0.7vw;
-  font-size: 1.5vw;
+  padding: 0.4rem;
+  font-size: 1.2rem;
   font-family: "Montserrat", sans-serif !important;
   font-weight: bold;
 }
@@ -60,4 +60,14 @@
   border-radius: 12px;
   padding: 0 1rem;
   margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 800px) {
+ .nav-button{
+   font-size: 0.8rem !important;
+ }
+
+  .logo{
+    font-size: 25px !important;
+  }
 }
