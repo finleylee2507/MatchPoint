@@ -137,3 +137,16 @@ hr.solid {
     font-size: 1.3em;
 }
 
+.event-card-buttons{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+  }
+
+  .event-card-buttons button{
+    width: 15% !important;
+    margin-left: auto !important;
+  }
+
+
+
