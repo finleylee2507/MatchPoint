@@ -22,12 +22,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.card-button {
-    background-color: #271ca1 !important;
-    color: white !important;
-    border: none !important;
-    transform: scale(1);
-}
+
 
 .see-more-button {
     margin-top: 20px;
@@ -144,8 +139,22 @@ hr.solid {
     font-size: 1.3em;
 }
 
+.card-footer{
+    display: flex;
+    gap:1.5rem;
+}
 
-@media screen and (max-width: 800px) and (min-width: 550px) {
+.event-card-button{
+    border-radius: 30px !important;
+    font-size: 20px !important;
+    width: 9.5rem !important;
+}
+.join-event-button {
+    background-color: #271ca1 !important;
+    color: white !important;
+    border: none !important;
+}
+@media screen and (max-width: 900px) and (min-width: 550px) {
     .title {
         font-size: 25px !important;
     }
@@ -187,6 +196,13 @@ hr.solid {
 
     .participant-list-section {
         margin-left: 1rem;
+    }
+
+    .event-card-button{
+        border-radius: 30px !important;
+        font-size: 16px !important;
+        width: 7rem !important;
+        padding: 3px 3px !important;
     }
 }
 
@@ -237,9 +253,18 @@ hr.solid {
     .participant-list-section {
         margin-left: 1rem;
     }
+
+    .card-footer{
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .event-card-button{
+        flex-basis: 100%;
+    }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 500px) {
     .details-header {
         font-size: 11px;
     }
@@ -252,6 +277,10 @@ hr.solid {
         font-size: 11px;
     }
 
+    .event-card-button{
+        font-size: 15px !important;
+        font-weight: 500!important;
+    }
 
 }
 

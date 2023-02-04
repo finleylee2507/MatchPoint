@@ -241,63 +241,51 @@ const EventCard = ({
           </div>
         </div>
         <div className="card-footer">
-          <Row>
-            <Col></Col>
-
-            {cardData.owner !== user.uid &&
-              !cardData.participants.includes(user.uid) && (
-                <Col>
-                  <Button
-                    className="card-button"
-                    onClick={handleJoinEvent}
-                    variant="primary"
-                    size="lg"
-                  >
-                    Join Event
-                  </Button>
-                </Col>
-              )}
-
-            {owner === user.uid && (
-              <Col>
-                <Button
-                  onClick={handleEdit}
-                  variant="warning"
-                  size="lg"
-                  className="edit-event-button"
-                >
-                  Edit Event
-                </Button>
-              </Col>
+          {cardData.owner !== user.uid &&
+            !cardData.participants.includes(user.uid) && (
+              <Button
+                className="event-card-button join-event-button"
+                onClick={handleJoinEvent}
+                variant="primary"
+                size="lg"
+              >
+                Join Event
+              </Button>
             )}
 
-            {owner === user.uid && (
-              <Col>
-                <Button
-                  onClick={handleDelete}
-                  variant="danger"
-                  size="lg"
-                  className="delete-event-button"
-                >
-                  Delete Event
-                </Button>
-              </Col>
-            )}
+          {owner === user.uid && (
+            <Button
+              onClick={handleEdit}
+              variant="warning"
+              size="lg"
+              className="event-card-button edit-event-button"
+            >
+              Edit Event
+            </Button>
+          )}
 
-            {cardData.participants.includes(user.uid) &&
-              cardData.owner !== user.uid && (
-                <Col>
-                  <Button
-                    size="lg"
-                    onClick={() => {
-                      handleLeave(cardData);
-                    }}
-                  >
-                    Leave Event
-                  </Button>
-                </Col>
-              )}
-          </Row>
+          {owner === user.uid && (
+            <Button
+              onClick={handleDelete}
+              variant="danger"
+              size="lg"
+              className="event-card-button delete-event-button"
+            >
+              Delete Event
+            </Button>
+          )}
+
+          {cardData.participants.includes(user.uid) &&
+            cardData.owner !== user.uid && (
+              <Button
+                size="lg"
+                onClick={() => {
+                  handleLeave(cardData);
+                }}
+              >
+                Leave Event
+              </Button>
+            )}
         </div>
       </Col>
     </Card>
