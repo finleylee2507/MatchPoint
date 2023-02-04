@@ -5,24 +5,20 @@ import "./Profile.css";
 import UserAvatar from "./UserAvatar";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-
-const UserEventList = ({ user, allEvents }) => {
-  if (user["events"]) {
-    return user["events"].map((e) => (
-      <UserEventCard key={e} event={allEvents[e]} />
-    ));
-  } else {
-    return (
-      <div>
-        <p>
-          You don't have any upcoming events. Please create one, or join one
-          from the All Events tab!
-        </p>
-      </div>
-    );
-  }
-};
+import React, { useState } from "react";
+import EventModal from "../events/EventModal";
+import UserEventList from "./UserEventList";
 const Profile = ({ allUsers, user, allEvents }) => {
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [eventData, setEventData] = useState({});
+  const displayModalHook = ({ eventData, isShow }) => {
+    setShowEventModal(isShow);
+    setEventData(eventData);
+  };
+
+  const handleClose = () => {
+    setShowEventModal(false);
+  };
   if (user == undefined || allUsers == undefined) {
     return (
       <div>
@@ -30,23 +26,37 @@ const Profile = ({ allUsers, user, allEvents }) => {
       </div>
     );
   } else if (allUsers[user.uid]) {
-    console.log("In here");
     return (
       <div className="user-profile-container">
-        <UserAvatar
-          imgSrc={
-            "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
-          }
+        <EventModal
+          show={showEventModal}
+          handleClose={handleClose}
+          data={eventData}
+          allUsers={allUsers}
         />
-        <p className="user-profile-title">{`Hi, ${
-          allUsers[user.uid].displayName
-        }`}</p>
-        <Tabs defaultActiveKey="upcoming" className="mb-3">
-          <Tab eventKey="upcoming" title="Upcoming">
-            <UserEventList user={allUsers[user.uid]} allEvents={allEvents} />
+        <div className="profile-top">
+          <UserAvatar imgSrc={user.photoURL} />
+          <p className="user-profile-title">{allUsers[user.uid].displayName}</p>
+        </div>
+        <Tabs defaultActiveKey="upcoming" className="mb-3 profile-tabs">
+          <Tab className="profile-tab" eventKey="upcoming" title="Upcoming">
+            <UserEventList
+              past={false}
+              user={allUsers[user.uid]}
+              allEvents={allEvents}
+              allUsers={allUsers}
+              displayModalHook={displayModalHook}
+            />
           </Tab>
-
-          <Tab eventKey="past" title="Past"></Tab>
+          <Tab className="profile-tab" eventKey="past" title="Past">
+            <UserEventList
+              past={true}
+              user={allUsers[user.uid]}
+              allEvents={allEvents}
+              allUsers={allUsers}
+              displayModalHook={displayModalHook}
+            />
+          </Tab>
         </Tabs>
       </div>
     );

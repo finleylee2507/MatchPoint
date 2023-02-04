@@ -1,4 +1,3 @@
-/* CSS*/
 .image {
   width: 10vw;
   height: 10vw;
@@ -8,8 +7,17 @@
   object-fit: cover;
 }
 
-.card {
-  width: 85vw;
+.owner-profile-image {
+  width: 5vw;
+  height: 5vw;
+  border-radius: 50%;
+
+  /*adpative image position*/
+  object-fit: cover;
+}
+
+.user-card {
+  width: 60%;
   margin-top: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -21,31 +29,25 @@
   transform: scale(1);
 }
 
+.see-more-button {
+  margin-top: 20px;
+}
+
 .circular-image-wrapper {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
 }
 
-.organizer-image-wrapper {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-
-.user-event-card-body {
+.card-body {
   padding: 10px 0px 10px 0px !important;
 }
 
-.user-event-card-title {
-  font-size: 3vw !important;
-  color: #5f4bc4;
+.title {
+    font-size: 3vw !important;
+    color: #5f4bc4;
 }
 
-.user-event-card-text {
-  font-size: 2vw !important;
-  margin-bottom: 8px !important;
-}
 
 hr.solid {
   border-top: 3px solid #bbb;
@@ -59,11 +61,91 @@ hr.solid {
   padding: 2vw;
 }
 
+.date-time{
+    font-size: 2.8vw !important;
+    color: gray !important;
+}
+.subheader {
+    font-size: 2.5vw !important;
+    color: black !important;
+    margin-bottom: 0px;
+}
 
-/*.details {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*}*/
+.participant-title {
+  font-size: 1.5vw;
+}
 
+.participant-profile-image {
+  width: 3vw;
+  height: 3vw;
+  border-radius: 50%;
 
+  /*adpative image position*/
+  object-fit: cover;
+}
 
+.participant-list-container {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  padding-right: 0.2vw;
+  align-items: center;
+}
+
+.right {
+  align-items: center;
+}
+
+.details-text {
+  font-size: 2vw;
+  margin-bottom: 0px;
+  color: #5f4bc4;
+}
+
+.card-middle {
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+
+.details-header {
+  font-size: 1.2vw;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.icon-width{
+    padding-right: 0.7em;
+    font-size: 1.3em;
+}
+
+.description-container {
+  padding-top: 1vw;
+}
+
+.description-container p {
+  font-size: 1.5vw;
+  color: black;
+  font-weight: bold !important;
+}
+
+.card-header{
+  padding: 2vw !important;
+}
+
+.participants-container{
+  margin-top: 2.5vw !important;
+}

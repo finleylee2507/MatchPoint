@@ -1,22 +1,22 @@
 import React from "react";
 
-export default function UserAvatar({ imgSrc }) {
+export default function UserAvatar({ imgSrc, width, height }) {
+  if (!(width && height)) {
+    width = 100
+    height = 100
+  }
+  const _styles = {
+    img: {
+      width: width,
+      height: height,
+      borderRadius: "50%",
+    },
+  };
+
   return (
-    <div style={_styles.container}>
-      <img style={_styles.img} src={imgSrc} />
-    </div>
+    <img style={_styles.img} src={imgSrc} />
   );
+
 }
 
-const _styles = {
-  container: {
-    overflow: "hidden",
-    borderRadius: "50%",
-    width: 150,
-    height: 150,
-  },
-  img: {
-    width: 150,
-    height: 150,
-  },
-};
+
