@@ -1,139 +1,231 @@
 .image {
-  width: 10vw;
-  height: 10vw;
-  border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
 
-  /*adpative image position*/
-  object-fit: cover;
+    /*adpative image position*/
+    object-fit: cover;
 }
 
 .owner-profile-image {
-  width: 5vw;
-  height: 5vw;
-  border-radius: 50%;
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
 
-  /*adpative image position*/
-  object-fit: cover;
+    /*adpative image position*/
+    object-fit: cover;
 }
 
 .card {
-  width: 85vw;
-  margin-top: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 85vw;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card-button {
-  background-color: #271ca1 !important;
-  color: white !important;
-  border: none !important;
-  transform: scale(1);
+    background-color: #271ca1 !important;
+    color: white !important;
+    border: none !important;
+    transform: scale(1);
 }
 
 .see-more-button {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .circular-image-wrapper {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 .card-body {
-  padding: 10px 0px 10px 0px !important;
+    padding: 10px 0px 10px 0px !important;
 }
 
 .title {
-    font-size: 5vw !important;
+    font-size: 3vw !important;
     color: #5f4bc4;
 }
 
 
 hr.solid {
-  border-top: 3px solid #bbb;
-  margin: 0 auto;
+    border-top: 3px solid #bbb;
+    margin: 0 auto;
 }
 
 .card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2vw;
 }
 
-.date-time{
+.date-time {
     font-size: 1.8vw !important;
     color: gray !important;
 }
+
 .subheader {
     font-size: 1.5vw !important;
     color: black !important;
     margin-bottom: 0px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .participant-title {
-  font-size: 1.5vw;
+    font-size: 1.5vw;
 }
 
 .participant-profile-image {
-  width: 3vw;
-  height: 3vw;
-  border-radius: 50%;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
 
-  /*adpative image position*/
-  object-fit: cover;
+    /*adpative image position*/
+    object-fit: cover;
 }
 
 .participant-list-container {
-  display: flex;
-  gap: 10px;
-  cursor: pointer;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
 }
 
 .details {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .left {
-  padding-right: 0.2vw;
-  align-items: center;
+    padding-right: 0.2vw;
+    align-items: center;
 }
 
 .right {
-  align-items: center;
+    align-items: center;
 }
 
 .details-text {
-  font-size: 2vw;
-  margin-bottom: 0px;
-  color: #5f4bc4;
+    font-size: 2vw;
+    margin-bottom: 0px;
+    color: #5f4bc4;
 }
 
 .card-middle {
-  padding-top: 1vw;
-  padding-bottom: 1vw;
-  padding-left: 3vw;
-  padding-right: 3vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
 }
 
 .details-header {
-  font-size: 1.2vw;
+    font-size: 1.2vw;
 }
 
 .footer-padding {
-  padding: 1vw;
+    padding: 1vw;
 }
 
 .location {
-    display: flex;
-    align-items: center;
     color: black;
 }
 
-.icon-width{
+.icon-width {
     padding-right: 0.7em;
     font-size: 1.3em;
+}
+
+
+@media screen and (max-width: 800px) and (min-width: 550px) {
+    .title {
+        font-size: 25px !important;
+    }
+
+    .date-time {
+        font-size: 15px !important;
+    }
+
+    .icon-width, .subheader {
+        font-size: 15px !important;
+    }
+
+    .owner-profile-image{
+        width: 30px;
+        height: auto;
+    }
+    .details-text{
+        font-size: 15px;
+    }
+    .participant-title{
+        font-size: 13px;
+    }
+    .participant-profile-image{
+        width: 25px;
+        height: auto;
+
+    }
+    .participant-list-container{
+        gap:5px
+    }
+
+    .details-header{
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 610px) {
+    .title {
+        font-size: 28px !important;
+    }
+
+    .date-time {
+        font-size: 18px !important;
+    }
+
+    .icon-width, .subheader {
+        font-size: 16px !important;
+    }
+
+    .owner-profile-image{
+        width: 30px;
+        height: auto;
+    }
+    .details-text{
+        font-size: 15px;
+    }
+    .participant-title{
+        font-size: 13px;
+    }
+    .participant-profile-image{
+        width: 25px;
+        height: auto;
+
+    }
+    .participant-list-container{
+        gap:5px
+    }
+
+    .card-top-detail-container{
+        text-align: center;
+    }
+
+    .details-header{
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .details-header{
+        font-size: 11px;
+    }
+    .icon-width{
+        width:15px;
+    }
+    .details-text{
+        font-size: 11px;
+    }
+
+
 }
 

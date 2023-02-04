@@ -6,16 +6,22 @@ import "./UserEventCard.css";
 const UserEventCard = ({ event }) => {
   return (
     <Card>
-      <Card.Body>
-        <Card.Title>{event.name}</Card.Title>
+      <Card.Body className="user-event-card-body">
+        <Card.Title className="user-event-card-title">{event.name}</Card.Title>
 
-        <Card.Text>date: something</Card.Text>
+        <Card.Text className="user-event-card-text">date: something</Card.Text>
 
-        <Card.Text>owner: {event.owner}</Card.Text>
+        <Card.Text className="user-event-card-text">
+          owner: {event.owner}
+        </Card.Text>
 
-        <Card.Text>location: {event.location}</Card.Text>
+        <Card.Text className="user-event-card-text">
+          location: {event.location}
+        </Card.Text>
 
-        <Card.Text>max capacity: {event.maxCap}</Card.Text>
+        <Card.Text className="user-event-card-text">
+          max capacity: {event.maxCap}
+        </Card.Text>
       </Card.Body>
     </Card>
   );

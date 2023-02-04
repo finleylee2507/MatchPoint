@@ -70,10 +70,10 @@ const EventCard = ({
     <Card className="card">
       <Col>
         <Row className="card-top">
-          <Col xs={4} className="circular-image-wrapper">
+          <Col sm={3} className="circular-image-wrapper">
             <img className="image" src={imgSrc} alt="image of event" />
           </Col>
-          <Col>
+          <Col sm={5} className="card-top-detail-container">
             <Card.Title className="title">{name}</Card.Title>
             <h2 className="date-time">
               {currStartDate &&
@@ -130,55 +130,69 @@ const EventCard = ({
 
           <Col>
             <Row>
-              <Col xs={2} className="circular-image-wrapper footer-padding">
-                {allUsers && allUsers[owner] && allUsers[owner].photoURL && (
-                  <img
-                    className="owner-profile-image"
-                    src={allUsers[owner].photoURL}
-                    alt="image of event"
-                  />
-                )}
-              </Col>
-              <Col className="footer-padding">
-                <h2 className="subheader">Organized by</h2>
+              <Col xs={12} sm={12}>
+                <Row>
+                  <Col
+                    xs={{ span: 1, offset: 4 }}
+                    sm={{ span: 2, offset: 0 }}
+                    className="circular-image-wrapper footer-padding"
+                  >
+                    {allUsers &&
+                      allUsers[owner] &&
+                      allUsers[owner].photoURL && (
+                        <img
+                          className="owner-profile-image"
+                          src={allUsers[owner].photoURL}
+                          alt="image of event"
+                        />
+                      )}
+                  </Col>
 
-                <h3 className="details-text">{allUsers[owner].displayName}</h3>
-              </Col>
-            </Row>
+                  <Col xs={5} sm={9} className="footer-padding">
+                    <h2 className="subheader">Organized by</h2>
 
-            <Row>
-              <h3 className="participant-title">Participants:</h3>
-              <p
-                className="participant-list-container"
-                onClick={() => {
-                  handleShowParticipantsModal();
-                  handleSetEventToShowParticipants(cardData);
-                }}
-              >
-                {participantsToShow.map((participant) => {
-                  let photoURL = participant.photoURL;
-                  let displayName = participant.displayName;
-                  return (
+                    <h3 className="details-text">
+                      {allUsers[owner].displayName}
+                    </h3>
+                  </Col>
+                </Row>
+              </Col>
+
+              <Col xs={{ span: 12, offset: 4 }} sm={{ span: 12, offset: 0 }}>
+                <h3 className="participant-title">Participants:</h3>
+                <p
+                  className="participant-list-container"
+                  onClick={() => {
+                    handleShowParticipantsModal();
+                    handleSetEventToShowParticipants(cardData);
+                  }}
+                >
+                  {participantsToShow.map((participant) => {
+                    let photoURL = participant.photoURL;
+                    let displayName = participant.displayName;
+                    return (
+                      <img
+                        className="participant-profile-image"
+                        src={photoURL}
+                        alt={displayName}
+                        title={displayName}
+                        key={participantsToShow.indexOf(participant)}
+                      />
+                    );
+                  })}
+                  {cardData.participants.length > 5 && (
                     <img
                       className="participant-profile-image"
-                      src={photoURL}
-                      alt={displayName}
-                      title={displayName}
-                      key={participantsToShow.indexOf(participant)}
+                      src={ellipsis}
+                      title="more"
                     />
-                  );
-                })}
-                {cardData.participants.length > 5 && (
-                  <img
-                    className="participant-profile-image"
-                    src={ellipsis}
-                    title="more"
-                  />
-                )}
-              </p>
+                  )}
+                </p>
+              </Col>
             </Row>
           </Col>
         </Row>
+
         <hr className="solid"></hr>
         <Row className="card-middle">
           <Col>
