@@ -321,6 +321,7 @@ const AddEventModal = ({
           variant="primary"
           type="submit"
           form="create-event-form"
+          className="create-event-button"
           disabled={submissionStatus !== 0}
         >
           Create Event

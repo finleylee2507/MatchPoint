@@ -279,6 +279,7 @@ const EventCard = ({
             cardData.owner !== user.uid && (
               <Button
                 size="lg"
+                className="event-card-button leave-event-button"
                 onClick={() => {
                   handleLeave(cardData);
                 }}

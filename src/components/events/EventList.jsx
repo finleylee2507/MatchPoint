@@ -15,7 +15,7 @@ import {
   updateEvent,
   uploadFile,
 } from "../../utilities/firebase";
-import { Button, Form, Stack } from "react-bootstrap";
+import { Button, Form, InputGroup, Stack } from "react-bootstrap";
 import EventCard from "./EventCard";
 import EventModal from "./EventModal";
 import AddEventModal from "./AddEventModal";
@@ -28,7 +28,9 @@ import { Container, create } from "react-modal-promise";
 import JoinConfirmationModal from "./JoinConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarPlus } from "@fortawesome/free-regular-svg-icons";
 
 const EventList = ({ eventData, user, allUsers }) => {
   const [searchFilter, setSearchFilter] = useState("");
@@ -144,34 +146,31 @@ const EventList = ({ eventData, user, allUsers }) => {
       <div className="event-list">
         <ToastContainer autoClose={2000} />
         <div className="event-list-tool-bar">
-          <Form className="d-flex">
-            <Stack direction="horizontal" gap={2}>
+          <Form className="d-flex search-bar-form">
+            <Stack direction="horizontal" gap={1}>
               <Form.Control
                 type="search"
                 placeholder="Search for an activity"
-                className="me-2"
+                className="me-2 activity-search-bar"
                 aria-label="Search"
                 value={searchFilter}
                 onKeyPress={(e) => handleKeyPress(e)}
                 onChange={(e) => setSearchFilter(e.target.value)}
               />
-              <Button
-                className="search-button"
-                aria-label="Search"
-                variant="outline-success"
-                onClick={handleSearch}
-              >
-                Search
-              </Button>
-              <Button
-                className="add-event-button"
-                aria-label="Add event"
-                onClick={handleShowAddEventModal}
-              >
-                Add Event
-              </Button>
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="activity-search-bar-search-icon"
+              />
             </Stack>
           </Form>
+          <div className="add-event-icon">
+            <FontAwesomeIcon
+              icon={faCalendarPlus}
+              size="lg"
+              title="Add event"
+              onClick={handleShowAddEventModal}
+            />
+          </div>
         </div>
         <p className="empty-page-message">No events to display...</p>
         <AddEventModal
@@ -544,41 +543,44 @@ const EventList = ({ eventData, user, allUsers }) => {
     <div className="event-list">
       <ToastContainer autoClose={2000} />
       <div className="event-list-tool-bar">
-        <Form className="d-flex">
-          <Stack direction="horizontal" gap={2}>
+        <Form className="d-flex search-bar-form">
+          <Stack direction="horizontal" gap={1}>
             <Form.Control
               type="search"
               placeholder="Search for an activity"
-              className="me-2"
+              className="me-2 activity-search-bar"
               aria-label="Search"
               value={searchFilter}
               onKeyPress={(e) => handleKeyPress(e)}
               onChange={(e) => setSearchFilter(e.target.value)}
             />
-            <Button
-              className="search-button"
-              aria-label="Search"
-              variant="outline-success"
-              onClick={handleSearch}
-            >
-              Search
-            </Button>
-            <Button
-              className="add-event-button"
-              aria-label="Add event"
-              onClick={handleShowAddEventModal}
-            >
-              <div className="add-event-button-inner-wrapper">
-                <FontAwesomeIcon
-                  className="plus-icon"
-                  icon={faPlus}
-                  size="lg"
-                ></FontAwesomeIcon>
-                <span className="add-event-text">Add Event</span>
-              </div>
-            </Button>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="activity-search-bar-search-icon"
+            />
+
+            {/*<Button*/}
+            {/*  className="add-event-button"*/}
+            {/*  aria-label="Add event"*/}
+            {/*  onClick={handleShowAddEventModal}*/}
+            {/*>*/}
+            {/*  <FontAwesomeIcon*/}
+            {/*    className="plus-icon"*/}
+            {/*    icon={faPlus}*/}
+            {/*    size="lg"*/}
+            {/*  ></FontAwesomeIcon>*/}
+            {/*  <span className="add-event-text">Add Event</span>*/}
+            {/*</Button>*/}
           </Stack>
         </Form>
+        <div className="add-event-icon">
+          <FontAwesomeIcon
+            icon={faCalendarPlus}
+            size="lg"
+            title="Add event"
+            onClick={handleShowAddEventModal}
+          />
+        </div>
       </div>
 
       <EventModal

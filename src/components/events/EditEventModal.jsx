@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
-import "./AddEventModal.css";
+import "./EditEventModal.css";
 
 const EditEventModal = ({
   show,
@@ -334,6 +334,7 @@ const EditEventModal = ({
           variant="primary"
           type="submit"
           form="create-event-form"
+          className="update-event-button"
           disabled={submissionStatus !== 0}
         >
           Update Event

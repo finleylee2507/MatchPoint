@@ -10,6 +10,7 @@ import {
   faUserPlus,
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
+import ellipsis from "../../assets/ellipsis.jpg";
 
 const UserEventCard = ({
   event,
@@ -77,7 +78,7 @@ const UserEventCard = ({
   return (
     <Card className="user-card">
       <div className="card-header">
-        <Card.Title className="title">{event.name}</Card.Title>
+        <Card.Title className="user-event-card-title">{event.name}</Card.Title>
         <div className="date-location-container">
           <p>
             {" "}
@@ -94,14 +95,14 @@ const UserEventCard = ({
           </p>
         </div>
         <hr className="solid"></hr>
-        <div className="description-container">
+        <div className="user-event-description-container">
           <p>{event.desc}</p>
         </div>
-        <div className="participants-container">
+        <div className="user-event-participants-container">
           <Row>
-            <h3 className="participant-title">Participants:</h3>
+            <h3 className="user-event-participant-title">Participants:</h3>
             <p
-              className="participant-list-container"
+              className="user-event-participant-list-container"
               onClick={() => {
                 handleShowParticipantsModal();
                 handleSetEventToShowParticipants(event);
@@ -112,7 +113,7 @@ const UserEventCard = ({
                 let displayName = participant.displayName;
                 return (
                   <img
-                    className="participant-profile-image"
+                    className="user-event-participant-profile-image"
                     src={photoURL}
                     alt={displayName}
                     title={displayName}
@@ -122,7 +123,7 @@ const UserEventCard = ({
               })}
               {event.participants.length > 5 && (
                 <img
-                  className="participant-profile-image"
+                  className="user-event-participant-profile-image"
                   src={ellipsis}
                   title="more"
                 />
@@ -139,7 +140,7 @@ const UserEventCard = ({
                 onClick={handleEdit}
                 variant="warning"
                 size="lg"
-                className="edit-event-button"
+                className="user-event-card-button edit-event-button"
               >
                 Edit Event
               </Button>
@@ -152,7 +153,7 @@ const UserEventCard = ({
                 onClick={handleDelete}
                 variant="danger"
                 size="lg"
-                className="delete-event-button"
+                className="user-event-card-button delete-event-button"
               >
                 Delete Event
               </Button>
@@ -168,6 +169,7 @@ const UserEventCard = ({
                   onClick={() => {
                     handleLeave(event);
                   }}
+                  className="user-event-card-button leave-event-button"
                 >
                   Leave Event
                 </Button>
