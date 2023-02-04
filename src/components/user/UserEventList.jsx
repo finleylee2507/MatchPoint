@@ -30,7 +30,7 @@ const UserEventList = ({
     return (
       <div>
         <p>
-          You don't have any upcoming events. Please create one, or join one
+          You don't have any {past ? "past" : "upcoming"} events. Please create one, or join one
           from the All Events tab!
         </p>
       </div>
