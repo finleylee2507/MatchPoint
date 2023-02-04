@@ -74,7 +74,7 @@ hr.solid {
 }
 
 .participant-title {
-    font-size: 1.5vw;
+    font-size: 1.1vw;
 }
 
 .participant-profile-image {
@@ -84,6 +84,14 @@ hr.solid {
 
     /*adpative image position*/
     object-fit: cover;
+}
+
+.participant-list-section {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-left: 3rem;
 }
 
 .participant-list-container {
@@ -150,27 +158,35 @@ hr.solid {
         font-size: 15px !important;
     }
 
-    .owner-profile-image{
+    .owner-profile-image {
         width: 30px;
         height: auto;
     }
-    .details-text{
+
+    .details-text {
         font-size: 15px;
     }
-    .participant-title{
+
+    .participant-title {
         font-size: 13px;
     }
-    .participant-profile-image{
+
+    .participant-profile-image {
         width: 25px;
         height: auto;
 
     }
-    .participant-list-container{
-        gap:5px
+
+    .participant-list-container {
+        gap: 5px;
     }
 
-    .details-header{
+    .details-header {
         font-size: 12px;
+    }
+
+    .participant-list-section {
+        margin-left: 1rem;
     }
 }
 
@@ -187,42 +203,52 @@ hr.solid {
         font-size: 16px !important;
     }
 
-    .owner-profile-image{
+    .owner-profile-image {
         width: 30px;
         height: auto;
     }
-    .details-text{
+
+    .details-text {
         font-size: 15px;
     }
-    .participant-title{
+
+    .participant-title {
         font-size: 13px;
     }
-    .participant-profile-image{
+
+    .participant-profile-image {
         width: 25px;
         height: auto;
 
     }
-    .participant-list-container{
-        gap:5px
+
+    .participant-list-container {
+        gap: 5px
     }
 
-    .card-top-detail-container{
+    .card-top-detail-container {
         text-align: center;
     }
 
-    .details-header{
+    .details-header {
         font-size: 12px;
+    }
+
+    .participant-list-section {
+        margin-left: 1rem;
     }
 }
 
 @media screen and (max-width: 420px) {
-    .details-header{
+    .details-header {
         font-size: 11px;
     }
-    .icon-width{
-        width:15px;
+
+    .icon-width {
+        width: 15px;
     }
-    .details-text{
+
+    .details-text {
         font-size: 11px;
     }
 

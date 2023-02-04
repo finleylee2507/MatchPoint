@@ -157,38 +157,6 @@ const EventCard = ({
                   </Col>
                 </Row>
               </Col>
-
-              <Col xs={{ span: 12, offset: 4 }} sm={{ span: 12, offset: 0 }}>
-                <h3 className="participant-title">Participants:</h3>
-                <p
-                  className="participant-list-container"
-                  onClick={() => {
-                    handleShowParticipantsModal();
-                    handleSetEventToShowParticipants(cardData);
-                  }}
-                >
-                  {participantsToShow.map((participant) => {
-                    let photoURL = participant.photoURL;
-                    let displayName = participant.displayName;
-                    return (
-                      <img
-                        className="participant-profile-image"
-                        src={photoURL}
-                        alt={displayName}
-                        title={displayName}
-                        key={participantsToShow.indexOf(participant)}
-                      />
-                    );
-                  })}
-                  {cardData.participants.length > 5 && (
-                    <img
-                      className="participant-profile-image"
-                      src={ellipsis}
-                      title="more"
-                    />
-                  )}
-                </p>
-              </Col>
             </Row>
           </Col>
         </Row>
@@ -238,6 +206,40 @@ const EventCard = ({
             </div>
           </Col>
         </Row>
+        <hr className="solid"></hr>
+        <div className="participant-list-section">
+          <h3 className="participant-title">Participants:</h3>
+          <div>
+            <p
+              className="participant-list-container"
+              onClick={() => {
+                handleShowParticipantsModal();
+                handleSetEventToShowParticipants(cardData);
+              }}
+            >
+              {participantsToShow.map((participant) => {
+                let photoURL = participant.photoURL;
+                let displayName = participant.displayName;
+                return (
+                  <img
+                    className="participant-profile-image"
+                    src={photoURL}
+                    alt={displayName}
+                    title={displayName}
+                    key={participantsToShow.indexOf(participant)}
+                  />
+                );
+              })}
+              {cardData.participants.length > 5 && (
+                <img
+                  className="participant-profile-image"
+                  src={ellipsis}
+                  title="more"
+                />
+              )}
+            </p>
+          </div>
+        </div>
         <div className="card-footer">
           <Row>
             <Col></Col>
