@@ -140,7 +140,7 @@ const AddEventModal = ({ show, handleClose, handleSubmit, user }) => {
           onSubmit={createEvent}
           id="create-event-form"
         >
-          <Form.Group className="mb-3" controlId="event-name">
+          <Form.Group data-cy="event-name" className="mb-3" controlId="event-name">
             <Form.Label>Event Name</Form.Label>
             <Form.Control
               type="text"

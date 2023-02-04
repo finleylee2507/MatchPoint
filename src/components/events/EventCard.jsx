@@ -70,14 +70,16 @@ const EventCard = ({
           </Col>
           <Col>
             <Card.Title className="title">{name}</Card.Title>
-            <h2 className="date-time">{(new Date(cardData.dateTimeString)).toLocaleString("en-US", {
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              hour12: false,
-              timeZone: "CST",
-            })}</h2>
+            <h2 className="date-time">
+              {new Date(cardData.dateTimeString).toLocaleString("en-US", {
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: false,
+                timeZone: "CST",
+              })}
+            </h2>
 
             <div className="location">
               <FontAwesomeIcon
@@ -240,6 +242,7 @@ const EventCard = ({
             {owner === user.uid && (
               <Col>
                 <Button
+                  data-cy="delete-event"
                   onClick={handleDelete}
                   variant="danger"
                   size="lg"

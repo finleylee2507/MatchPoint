@@ -52,13 +52,13 @@ const storage = getStorage();
 const auth = getAuth(firebase);
 
 if (!window.EMULATION && import.meta.env.NODE_ENV !== "production") {
-  connectAuthEmulator(auth, "http://127.0.0.1:5174");
-  connectDatabaseEmulator(database, "127.0.0.1", 5176);
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
 
   signInWithCredential(
     auth,
     GoogleAuthProvider.credential(
-      '{"sub": "6fsxDCNu0SzrD6CPQhi7URfJLiwK", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+      '{"sub": "InedCpG62t1oWoDRek9AMTMT2lqJ", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
     )
   );
 
