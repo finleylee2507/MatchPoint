@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Message.css";
 import { updateReadAndUnreadMessages } from "../../utilities/firebase";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { parseDateTimeString } from "../../utilities/dateTime";
 
 const Message = ({
   message,
@@ -18,6 +19,24 @@ const Message = ({
     return "";
   }
 
+  const [dateTimeObject, setDateTimeObject] = useState(null);
+
+  useEffect(() => {
+    if (message !== undefined && message.timeStamp !== "undated") {
+      //don't parse date for welcome message
+      let { month, day, year, hours, minutes, seconds } = parseDateTimeString(
+        message.timeStamp
+      );
+      setDateTimeObject({
+        month: month,
+        day: day,
+        year: year,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+      });
+    }
+  }, [message]);
   const handleMessageClick = () => {
     markAsRead();
     setCurrentMessageToDisplay(message);
@@ -112,7 +131,11 @@ const Message = ({
 
   return (
     <div
-      className={"message " + (isRead ? " read" : "")}
+      className={
+        "message" +
+        (isRead ? " read" : "") +
+        (message.id === "welcome" ? " default" : " custom")
+      }
       onClick={handleMessageClick}
     >
       <div className="message-upper-container">
@@ -124,14 +147,23 @@ const Message = ({
         <h2 className={"message-card-title" + (isRead ? " read" : "")}>
           {message.title}
         </h2>
-        {message.id !== "welcome" && (
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            className="delete-message-icon"
-            size="lg"
-            onClick={deleteMessage}
-          />
-        )}
+
+        <div className="date-and-delete-container">
+          {dateTimeObject && (
+            <span
+              className={"date-string" + (isRead ? " read" : "")}
+            >{`${dateTimeObject.month}/${dateTimeObject.day}/${dateTimeObject.year}`}</span>
+          )}
+
+          {message.id !== "welcome" && (
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              className="delete-message-icon"
+              size="lg"
+              onClick={deleteMessage}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

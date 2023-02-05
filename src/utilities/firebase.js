@@ -60,6 +60,7 @@ export const clearDatabase = () => {
       welcome: {
         id: "welcome",
         title: "Welcome to MatchPoint",
+        timeStamp: "undated",
         content:
           "Welcome to MatchPoint! MatchPoint lets you seamlessly find open sporting events and sign up for them, allowing you to enjoy your favorite sports activities. Head over to the 'All Events' page now to see what's happening!",
       },

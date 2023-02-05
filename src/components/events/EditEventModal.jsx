@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import "./EditEventModal.css";
-
+import { parseDateTimeString } from "../../utilities/dateTime";
 const EditEventModal = ({
   show,
   handleClose,
@@ -38,21 +38,9 @@ const EditEventModal = ({
 
   const initializeForm = () => {
     if (data) {
-      let dateTimeObject = new Date(data.dateTimeString);
-
-      //convert GMT time to CST
-      let test = dateTimeObject.toLocaleString("en-US", {
-        timeZone: "CST",
-        hour12: false,
-      });
-      const [first, second] = test.split(",").map((item) => item.trim());
-      let [month, day, year] = first.split("/");
-      let [hours, minutes, seconds] = second.split(":");
-
-      //0 padding
-      month = month.padStart(2, "0");
-      day = day.padStart(2, "0");
-      hours = hours.padStart(2, "0");
+      let { month, day, year, hours, minutes, seconds } = parseDateTimeString(
+        data.dateTimeString
+      );
 
       setFormData((prevFormData) => ({
         ...prevFormData,
