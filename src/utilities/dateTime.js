@@ -1,4 +1,5 @@
 export const parseDateTimeString = (dateTimeString) => {
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let dateTimeObject = new Date(dateTimeString);
   //convert GMT time to CST
   let temp = dateTimeObject.toLocaleString("en-US", {
@@ -14,6 +15,7 @@ export const parseDateTimeString = (dateTimeString) => {
   day = day.padStart(2, "0");
   hours = hours.padStart(2, "0");
 
+  let weekday = weekdays[dateTimeObject.getDay()];
   return {
     month: month,
     day: day,
@@ -21,5 +23,6 @@ export const parseDateTimeString = (dateTimeString) => {
     hours: hours,
     minutes: minutes,
     seconds: seconds,
+    weekday: weekday,
   };
 };

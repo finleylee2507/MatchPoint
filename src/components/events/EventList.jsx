@@ -374,7 +374,7 @@ const EventList = ({ eventData, user, allUsers }) => {
         data.name
       }". Goodbyes are always hard and we're so sad to see you go ${
         allUsers[user.uid].displayName
-      }:(. `,
+      } :(. `,
       timeStamp: new Date().toUTCString(),
     };
 

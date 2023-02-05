@@ -5,6 +5,7 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { parseDateTimeString } from "../../utilities/dateTime";
+import { logDOM } from "@testing-library/react";
 
 const Message = ({
   message,
@@ -24,9 +25,8 @@ const Message = ({
   useEffect(() => {
     if (message !== undefined && message.timeStamp !== "undated") {
       //don't parse date for welcome message
-      let { month, day, year, hours, minutes, seconds } = parseDateTimeString(
-        message.timeStamp
-      );
+      let { month, day, year, hours, minutes, seconds, weekday } =
+        parseDateTimeString(message.timeStamp);
       setDateTimeObject({
         month: month,
         day: day,
@@ -34,9 +34,11 @@ const Message = ({
         hours: hours,
         minutes: minutes,
         seconds: seconds,
+        weekday: weekday,
       });
     }
   }, [message]);
+  console.log(dateTimeObject);
   const handleMessageClick = () => {
     markAsRead();
     setCurrentMessageToDisplay(message);
@@ -150,9 +152,11 @@ const Message = ({
 
         <div className="date-and-delete-container">
           {dateTimeObject && (
-            <span
-              className={"date-string" + (isRead ? " read" : "")}
-            >{`${dateTimeObject.month}/${dateTimeObject.day}/${dateTimeObject.year}`}</span>
+            <span className={"date-string" + (isRead ? " read" : "")}>
+              {dateTimeObject.year != new Date().getFullYear()
+                ? `${dateTimeObject.month}/${dateTimeObject.day}/${dateTimeObject.year}`
+                : `${dateTimeObject.weekday} ${dateTimeObject.month}/${dateTimeObject.day}`}
+            </span>
           )}
 
           {message.id !== "welcome" && (
