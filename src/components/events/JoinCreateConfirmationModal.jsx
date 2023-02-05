@@ -1,7 +1,8 @@
 import { Button, Modal } from "react-bootstrap";
 import React from "react";
+import "./JoinConfirmationModal.css";
 
-const JoinConfirmationModal = ({
+const JoinCreateConfirmationModal = ({
   isShow,
   onResolve,
   conflictingEventName,
@@ -25,14 +26,22 @@ const JoinConfirmationModal = ({
       to {actionItem}?
     </Modal.Body>
     <Modal.Footer>
-      <Button variant="primary" onClick={() => onResolve(true)}>
+      <Button
+        variant="primary"
+        className="confirmation-modal-confirm-button"
+        onClick={() => onResolve(true)}
+      >
         Confirm
       </Button>
-      <Button variant="secondary" onClick={() => onResolve(false)}>
+      <Button
+        variant="outline-secondary"
+        className="confirmation-modal-close-button"
+        onClick={() => onResolve(false)}
+      >
         Close
       </Button>
     </Modal.Footer>
   </Modal>
 );
 
-export default JoinConfirmationModal;
+export default JoinCreateConfirmationModal;

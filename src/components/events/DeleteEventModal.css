@@ -1,0 +1,11 @@
+.delete-confirm-button {
+    border-radius: 30px !important;
+    background-color: #dc3545 !important;
+    border-color:white !important;
+    width: 4rem !important;
+}
+
+.delete-cancel-button{
+    border-radius: 30px !important;
+    width: 5rem !important;
+}

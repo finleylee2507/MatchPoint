@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
-
+import "./MessageModal.css";
 const MessageModal = ({ show, handleClose, messageData }) => {
   return (
     <Modal
@@ -25,6 +25,7 @@ const MessageModal = ({ show, handleClose, messageData }) => {
           onClick={() => {
             handleClose();
           }}
+          className="message-modal-confirm-button"
         >
           Got it
         </Button>

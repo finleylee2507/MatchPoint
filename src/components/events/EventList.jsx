@@ -25,7 +25,7 @@ import EditEventModal from "./EditEventModal";
 import "react-toastify/dist/ReactToastify.css";
 import ParticipantsModal from "./ParticipantsModal";
 import { Container, create } from "react-modal-promise";
-import JoinConfirmationModal from "./JoinConfirmationModal";
+import JoinCreateConfirmationModal from "./JoinCreateConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -45,7 +45,7 @@ const EventList = ({ eventData, user, allUsers }) => {
   const [eventToShowParticipants, setEventToShowParticipants] = useState(null);
   const [eventToDelete, setEventToDelete] = useState(null);
   const [eventToEdit, setEventToEdit] = useState(null);
-  const confirmationModal = create(JoinConfirmationModal);
+  const confirmationModal = create(JoinCreateConfirmationModal);
   const handleCloseAddEventModal = () => setShowAddEventModal(false);
   const handleShowAddEventModal = () => {
     setShowAddEventModal(true);
@@ -284,11 +284,14 @@ const EventList = ({ eventData, user, allUsers }) => {
 
       // Create a new message for the general messages table
       let newJoinMessage = {
-        title: "New Event Participant",
+        title: `New Event Participant for "${data.name}" `,
         id: newMessageKey,
-        content: `${allUsers[user.uid].displayName} has joined the event "${
-          data.name
-        }".`,
+        content: `Hurrah! We got a new participant! ${
+          allUsers[user.uid].displayName
+        } just joined the event "${data.name}". Welcome to the event ${
+          allUsers[user.uid].displayName
+        }!`,
+        timeStamp: new Date().toUTCString(),
       };
 
       // Create an updated list of unread messages for the current user (joiner)
@@ -365,11 +368,14 @@ const EventList = ({ eventData, user, allUsers }) => {
 
     // Create a new message for the general messages table
     let newJoinMessage = {
-      title: "A Participant Left the Event",
+      title: `A Participant Left the Event "${data.name}"`,
       id: newMessageKey,
-      content: `${allUsers[user.uid].displayName} has left the event "${
+      content: `Oh no! ${allUsers[user.uid].displayName} just left the event "${
         data.name
-      }".`,
+      }". Goodbyes are always hard and we're so sad to see you go ${
+        allUsers[user.uid].displayName
+      } :(. `,
+      timeStamp: new Date().toUTCString(),
     };
 
     // Create an updated list of unread messages for the current user (joiner)
@@ -434,7 +440,6 @@ const EventList = ({ eventData, user, allUsers }) => {
   };
   const handleDeleteEvent = async () => {
     //get the list of event participants
-    console.log("Event participants: ", eventToDelete.participants);
     let newParticipantsEvent = eventToDelete.participants.map(
       (participantId) => {
         let userCurrentEvents = allUsers[participantId].events;
@@ -445,7 +450,6 @@ const EventList = ({ eventData, user, allUsers }) => {
       }
     );
 
-    console.log("New participants events: ", newParticipantsEvent);
     await deleteEventFromUsers(
       eventToDelete.participants,
       newParticipantsEvent
@@ -469,9 +473,10 @@ const EventList = ({ eventData, user, allUsers }) => {
 
     //create new message
     const newMessage = {
-      content: `The event '${eventToDelete.name}' that you're a part of has been deleted.`,
-      title: "Event Deleted",
+      content: `We're sorry to inform you the event '${eventToDelete.name}' that you're a part of has been cancelled. Please keep an eye out for new available events, or you can create one yourself! `,
+      title: `Event "${eventToDelete.name}" Cancelled`,
       id: newMessageKey,
+      timeStamp: new Date().toUTCString(),
     };
 
     let updatedParticipantsMessages = eventToDelete.participants.map(
