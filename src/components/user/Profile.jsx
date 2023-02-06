@@ -91,11 +91,7 @@ const Profile = ({ allUsers, user, allEvents }) => {
             {pastEvents.length === 0 ? (
               <div>
                 <ToastContainer autoClose={2000} />
-                <Image
-                  className="no-event-img"
-                  src="../../src/assets/no_event.png"
-                  alt="no_event"
-                />
+                <img className="no-event-img" src={no_events} alt="no_event" />
                 <p>You don't have any past events.</p>
               </div>
             ) : (
