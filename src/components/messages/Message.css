@@ -1,0 +1,156 @@
+.message {
+    cursor: pointer;
+    background-color: transparent;
+    box-shadow: 0 -1px gray, inset 0 -1px gray;
+    margin: 0 1vw;
+    padding: 1vw;
+    width: 90%;
+}
+
+
+.unread-dot {
+    color: #4d33d3;
+}
+
+.unread-dot.read {
+    visibility: hidden;
+}
+
+.message:hover {
+    background-color: #c3beff;
+    transition: 0.3s;
+}
+
+.subtitle {
+    font-size: 1.5vw;
+    color: gray;
+    margin-bottom: 0.7vw;
+}
+
+.message-upper-container {
+
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+
+}
+
+.date-and-delete-container {
+    margin-left: auto;
+}
+
+.date-string {
+    font-weight: 500;
+}
+
+.date-string.read {
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+
+.delete-message-icon {
+    margin-left: 30px;
+}
+
+.message-card-title {
+    color: #5f4bc4;
+    max-width: 1000px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.message-card-title.read {
+    color: #808080;
+    opacity: 0.5;
+    font-weight: 300;
+}
+
+
+@keyframes jiggle {
+    /* start at 0deg and this scale size.
+       scale size is repeated here to maintain smooth scaling */
+    0% {
+        transform: rotate(0deg) scale(1.15, 1.15);
+    }
+    /* midway rotate 2deg right */
+    50% {
+        transform: rotate(10deg) scale(1.15, 1.15);
+    }
+    /* end rotate -2deg left */
+    100% {
+        transform: rotate(-10deg) scale(1.15, 1.15)
+    }
+}
+
+/*hover effect on available devices*/
+@media (hover: hover) and (pointer: fine) {
+    .message.custom:hover .delete-message-icon {
+        display: inline-block;
+    }
+
+    .message.custom:hover .date-string {
+        display: none;
+    }
+
+    .delete-message-icon:hover {
+        transform: scale(1.2);
+        animation: jiggle 0.5s infinite linear;
+    }
+
+    .delete-message-icon {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 1000px) {
+    .message-card-title {
+        font-size: 1.3rem;
+        max-width: 600px;
+    }
+
+    .message-upper-container {
+        gap: 1rem;
+    }
+
+    .unread-dot {
+        font-size: 8px;
+    }
+
+    .delete-message-icon {
+        display: inline-block;
+        font-size: 18px;
+        margin-left: 1rem;
+    }
+
+    .date-string {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .message-card-title {
+        font-size: 1rem;
+        max-width: 300px;
+    }
+
+    .message-upper-container {
+        gap: 10px;
+    }
+
+    .unread-dot {
+        font-size: 8px;
+    }
+
+    .delete-message-icon {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .message-card-title {
+        max-width: 170px;
+    }
+}

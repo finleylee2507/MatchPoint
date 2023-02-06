@@ -1,6 +1,15 @@
 .image {
-    width: 14.3vw;
-    height: 14.3vw;
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+
+    /*adpative image position*/
+    object-fit: cover;
+}
+
+.owner-profile-image {
+    width: 5vw;
+    height: 5vw;
     border-radius: 50%;
 
     /*adpative image position*/
@@ -10,15 +19,13 @@
 .card {
     width: 85vw;
     margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.card-button {
-    background-color: #271CA1 !important;
-    color: white !important;
-    border: none !important;
-    transform: scale(1);
-}
 
+.see-more-button {
+    margin-top: 20px;
+}
 
 .circular-image-wrapper {
     display: flex !important;
@@ -30,11 +37,282 @@
     padding: 10px 0px 10px 0px !important;
 }
 
-.card-title {
-    font-size: 4vw !important;
+.title {
+    font-size: 3vw !important;
+    color: #5f4bc4;
 }
 
-.card-text {
-    font-size: 2vw !important;
-    margin-bottom: 8px !important;
+
+hr.solid {
+    border-top: 3px solid #bbb;
+    margin: 0 auto;
 }
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2vw;
+}
+
+.date-time {
+    font-size: 1.8vw !important;
+    color: gray !important;
+}
+
+.subheader {
+    font-size: 1.5vw !important;
+    color: black !important;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+.participant-title {
+    font-size: 1.1vw;
+}
+
+.participant-profile-image {
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+
+    /*adpative image position*/
+    object-fit: cover;
+}
+
+.participant-list-section {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-left: 3rem;
+}
+
+.participant-list-container {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+}
+
+.left {
+    padding-right: 0.2vw;
+    align-items: center;
+}
+
+.right {
+    align-items: center;
+}
+
+.details-text {
+    font-size: 2vw;
+    margin-bottom: 0px;
+    color: #5f4bc4;
+}
+
+.card-middle {
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
+
+.details-header {
+    font-size: 1.2vw;
+}
+
+.footer-padding {
+    padding: 1vw;
+}
+
+.location {
+    color: black;
+}
+
+.icon-width {
+    padding-right: 0.7em;
+    font-size: 1.3em;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: end;
+    gap: 1.5rem;
+}
+
+.event-card-button {
+    border-radius: 30px !important;
+    font-size: 20px !important;
+    width: 9.5rem !important;
+}
+
+.edit-event-button {
+    background-color: white !important;
+    color: #1CA127 !important;
+    border: 2px solid #1CA127 !important;
+}
+
+.delete-event-button {
+    background-color: white !important;
+    color: #dc3545 !important;
+    border: 2px solid #dc3545 !important;
+}
+
+.join-event-button, .leave-event-button {
+    background-color: white !important;
+    color: #271ca1 !important;
+    border: 2px solid #271ca1 !important;
+}
+
+.edit-event-button:hover {
+    background-color: #1CA127 !important;
+    color: white !important;
+    border-color: white !important;
+}
+
+.delete-event-button:hover {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border-color: white !important;
+}
+
+.join-event-button:hover, .leave-event-button:hover {
+    background-color: #271ca1 !important;
+    border-color: white !important;
+    color: white !important;
+}
+
+@media screen and (max-width: 900px) and (min-width: 550px) {
+    .title {
+        font-size: 25px !important;
+    }
+
+    .date-time {
+        font-size: 15px !important;
+    }
+
+    .icon-width, .subheader {
+        font-size: 15px !important;
+    }
+
+    .owner-profile-image {
+        width: 30px;
+        height: auto;
+    }
+
+    .details-text {
+        font-size: 15px;
+    }
+
+    .participant-title {
+        font-size: 13px;
+    }
+
+    .participant-profile-image {
+        width: 25px;
+        height: auto;
+
+    }
+
+    .participant-list-container {
+        gap: 5px;
+    }
+
+    .details-header {
+        font-size: 12px;
+    }
+
+    .participant-list-section {
+        margin-left: 1rem;
+    }
+
+    .event-card-button {
+        border-radius: 30px !important;
+        font-size: 16px !important;
+        width: 7rem !important;
+        padding: 3px 3px !important;
+    }
+}
+
+@media screen and (max-width: 610px) {
+    .title {
+        font-size: 28px !important;
+    }
+
+    .date-time {
+        font-size: 18px !important;
+    }
+
+    .icon-width, .subheader {
+        font-size: 16px !important;
+    }
+
+    .owner-profile-image {
+        width: 30px;
+        height: auto;
+    }
+
+    .details-text {
+        font-size: 15px;
+    }
+
+    .participant-title {
+        font-size: 13px;
+    }
+
+    .participant-profile-image {
+        width: 25px;
+        height: auto;
+
+    }
+
+    .participant-list-container {
+        gap: 5px
+    }
+
+    .card-top-detail-container {
+        text-align: center;
+    }
+
+    .details-header {
+        font-size: 12px;
+    }
+
+    .participant-list-section {
+        margin-left: 1rem;
+    }
+
+    .card-footer {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .event-card-button {
+        flex-basis: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .details-header {
+        font-size: 11px;
+    }
+
+    .icon-width {
+        width: 15px;
+    }
+
+    .details-text {
+        font-size: 11px;
+    }
+
+    .event-card-button {
+        font-size: 15px !important;
+        font-weight: 500 !important;
+    }
+
+}
+

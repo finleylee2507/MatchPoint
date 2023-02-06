@@ -1,0 +1,6 @@
+.user-profile-events-container {
+    display: flex;
+    gap: 10rem;
+    flex-wrap: wrap;
+
+}

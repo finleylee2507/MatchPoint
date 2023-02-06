@@ -6,3 +6,8 @@
 .creating-event-text {
     font-weight: 500;
 }
+
+.create-event-button {
+    border-radius: 30px !important;
+    background-color: #271ca1 !important;
+}

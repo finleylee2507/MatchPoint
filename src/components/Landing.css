@@ -1,14 +1,11 @@
 .landing-page-container {
     display: flex;
+    position: relative;
     justify-content: space-evenly;
-    background-color: #C3BEFF;
-    height: 100vh;
+    background-color: #c3beff;
+    min-height: 100vh;
     flex-direction: row;
-}
-@media (max-width: 1000px) {
-    .landing-page-container {
-      flex-direction: column;
-    }
+    overflow: hidden;
 }
 
 .sign-in-button {
@@ -16,17 +13,11 @@
     justify-content: center;
 }
 
-.app-image {
-    height: 90vh !important;
-
-}
-
 .col-left {
     display: flex;
     align-items: center;
     animation-name: app-image-animation;
     animation-duration: 0.5s;
-
 }
 
 .col-right {
@@ -37,22 +28,122 @@
 
     animation-name: col-right-animation;
     animation-duration: 0.5s;
+}
+
+.google-icon {
+    font-size: 30px;
+    margin-right: 1rem;
+}
+
+.landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
+    position: absolute;
+    height: 150px !important;
+    width: 150px !important;
+}
+
+.landing-img5 {
+    top: -10px;
+    left: 45vw;
+}
+
+.landing-img2 {
+    top: -30px;
+    left: 0px;
+}
+
+.landing-img3 {
+    top: 330px;
+    left: 1320px;
+}
+
+.landing-img4 {
+    bottom: 0px;
+    right: -50px;
+    height: 200px !important;
+    width: 200px !important;
 
 }
+
+.landing-img1 {
+    top: 330px;
+    left: -20px;
+}
+
+.landing-img6 {
+    bottom: -35px;
+    left: 45vw;
+}
+
+.landing-img7 {
+    top: 0px;
+    right: 0px;
+}
+
+.landing-img8 {
+    bottom: 0px;
+    left: -20px;
+    height: 150px !important;
+    width: 150px !important;
+}
+
+.landing-img1:hover {
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
+}
+
+.landing-img2:hover {
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
+}
+
+.landing-img3:hover {
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
+}
+
+.landing-img4:hover {
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
+}
+
+.landing-img5:hover {
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
+}
+
+.landing-img6:hover {
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
+}
+
+.landing-img7:hover {
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
+}
+
+.landing-img8:hover {
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
+}
+
 
 @keyframes col-right-animation {
-    from {padding-top: 1000px;}
-    to {padding-top:0px;}
-}
-@keyframes app-image-animation {
-    from {display:none; padding-bottom:1000px;}
-    to {display:flex; padding-bottom:0px;}
+    from {
+        padding-top: 1000px;
+    }
+    to {
+        padding-top: 0px;
+    }
 }
 
-@media (max-width: 1000px) {
-    .col-right {
-      width: auto;
-      padding: 20px;
+@keyframes app-image-animation {
+    from {
+        display: none;
+        padding-bottom: 1000px;
+    }
+    to {
+        display: flex;
+        padding-bottom: 0px;
     }
 }
 
@@ -60,24 +151,56 @@
     display: flex;
     align-items: center;
     /* gap: 2rem; */
+}
 
+
+.app-name {
+    font-family: "Graduate", cursive;
+    font-weight: bold;
+    color: #6c60ff;
+    font-size: 3rem;
+    font-family: "Graduate", cursive;
+    align-self: center;
 }
 
 .small-logo {
-    height: 160px;
+    display: none;
 }
 
 .blurb {
-    font-size: 18px;
+    font-size: 2rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    align-self: center;
+    margin-top: 1rem;
 }
 
-.app-name{
-    font-family: 'Graduate', cursive;
+.sign-in-button {
+    color: white !important;
+    border: none !important;
+    background-color: #271ca1 !important;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-family: "Montserrat", sans-serif !important;
     font-weight: bold;
-    font-weight: bold;
-    color: #4e2780;
-    font-size: 5vw;
-    font-family: 'Graduate', cursive;
+}
+
+.sign-in-button:hover {
+    cursor: pointer;
+    background-color: #6c60ff !important;
+    transition: 0.3s;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    /* gap: 2rem; */
+}
+
+.sign-in-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
 /* @media (max-width:1000px) {
@@ -91,9 +214,43 @@
 
 } */
 
-@media (max-width:1000px) {
-    .app-image {
-        display:none;
+@media (max-width: 1000px) {
+    .landing-page-container {
+        flex-direction: column;
     }
+
+    .app-image {
+        display: none;
+    }
+
+    .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
+        display: none;
+    }
+
+    /* .app-name {
+      font-size: 8vw;
+    } */
+    .small-logo {
+        height: 160px;
+    }
+
+    .col-right {
+        width: auto;
+        padding: 20px;
+    }
+
+    .small-logo {
+        display: block;
+        width: 250px;
+        height: 250px;
+    }
+
+    .logo-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* gap: 2rem; */
+    }
+
 
 }
