@@ -16,6 +16,10 @@
     justify-content: center;
 }
 
+.event-card-list-container {
+    display: flex;
+
+}
 
 .add-event-icon {
 
@@ -110,7 +114,7 @@
 }
 
 
-.no-event-img{
+.no-event-img {
     height: 200px;
     margin-top: 20px;
 }

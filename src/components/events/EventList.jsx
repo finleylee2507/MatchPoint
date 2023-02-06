@@ -15,7 +15,7 @@ import {
   updateEvent,
   uploadFile,
 } from "../../utilities/firebase";
-import { Form, Stack, Image } from "react-bootstrap";
+import { Form, Image, Stack } from "react-bootstrap";
 import EventCard from "./EventCard";
 import EventModal from "./EventModal";
 import AddEventModal from "./AddEventModal";
@@ -172,7 +172,11 @@ const EventList = ({ eventData, user, allUsers }) => {
             />
           </div>
         </div>
-        <Image className="no-event-img" src="../../src/assets/no_event.png" alt="no_event" />
+        <Image
+          className="no-event-img"
+          src="../../src/assets/no_event.png"
+          alt="no_event"
+        />
         <p className="empty-page-message">No events to display...</p>
         <AddEventModal
           show={showAddEventModal}
@@ -636,7 +640,11 @@ const EventList = ({ eventData, user, allUsers }) => {
       <Container />
       {!events || events.length === 0 ? (
         <div>
-          <Image className="no-event-img" src="../../src/assets/no_event.png" alt="no_event" />
+          <Image
+            className="no-event-img"
+            src="../../src/assets/no_event.png"
+            alt="no_event"
+          />
           <p className="empty-page-message">No events to display...</p>
         </div>
       ) : (

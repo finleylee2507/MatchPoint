@@ -19,6 +19,7 @@ import {
   uploadFile,
 } from "../../utilities/firebase";
 import { toast } from "react-toastify";
+import "./UserEventList.css";
 
 const UserEventList = ({ events, renderEvents, user, users }) => {
   const [showParticipantsModal, setShowParticipantsModal] = useState(false);
@@ -287,7 +288,7 @@ const UserEventList = ({ events, renderEvents, user, users }) => {
   };
 
   return events && renderEvents ? (
-    <div className="user-event-list-container">
+    <div className="user-profile-events-container">
       <Container />
       <DeleteEventModal
         show={showDeleteEventModal}

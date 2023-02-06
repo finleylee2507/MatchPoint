@@ -2,7 +2,6 @@
 
 import {
   addNewUser,
-  clearDatabase,
   signInWithGoogle,
   useAuthState,
 } from "../utilities/firebase";

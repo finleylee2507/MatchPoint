@@ -89,7 +89,7 @@ const UserEventCard = ({
         </div>
         <hr className="solid"></hr>
         <div className="user-event-description-container">
-          <p>{event.desc}</p>
+          <p className="user-event-card-description">{event.desc}</p>
         </div>
         <div className="user-event-participants-container">
           <Row>
@@ -133,7 +133,7 @@ const UserEventCard = ({
                 onClick={handleEdit}
                 variant="warning"
                 size="lg"
-                className="user-card-button"
+                className="event-card-button edit-event-button profile-button"
               >
                 Edit Event
               </Button>
@@ -146,24 +146,26 @@ const UserEventCard = ({
                 onClick={handleDelete}
                 variant="danger"
                 size="lg"
-                className="user-card-button"
+                className="event-card-button delete-event-button profile-button"
               >
                 Delete Event
               </Button>
             </Col>
           )}
-          {event.participants.includes(user.uid) &&
-            event.owner !== user.uid && (
-              <Button
-                size="lg"
-                className="event-card-button leave-event-button"
-                onClick={() => {
-                  handleLeave(event);
-                }}
-              >
-                Leave Event
-              </Button>
-            )}
+          <Col>
+            {event.participants.includes(user.uid) &&
+              event.owner !== user.uid && (
+                <Button
+                  size="lg"
+                  className="event-card-button leave-event-button profile-button"
+                  onClick={() => {
+                    handleLeave(event);
+                  }}
+                >
+                  Leave Event
+                </Button>
+              )}
+          </Col>
         </Row>
       </div>
     </Card>

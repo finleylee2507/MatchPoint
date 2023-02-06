@@ -1,6 +1,6 @@
 
 .user-card {
-    width: 60%;
+    width: 48%;
     margin-top: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -26,10 +26,14 @@
 }
 
 .user-event-card-title {
-    font-size: 3vw !important;
+    font-size: 2rem !important;
     color: #5f4bc4;
 }
 
+.user-event-card-description {
+    font-size: 20px !important;
+    font-weight: 400 !important;
+}
 
 hr.solid {
     border-top: 3px solid #bbb;
@@ -44,12 +48,11 @@ hr.solid {
 }
 
 .user-event-participant-title {
-    font-size: 1.5vw;
+    font-size: 15px;
 }
 
 .user-event-participant-profile-image {
-    width: 3vw;
-    height: 3vw;
+    width: 40px;
     border-radius: 50%;
 
     /*adpative image position*/
@@ -67,11 +70,6 @@ hr.solid {
     padding-top: 1vw;
 }
 
-.user-event-description-container p {
-    font-size: 1.5vw;
-    color: black;
-    font-weight: bold !important;
-}
 
 .card-header {
     padding: 2vw !important;
@@ -81,7 +79,21 @@ hr.solid {
     margin-top: 2.5vw !important;
 }
 
-.no-event-img{
+.no-event-img {
     height: 200px;
     margin-top: 20px;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .user-card {
+        width: 95%;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    /*.profile-button{*/
+    /*    width: 100% !important;*/
+    /*}*/
 }
