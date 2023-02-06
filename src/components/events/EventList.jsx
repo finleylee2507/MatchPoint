@@ -177,7 +177,7 @@ const EventList = ({ eventData, user, allUsers }) => {
           src="../../src/assets/no_event.png"
           alt="no_event"
         />
-        <p className="empty-page-message">No events to display...</p>
+        <p className="empty-page-message-event-list">Loading...</p>
         <AddEventModal
           show={showAddEventModal}
           handleClose={handleCloseAddEventModal}
@@ -572,19 +572,6 @@ const EventList = ({ eventData, user, allUsers }) => {
               icon={faMagnifyingGlass}
               className="activity-search-bar-search-icon"
             />
-
-            {/*<Button*/}
-            {/*  className="add-event-button"*/}
-            {/*  aria-label="Add event"*/}
-            {/*  onClick={handleShowAddEventModal}*/}
-            {/*>*/}
-            {/*  <FontAwesomeIcon*/}
-            {/*    className="plus-icon"*/}
-            {/*    icon={faPlus}*/}
-            {/*    size="lg"*/}
-            {/*  ></FontAwesomeIcon>*/}
-            {/*  <span className="add-event-text">Add Event</span>*/}
-            {/*</Button>*/}
           </Stack>
         </Form>
         <div className="add-event-icon">
@@ -645,7 +632,9 @@ const EventList = ({ eventData, user, allUsers }) => {
             src="../../src/assets/no_event.png"
             alt="no_event"
           />
-          <p className="empty-page-message">No events to display...</p>
+          <p className="empty-page-message-event-list">
+            No events to display...
+          </p>
         </div>
       ) : (
         events.map((e) => (

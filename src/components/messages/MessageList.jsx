@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Message from "./Message.jsx";
 import MessageModal from "./MessageModal";
+import "./MessageList.css";
 import { toast, ToastContainer } from "react-toastify";
 
 // import { getUserMessages } from "../../utilities/firebase";
@@ -38,8 +39,8 @@ const MessageList = ({ allUsers, user, allMessages }) => {
       allUsers[user.uid]["readMessages"] == undefined)
   ) {
     return (
-      <div className="event-list">
-        <p className="empty-page-message">You have no messages ...</p>
+      <div className="message-list">
+        <p className="empty-page-message-message-list">Loading messages ...</p>
       </div>
     );
   }
@@ -60,7 +61,7 @@ const MessageList = ({ allUsers, user, allMessages }) => {
   }
 
   return (
-    <div className="event-list">
+    <div className="message-list">
       <ToastContainer autoClose={500} />
       {Object.entries(allUserMessages).map(([id, messageId]) => (
         <Message
