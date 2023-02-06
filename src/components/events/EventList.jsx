@@ -31,6 +31,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarPlus } from "@fortawesome/free-regular-svg-icons";
+import no_events from "../../assets/no_event.png";
 
 const EventList = ({ eventData, user, allUsers }) => {
   const [searchFilter, setSearchFilter] = useState("");
@@ -173,11 +174,7 @@ const EventList = ({ eventData, user, allUsers }) => {
           </div>
         </div>
         <div className="no-event-container">
-          <Image
-            className="no-event-img"
-            src="../../src/assets/no_event.png"
-            alt="no_event"
-          />
+          <img className="no-event-img" src={no_events} alt="no_event" />
           <p className="empty-page-message-event-list">Loading events...</p>
         </div>
 
@@ -630,11 +627,7 @@ const EventList = ({ eventData, user, allUsers }) => {
       <Container />
       {!events || events.length === 0 ? (
         <div className="no-event-container">
-          <Image
-            className="no-event-img"
-            src="../../src/assets/no_event.png"
-            alt="no_event"
-          />
+          <img className="no-event-img" src={no_events} alt="no_event" />
           <p className="empty-page-message-event-list">
             No events to display...
           </p>
