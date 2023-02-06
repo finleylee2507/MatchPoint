@@ -1,6 +1,15 @@
 .user-profile-events-container {
-    display: flex;
-    gap: 5rem;
-    flex-wrap: wrap;
+    /*display: flex;*/
+    /*gap: 5rem;*/
+    /*flex-wrap: wrap;*/
 
+}
+
+
+@media  screen and (max-width: 1000px) {
+    .user-profile-events-container{
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
 }
