@@ -80,3 +80,8 @@ hr.solid {
 .user-event-participants-container {
     margin-top: 2.5vw !important;
 }
+
+.no-event-img{
+    height: 200px;
+    margin-top: 20px;
+}
