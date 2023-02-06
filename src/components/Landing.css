@@ -254,3 +254,11 @@
 
 
 }
+
+@media (max-height: 590px) {
+
+  .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
+    display: none;
+  }
+
+}
