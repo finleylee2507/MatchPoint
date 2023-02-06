@@ -219,6 +219,10 @@ const EventList = ({ eventData, user, allUsers }) => {
     let conflictingEventName;
     if (allUsers[user.uid].events) {
       for (let eventId of allUsers[user.uid].events) {
+        //don't check against the event itself
+        if (eventId === data.id) {
+          continue;
+        }
         //initialize current event
         let currEventObject = eventData[eventId];
         let [currEventStartDate, currEventEndDate] =

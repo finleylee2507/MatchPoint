@@ -271,7 +271,7 @@ const AddEventModal = ({
             <Form.Control
               type="number"
               min="1"
-              max="10"
+              max="24"
               step="0.1"
               name="eventDuration"
               value={formData.eventDuration}
