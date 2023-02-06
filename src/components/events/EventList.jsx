@@ -15,7 +15,7 @@ import {
   updateEvent,
   uploadFile,
 } from "../../utilities/firebase";
-import { Button, Form, InputGroup, Stack } from "react-bootstrap";
+import { Form, Stack } from "react-bootstrap";
 import EventCard from "./EventCard";
 import EventModal from "./EventModal";
 import AddEventModal from "./AddEventModal";
@@ -29,7 +29,7 @@ import JoinCreateConfirmationModal from "./JoinCreateConfirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarPlus } from "@fortawesome/free-regular-svg-icons";
 
 const EventList = ({ eventData, user, allUsers }) => {

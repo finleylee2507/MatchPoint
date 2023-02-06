@@ -20,15 +20,15 @@
 .add-event-icon {
 
     position: absolute;
-    right:0;
+    right: 0;
     font-size: 25px;
     color: #271ca1;
-    cursor:pointer;
+    cursor: pointer;
     transition: transform 0.5s;
 }
 
-.add-event-icon:hover{
-    transform:scale(1.2);
+.add-event-icon:hover {
+    transform: scale(1.2);
     opacity: 0.5;
 }
 

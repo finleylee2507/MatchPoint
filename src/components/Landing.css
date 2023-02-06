@@ -1,89 +1,97 @@
 .landing-page-container {
-  display: flex;
-  justify-content: space-evenly;
-  background-color: #c3beff;
-  height: 100vh;
-  flex-direction: row;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #c3beff;
+    height: 100vh;
+    flex-direction: row;
 }
+
 @media (max-width: 1000px) {
-  .landing-page-container {
-    flex-direction: column;
-  }
+    .landing-page-container {
+        flex-direction: column;
+    }
 }
 
 .sign-in-button {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
 }
 
 .app-image {
-  height: 90vh !important;
+    height: 90vh !important;
 }
 
 .col-left {
-  display: flex;
-  align-items: center;
-  animation-name: app-image-animation;
-  animation-duration: 0.5s;
+    display: flex;
+    align-items: center;
+    animation-name: app-image-animation;
+    animation-duration: 0.5s;
 }
 
 .col-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
 
-  animation-name: col-right-animation;
-  animation-duration: 0.5s;
+    animation-name: col-right-animation;
+    animation-duration: 0.5s;
+}
+
+.google-icon {
+    font-size: 30px;
+    margin-right: 1rem;
 }
 
 @keyframes col-right-animation {
-  from {
-    padding-top: 1000px;
-  }
-  to {
-    padding-top: 0px;
-  }
+    from {
+        padding-top: 1000px;
+    }
+    to {
+        padding-top: 0px;
+    }
 }
+
 @keyframes app-image-animation {
-  from {
-    display: none;
-    padding-bottom: 1000px;
-  }
-  to {
-    display: flex;
-    padding-bottom: 0px;
-  }
+    from {
+        display: none;
+        padding-bottom: 1000px;
+    }
+    to {
+        display: flex;
+        padding-bottom: 0px;
+    }
 }
 
 @media (max-width: 1000px) {
-  .col-right {
-    width: auto;
-    padding: 20px;
-  }
+    .col-right {
+        width: auto;
+        padding: 20px;
+    }
 }
 
 .logo-container {
-  display: flex;
-  align-items: center;
-  /* gap: 2rem; */
+    display: flex;
+    align-items: center;
+    /* gap: 2rem; */
 }
 
 .small-logo {
-  height: 160px;
+    height: 160px;
 }
 
 .blurb {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .app-name {
-  font-family: "Graduate", cursive;
-  font-weight: bold;
-  font-weight: bold;
-  color: #4e2780;
-  font-size: 5vw;
-  font-family: "Graduate", cursive;
+    font-family: "Graduate", cursive;
+    font-weight: bold;
+    font-weight: bold;
+    color: #4e2780;
+    font-size: 5vw;
+    font-family: "Graduate", cursive;
 }
 
 /* @media (max-width:1000px) {
@@ -98,7 +106,7 @@
 } */
 
 @media (max-width: 1000px) {
-  .app-image {
-    display: none;
-  }
+    .app-image {
+        display: none;
+    }
 }

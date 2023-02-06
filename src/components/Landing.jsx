@@ -3,7 +3,6 @@
 import {
   addNewUser,
   clearDatabase,
-  getNewMessageKey,
   signInWithGoogle,
   useAuthState,
 } from "../utilities/firebase";
@@ -13,6 +12,7 @@ import "./Landing.css";
 import Image from "react-bootstrap/Image";
 import appImage from "../assets/app.png";
 import smallLogo from "../assets/MatchPoint.png";
+import { FcGoogle } from "react-icons/all";
 
 const SignInButton = () => {
   return (
@@ -20,10 +20,11 @@ const SignInButton = () => {
       <Button
         variant="light"
         size="lg"
-        aria-label="Sign in"
+        aria-label="Sign in with google"
         onClick={signInWithGoogle}
       >
-        Sign In
+        <FcGoogle className="google-icon" />
+        <span>Sign in with Google</span>
       </Button>
     </div>
   );

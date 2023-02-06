@@ -1,39 +1,39 @@
 .profile-image-modal {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  /* padding-left: 0px !important;
-    padding-right: 0px !important; */
-  /*adpative image position*/
-  /* object-fit: cover; */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* padding-left: 0px !important;
+      padding-right: 0px !important; */
+    /*adpative image position*/
+    /* object-fit: cover; */
 }
 
 .modal-participant-name {
-  font-size: 15px;
-  color: #5f4bc4;
+    font-size: 15px;
+    color: #5f4bc4;
 }
 
 .modal-participant-list {
-  width: auto !important;
+    width: auto !important;
 }
 
 .modal-participant-list td {
-  border-style: none !important;
+    border-style: none !important;
 }
 
 .participant-list-items {
-  display: flex;
-  align-content: center;
+    display: flex;
+    align-content: center;
 }
 
 .participant-list-names {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .empty-participant-name {
-  font-size: 15px;
-  font-style: italic;
-  color: lightgray;
+    font-size: 15px;
+    font-style: italic;
+    color: lightgray;
 }

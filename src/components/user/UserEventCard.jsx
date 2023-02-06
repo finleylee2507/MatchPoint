@@ -1,15 +1,7 @@
 // Event Card
-import { React, useState, useEffect } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { React, useEffect, useState } from "react";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import "./UserEventCard.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAward,
-  faLocationDot,
-  faPeopleGroup,
-  faUserPlus,
-  faCircleInfo,
-} from "@fortawesome/free-solid-svg-icons";
 import ellipsis from "../../assets/ellipsis.jpg";
 
 const UserEventCard = ({

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Alert, Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import "./DeleteEventModal.css";
+
 const DeleteEventModal = ({ show, handleClose, handleDelete }) => {
   //0->initial state (deletion not triggered), 1->delete successful, 2->delete failed
   const [deletionStatus, setDeletionStatus] = useState(0);

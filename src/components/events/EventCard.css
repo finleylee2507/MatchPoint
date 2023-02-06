@@ -149,15 +149,17 @@ hr.solid {
     font-size: 20px !important;
     width: 9.5rem !important;
 }
-.edit-event-button{
+
+.edit-event-button {
     background-color: white !important;
     color: #1CA127 !important;
     border: 2px solid #1CA127 !important;
 }
-.delete-event-button{
+
+.delete-event-button {
     background-color: white !important;
-    color:#dc3545 !important;
-    border:2px solid #dc3545 !important;
+    color: #dc3545 !important;
+    border: 2px solid #dc3545 !important;
 }
 
 .join-event-button, .leave-event-button {
@@ -166,17 +168,18 @@ hr.solid {
     border: 2px solid #271ca1 !important;
 }
 
-.edit-event-button:hover{
+.edit-event-button:hover {
     background-color: #1CA127 !important;
-    color:white !important;
-    border-color:white !important;
+    color: white !important;
+    border-color: white !important;
 }
 
-.delete-event-button:hover{
+.delete-event-button:hover {
     background-color: #dc3545 !important;
-    color:white !important;
-    border-color:white !important;
+    color: white !important;
+    border-color: white !important;
 }
+
 .join-event-button:hover, .leave-event-button:hover {
     background-color: #271ca1 !important;
     border-color: white !important;

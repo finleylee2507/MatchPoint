@@ -49,9 +49,10 @@
 }
 
 
-.delete-message-icon{
+.delete-message-icon {
     margin-left: 30px;
 }
+
 .message-card-title {
     color: #5f4bc4;
     max-width: 1000px;
@@ -84,7 +85,7 @@
 }
 
 /*hover effect on available devices*/
-@media (hover:hover) and (pointer:fine){
+@media (hover: hover) and (pointer: fine) {
     .message.custom:hover .delete-message-icon {
         display: inline-block;
     }
@@ -92,17 +93,19 @@
     .message.custom:hover .date-string {
         display: none;
     }
+
     .delete-message-icon:hover {
         transform: scale(1.2);
         animation: jiggle 0.5s infinite linear;
     }
+
     .delete-message-icon {
         display: none;
     }
 
 }
 
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1000px) {
     .message-card-title {
         font-size: 1.3rem;
         max-width: 600px;
@@ -121,7 +124,8 @@
         font-size: 18px;
         margin-left: 1rem;
     }
-    .date-string{
+
+    .date-string {
         font-size: 13px;
     }
 }
@@ -145,8 +149,8 @@
     }
 }
 
-@media screen and (max-width:380px){
-    .message-card-title{
+@media screen and (max-width: 380px) {
+    .message-card-title {
         max-width: 170px;
     }
 }
