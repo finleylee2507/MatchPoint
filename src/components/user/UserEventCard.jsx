@@ -8,14 +8,18 @@ const UserEventCard = ({
   event,
   allUsers,
   user,
-  handleLeave,
   handleSetEventToShowParticipants,
   handleShowParticipantsModal,
+  handleSetEventToDelete,
+  openDeleteEventModal,
+  handleSetEventToEdit,
+  openEditEventModal,
+  handleLeave,
 }) => {
   const [currStartDate, setCurrStartDate] = useState(null);
   const [currEndDate, setCurrEndDate] = useState(null);
   const [participantsToShow, setParticipantsToShow] = useState([]);
-
+  //
   const calculateDateObjects = (data) => {
     //initialize target event (the one we're trying to join)
     let eventStartDate = new Date(data.dateTimeString);
@@ -64,9 +68,6 @@ const UserEventCard = ({
     openEditEventModal();
   };
 
-  const handleJoinEvent = () => {
-    handleJoin(event);
-  };
   return (
     <Card className="user-card">
       <div className="card-header">
@@ -132,7 +133,7 @@ const UserEventCard = ({
                 onClick={handleEdit}
                 variant="warning"
                 size="lg"
-                className="user-event-card-button edit-event-button"
+                className="user-card-button"
               >
                 Edit Event
               </Button>
@@ -145,27 +146,23 @@ const UserEventCard = ({
                 onClick={handleDelete}
                 variant="danger"
                 size="lg"
-                className="user-event-card-button delete-event-button"
+                className="user-card-button"
               >
                 Delete Event
               </Button>
             </Col>
           )}
-
-          {user &&
-            event.participants.includes(user.uid) &&
+          {event.participants.includes(user.uid) &&
             event.owner !== user.uid && (
-              <Col>
-                <Button
-                  size="lg"
-                  onClick={() => {
-                    handleLeave(event);
-                  }}
-                  className="user-event-card-button leave-event-button"
-                >
-                  Leave Event
-                </Button>
-              </Col>
+              <Button
+                size="lg"
+                className="event-card-button leave-event-button"
+                onClick={() => {
+                  handleLeave(event);
+                }}
+              >
+                Leave Event
+              </Button>
             )}
         </Row>
       </div>
@@ -173,5 +170,4 @@ const UserEventCard = ({
   );
 };
 
-// As a user, I want to be able to edit/delet/join the event from my profiel too
 export default UserEventCard;
