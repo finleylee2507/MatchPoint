@@ -1,3 +1,9 @@
+.inbox-wrapper{
+    background-color: #e3e0ff;
+    width: 100vw;
+    padding-top: 20px;
+}
+
 .message-list {
     display: flex;
     flex-direction: column;
@@ -7,7 +13,12 @@
     height: 100vh;
 }
 
-.empty-page-message-message-list{
+.message-list-tabs{
+    display: flex;
+    justify-content: center;
+}
+
+.empty-page-message-message-list {
     margin-top: 200px;
     font-size: 20px !important;
 }

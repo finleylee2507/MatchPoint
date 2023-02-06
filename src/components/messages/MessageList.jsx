@@ -3,6 +3,11 @@ import Message from "./Message.jsx";
 import MessageModal from "./MessageModal";
 import "./MessageList.css";
 import { toast, ToastContainer } from "react-toastify";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import no_events from "../../assets/no_event.png";
+import UserEventList from "../user/UserEventList";
+import { Image } from "react-bootstrap";
 
 // import { getUserMessages } from "../../utilities/firebase";
 // import messageData from "../../utilities/data/message.json";
@@ -60,21 +65,83 @@ const MessageList = ({ allUsers, user, allMessages }) => {
     ];
   }
 
+  let unreadMessages = Object.entries(allUserMessages).filter(
+    ([id, messageId]) =>
+      allUsers[user.uid]["unreadMessages"].includes(messageId)
+  );
+
+  let readMessages = Object.entries(allUserMessages).filter(
+    ([id, messageId]) =>
+      !allUsers[user.uid]["unreadMessages"].includes(messageId)
+  );
+
   return (
-    <div className="message-list">
+    <div className="inbox-wrapper">
       <ToastContainer autoClose={500} />
-      {Object.entries(allUserMessages).map(([id, messageId]) => (
-        <Message
-          key={id}
-          message={allMessages[messageId]}
-          allUsers={allUsers}
-          user={user}
-          setCurrentMessageToDisplay={handleSetCurrentMessageToDisplay}
-          showModal={handleShowMessageModal}
-          isRead={!allUsers[user.uid]["unreadMessages"].includes(messageId)}
-          displayDeletedMesasge={displayDeletedMessage}
-        />
-      ))}
+      <Tabs defaultActiveKey="unread" className="mb-3 message-list-tabs">
+        <Tab className="message-list-tab" eventKey="unread" title="Unread">
+          <div className="message-list">
+            {unreadMessages.length > 0 ? (
+              unreadMessages.map(([id, messageId]) => (
+                <Message
+                  key={id}
+                  message={allMessages[messageId]}
+                  allUsers={allUsers}
+                  user={user}
+                  setCurrentMessageToDisplay={handleSetCurrentMessageToDisplay}
+                  showModal={handleShowMessageModal}
+                  isRead={
+                    !allUsers[user.uid]["unreadMessages"].includes(messageId)
+                  }
+                  displayDeletedMesasge={displayDeletedMessage}
+                />
+              ))
+            ) : (
+              <div>
+                <img className="no-event-img" src={no_events} alt="no_event" />
+                <p>You don't have any unread messages.</p>
+              </div>
+            )}
+          </div>
+        </Tab>
+        <Tab className="message-list-tab" eventKey="read" title="Read">
+          <div className="message-list">
+            {readMessages.length > 0 ? (
+              readMessages.map(([id, messageId]) => (
+                <Message
+                  key={id}
+                  message={allMessages[messageId]}
+                  allUsers={allUsers}
+                  user={user}
+                  setCurrentMessageToDisplay={handleSetCurrentMessageToDisplay}
+                  showModal={handleShowMessageModal}
+                  isRead={
+                    !allUsers[user.uid]["unreadMessages"].includes(messageId)
+                  }
+                  displayDeletedMesasge={displayDeletedMessage}
+                />
+              ))
+            ) : (
+              <div>
+                <img className="no-event-img" src={no_events} alt="no_event" />
+                <p>You don't have any read messages.</p>
+              </div>
+            )}
+          </div>
+        </Tab>
+      </Tabs>
+      {/*{Object.entries(allUserMessages).map(([id, messageId]) => (*/}
+      {/*  <Message*/}
+      {/*    key={id}*/}
+      {/*    message={allMessages[messageId]}*/}
+      {/*    allUsers={allUsers}*/}
+      {/*    user={user}*/}
+      {/*    setCurrentMessageToDisplay={handleSetCurrentMessageToDisplay}*/}
+      {/*    showModal={handleShowMessageModal}*/}
+      {/*    isRead={!allUsers[user.uid]["unreadMessages"].includes(messageId)}*/}
+      {/*    displayDeletedMesasge={displayDeletedMessage}*/}
+      {/*  />*/}
+      {/*))}*/}
 
       {currentMessageToDisplay && (
         <MessageModal
