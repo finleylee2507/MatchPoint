@@ -23,7 +23,6 @@ const Profile = ({ allUsers, user, allEvents }) => {
   if (user == undefined || allUsers == undefined) {
     if (!loading) {
       loading = true;
-      console.log("Loading " + loading);
       timer.current = setTimeout(() => {
         console.log("Failed to load");
         loading = false;
@@ -31,7 +30,7 @@ const Profile = ({ allUsers, user, allEvents }) => {
     }
     return (
       <div>
-        <p>
+        <p className="profile-loading-message">
           {loading
             ? "Loading..."
             : "Unable to load profile. Please try again later"}

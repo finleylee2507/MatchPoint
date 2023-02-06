@@ -29,5 +29,9 @@
 
 */
 
-
-  
+.profile-loading-message {
+    padding: 24px;
+    background-color: #e3e0ff;
+    min-height: 100vh;
+    font-size: 20px;
+}
