@@ -172,12 +172,15 @@ const EventList = ({ eventData, user, allUsers }) => {
             />
           </div>
         </div>
-        <Image
-          className="no-event-img"
-          src="../../src/assets/no_event.png"
-          alt="no_event"
-        />
-        <p className="empty-page-message-event-list">Loading...</p>
+        <div className="no-event-container">
+          <Image
+            className="no-event-img"
+            src="../../src/assets/no_event.png"
+            alt="no_event"
+          />
+          <p className="empty-page-message-event-list">Loading events...</p>
+        </div>
+
         <AddEventModal
           show={showAddEventModal}
           handleClose={handleCloseAddEventModal}
@@ -626,7 +629,7 @@ const EventList = ({ eventData, user, allUsers }) => {
 
       <Container />
       {!events || events.length === 0 ? (
-        <div>
+        <div className="no-event-container">
           <Image
             className="no-event-img"
             src="../../src/assets/no_event.png"

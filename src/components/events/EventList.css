@@ -21,6 +21,13 @@
 
 }
 
+.no-event-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+}
+
 .add-event-icon {
 
     position: absolute;
@@ -76,7 +83,6 @@
 }
 
 .empty-page-message-event-list {
-    margin-top: 0px;
     font-size: 20px;
 }
 
