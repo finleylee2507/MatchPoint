@@ -11,14 +11,23 @@ import { Button } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import "./Landing.css";
 import Image from "react-bootstrap/Image";
-import appImage from "../assets/app.png";
-import smallLogo from "../assets/MatchPoint.png";
+// import smallLogo from "../assets/MatchPoint.png";
+import img1 from "../assets/1.png";
+import img2 from "../assets/2.png";
+import img3 from "../assets/3.png";
+import img4 from "../assets/4.png";
+import img5 from "../assets/5.png";
+import img6 from "../assets/6.png";
+import img7 from "../assets/7.png";
+import img8 from "../assets/8.png";
+import logo from "../assets/MatchPoint-1.gif";
 
 const SignInButton = () => {
   return (
-    <div className="sign-in-button">
+    <div className="sign-in-btn-container">
       <Button
         variant="light"
+        className="sign-in-button"
         size="lg"
         aria-label="Sign in"
         onClick={signInWithGoogle}
@@ -29,13 +38,13 @@ const SignInButton = () => {
   );
 };
 
-const ClearDBButton = () => {
-  return (
-    <button className="btn btn-dark" onClick={clearDatabase}>
-      Clear Database
-    </button>
-  );
-};
+// const ClearDBButton = () => {
+//   return (
+//     <button className="btn btn-dark" onClick={clearDatabase}>
+//       Clear Database
+//     </button>
+//   );
+// };
 
 const Landing = (allUsers) => {
   const user = useAuthState();
@@ -64,32 +73,30 @@ const Landing = (allUsers) => {
     <Navigate to="/allEvents" />
   ) : (
     <div className="landing-page-container">
-      <div className="col-left">
-        <Image
-          src={appImage}
-          className="app-image"
-          alt="MatchPoint app image"
-        />
-      </div>
+      <img className="landing-img1" src={img1} alt="landing page image" />
+      <img className="landing-img2" src={img2} alt="landing page image" />
+      <img className="landing-img3" src={img3} alt="landing page image" />
+      <img className="landing-img4" src={img4} alt="landing page image" />
+      <img className="landing-img5" src={img5} alt="landing page image" />
+      <img className="landing-img6" src={img6} alt="landing page image" />
+      <img className="landing-img7" src={img7} alt="landing page image" />
+      <img className="landing-img8" src={img8} alt="landing page image" />
       <div className="col-right">
         <div className="logo-container">
           <Image
-            src={smallLogo}
+            src={logo}
             className="small-logo"
-            alt="small MatchPoint app image"
+            alt="small MatchPoint app gif logo"
           />
           <h1 className="app-name">MatchPoint</h1>
         </div>
 
-        <h3>Find open events, create events, and much more.</h3>
-        <p className="blurb">
-          Lookin' to get out of the house and knock the ball around? Wanna shoot
-          some hoops? MatchPoint is a seamless platform that allows you to
-          create or join sporting events that pique your interests! All levels
-          are welcome!
-        </p>
+        <h3 className="blurb">
+          We help NU students create or join sporting events that pique their
+          interests!
+        </h3>
         <SignInButton />
-        <ClearDBButton />
+        {/* <ClearDBButton /> */}
       </div>
     </div>
   );

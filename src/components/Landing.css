@@ -1,23 +1,16 @@
 .landing-page-container {
   display: flex;
+  position: relative;
   justify-content: space-evenly;
   background-color: #c3beff;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: row;
-}
-@media (max-width: 1000px) {
-  .landing-page-container {
-    flex-direction: column;
-  }
+  overflow: hidden;
 }
 
 .sign-in-button {
   display: flex;
   justify-content: center;
-}
-
-.app-image {
-  height: 90vh !important;
 }
 
 .col-left {
@@ -36,6 +29,98 @@
   animation-name: col-right-animation;
   animation-duration: 0.5s;
 }
+
+.landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
+  position: absolute;
+  height: 150px !important;
+  width: 150px !important;
+}
+
+.landing-img5{
+  top: -10px;
+  left: 45vw;
+}
+
+.landing-img2{
+  top: -30px;
+  left: 0px;
+}
+
+.landing-img3{
+  top: 330px;
+  left: 1320px;
+}
+
+.landing-img4{
+  bottom: 0px;
+  right: -50px;
+  height: 200px !important;
+  width: 200px !important;
+
+}
+
+.landing-img1{
+  top: 330px;
+  left: -20px;
+}
+
+.landing-img6{
+  bottom: -35px;
+  left: 45vw;
+}
+
+.landing-img7{
+  top: 0px;
+  right: 0px;
+}
+
+.landing-img8{
+  bottom: 0px;  
+  left: -20px;
+  height: 150px !important;
+  width: 150px !important;
+}
+
+.landing-img1:hover {
+  transform: scale(1.2);
+  animation: jiggle 1s infinite linear;
+}
+
+.landing-img2:hover {
+  transform: scale(1.2);
+  animation: jiggle 1s infinite linear;
+}
+
+.landing-img3:hover {
+  transform: scale(1.2);
+  animation: jiggle 1s infinite linear;
+}
+
+.landing-img4:hover {
+  transform: scale(1.2);
+  animation: jiggle 1s infinite linear;
+}
+
+.landing-img5:hover {
+  transform: scale(1.2);
+  animation: jiggle 1s infinite linear;
+}
+
+.landing-img6:hover {
+  transform: scale(1.2);
+  animation: jiggle 1s infinite linear;
+}
+
+.landing-img7:hover {
+  transform: scale(1.2);
+  animation: jiggle 1s infinite linear;
+}
+
+.landing-img8:hover {
+  transform: scale(1.2);
+  animation: jiggle 1s infinite linear;
+}
+
 
 @keyframes col-right-animation {
   from {
@@ -56,34 +141,61 @@
   }
 }
 
-@media (max-width: 1000px) {
-  .col-right {
-    width: auto;
-    padding: 20px;
-  }
-}
-
 .logo-container {
   display: flex;
   align-items: center;
   /* gap: 2rem; */
 }
 
-.small-logo {
-  height: 160px;
-}
 
-.blurb {
-  font-size: 18px;
-}
 
 .app-name {
   font-family: "Graduate", cursive;
   font-weight: bold;
-  font-weight: bold;
-  color: #4e2780;
-  font-size: 5vw;
+  color: #6c60ff;
+  font-size: 3rem;
   font-family: "Graduate", cursive;
+  align-self: center;
+}
+
+.small-logo{
+  display: none;
+}
+
+.blurb{
+  font-size: 2rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.sign-in-button {
+  color: white !important;
+  border: none !important;
+  background-color: #271ca1 !important;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: bold;
+}
+
+.sign-in-button:hover {
+  cursor: pointer;
+  background-color: #6c60ff !important;
+  transition: 0.3s;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  /* gap: 2rem; */
+}
+
+.sign-in-btn-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 /* @media (max-width:1000px) {
@@ -98,7 +210,43 @@
 } */
 
 @media (max-width: 1000px) {
+  .landing-page-container {
+    flex-direction: column;
+  }
+
   .app-image {
     display: none;
   }
+
+  .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
+    display: none;
+  }
+
+  /* .app-name {
+    font-size: 8vw;
+  } */
+
+  .small-logo {
+    height: 160px;
+  }
+
+  .col-right {
+    width: auto;
+    padding: 20px;
+  }
+
+  .small-logo {
+    display: block;
+    width: 250px;
+    height: 250px;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* gap: 2rem; */
+  }
+
+
 }

@@ -19,28 +19,11 @@ function EventModal({ show, handleJoin, handleClose, data }) {
       backdrop="static"
     >
       <Modal.Header closeButton>
-        <Modal.Title>{name}</Modal.Title>
+        <Modal.Title>{name + " Details"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Description: {desc}</p>
-        <p>Location: {location}</p>
-        <p>
-          Time:{" "}
-          {dateTime.toLocaleString("en-US", {
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            hour12: false,
-            timeZone: "CST",
-          })}{" "}
-          CST
-        </p>
+        <p className="modal-details">{desc}</p>
       </Modal.Body>
-      {/*<Modal.Footer>*/}
-      {/*  */}
-
-      {/*</Modal.Footer>*/}
     </Modal>
   );
 }
