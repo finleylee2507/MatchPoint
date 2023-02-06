@@ -7,6 +7,7 @@ import React, { useRef, useState } from "react";
 import { Image } from "react-bootstrap";
 import UserEventList from "./UserEventList";
 import { ToastContainer } from "react-toastify";
+import no_events from "../../assets/no_event.png";
 
 const Profile = ({ allUsers, user, allEvents }) => {
   const [showEventModal, setShowEventModal] = useState(false);
@@ -68,11 +69,7 @@ const Profile = ({ allUsers, user, allEvents }) => {
             {upcomingEvents.length === 0 ? (
               <div>
                 <ToastContainer autoClose={2000} />
-                <Image
-                  className="no-event-img"
-                  src="../../src/assets/no_event.png"
-                  alt="no_event"
-                />
+                <img className="no-event-img" src={no_events} alt="no_event" />
                 <p>
                   You don't have any upcoming events. Please create one, or join
                   one from the All Events tab!
