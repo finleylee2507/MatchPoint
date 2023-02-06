@@ -5,10 +5,10 @@ import "./EventCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAward,
+  faCircleInfo,
   faLocationDot,
   faPeopleGroup,
   faUserPlus,
-  faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import ellipsis from "../../assets/ellipsis.jpg";
 

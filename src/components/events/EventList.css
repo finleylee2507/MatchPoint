@@ -20,15 +20,15 @@
 .add-event-icon {
 
     position: absolute;
-    right:0;
+    right: 0;
     font-size: 25px;
     color: #271ca1;
-    cursor:pointer;
+    cursor: pointer;
     transition: transform 0.5s;
 }
 
-.add-event-icon:hover{
-    transform:scale(1.2);
+.add-event-icon:hover {
+    transform: scale(1.2);
     opacity: 0.5;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .empty-page-message {
-    margin-top: 100px;
+    margin-top: 0px;
     font-size: 20px;
 }
 
@@ -107,4 +107,10 @@
     .activity-search-bar-search-icon {
         right: 70vw;
     }
+}
+
+
+.no-event-img{
+    height: 200px;
+    margin-top: 20px;
 }

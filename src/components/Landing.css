@@ -14,20 +14,25 @@
 }
 
 .col-left {
-  display: flex;
-  align-items: center;
-  animation-name: app-image-animation;
-  animation-duration: 0.5s;
+    display: flex;
+    align-items: center;
+    animation-name: app-image-animation;
+    animation-duration: 0.5s;
 }
 
 .col-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
 
-  animation-name: col-right-animation;
-  animation-duration: 0.5s;
+    animation-name: col-right-animation;
+    animation-duration: 0.5s;
+}
+
+.google-icon {
+    font-size: 30px;
+    margin-right: 1rem;
 }
 
 .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
@@ -123,28 +128,29 @@
 
 
 @keyframes col-right-animation {
-  from {
-    padding-top: 1000px;
-  }
-  to {
-    padding-top: 0px;
-  }
+    from {
+        padding-top: 1000px;
+    }
+    to {
+        padding-top: 0px;
+    }
 }
+
 @keyframes app-image-animation {
-  from {
-    display: none;
-    padding-bottom: 1000px;
-  }
-  to {
-    display: flex;
-    padding-bottom: 0px;
-  }
+    from {
+        display: none;
+        padding-bottom: 1000px;
+    }
+    to {
+        display: flex;
+        padding-bottom: 0px;
+    }
 }
 
 .logo-container {
-  display: flex;
-  align-items: center;
-  /* gap: 2rem; */
+    display: flex;
+    align-items: center;
+    /* gap: 2rem; */
 }
 
 

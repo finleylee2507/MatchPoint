@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Alert, Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
+import "./DeleteEventModal.css";
 
 const DeleteEventModal = ({ show, handleClose, handleDelete }) => {
   //0->initial state (deletion not triggered), 1->delete successful, 2->delete failed
@@ -34,6 +35,7 @@ const DeleteEventModal = ({ show, handleClose, handleDelete }) => {
           variant="primary"
           onClick={yesButtonHandler}
           disabled={deletionStatus !== 0}
+          className="delete-confirm-button"
         >
           Yes
         </Button>
@@ -41,6 +43,7 @@ const DeleteEventModal = ({ show, handleClose, handleDelete }) => {
           variant="outline-secondary"
           onClick={handleClose}
           disabled={deletionStatus !== 0}
+          className="delete-cancel-button"
         >
           Cancel
         </Button>

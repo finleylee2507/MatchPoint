@@ -1,6 +1,4 @@
 // Profile Component
-import UserEventCard from "./UserEventCard";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import "./Profile.css";
 import UserAvatar from "./UserAvatar";
 import Tab from "react-bootstrap/Tab";
@@ -8,6 +6,7 @@ import Tabs from "react-bootstrap/Tabs";
 import React, { useRef, useState } from "react";
 import EventModal from "../events/EventModal";
 import UserEventList from "./UserEventList";
+
 const Profile = ({ allUsers, user, allEvents }) => {
   const [showEventModal, setShowEventModal] = useState(false);
   const [eventData, setEventData] = useState({});
@@ -24,15 +23,18 @@ const Profile = ({ allUsers, user, allEvents }) => {
   if (user == undefined || allUsers == undefined) {
     if (!loading) {
       loading = true;
-      console.log('Loading '+loading);
       timer.current = setTimeout(() => {
-        console.log('Failed to load');
+        console.log("Failed to load");
         loading = false;
       }, 1000);
     }
     return (
       <div>
-        <p>{loading ? "Loading..." : "Unable to load profile. Please try again later"}</p>
+        <p className="profile-loading-message">
+          {loading
+            ? "Loading..."
+            : "Unable to load profile. Please try again later"}
+        </p>
       </div>
     );
   } else if (allUsers[user.uid]) {

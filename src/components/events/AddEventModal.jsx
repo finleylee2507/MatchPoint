@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Alert, Button, Form, Modal, Spinner } from "react-bootstrap";
+import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import "./AddEventModal.css";
-import { getNewMessageKey } from "../../utilities/firebase";
 
 const AddEventModal = ({
   show,
@@ -124,8 +123,10 @@ const AddEventModal = ({
 
     if (shouldCreate) {
       const newMessage = {
-        content: `You have successfully created the event '${formData.eventName}'`,
-        title: "Event Successfully Created",
+        content: `Congratulations ${user.displayName}! Your event titled '${formData.eventName}' is officially live! The event is now listed on the 'All Event' page. 
+        You can also find it in the 'upcoming' section of your profile page. You will receive notifications when people join or leave your event. Have fun!!!`,
+        title: `Event "${formData.eventName}" Successfully Created`,
+        timeStamp: new Date().toUTCString(),
       };
 
       //call parent's function to submit event to database
@@ -270,7 +271,7 @@ const AddEventModal = ({
             <Form.Control
               type="number"
               min="1"
-              max="10"
+              max="24"
               step="0.1"
               name="eventDuration"
               value={formData.eventDuration}

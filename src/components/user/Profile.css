@@ -1,29 +1,24 @@
-.empty-page-message {
-  margin-top: 100px;
-  font-size: 20px;
-}
-
 .user-profile-container {
-  padding: 24px;
-  background-color: #e3e0ff;
-  min-height: 100vh;
+    padding: 24px;
+    background-color: #e3e0ff;
+    min-height: 100vh;
 }
 
 .user-profile-title {
-  font-size: 32px;
-  font-weight: 600;
-  padding-left: 1.5vw;
+    font-size: 32px;
+    font-weight: 600;
+    padding-left: 1.5vw;
 }
 
-.profile-top{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-bottom: 3vw;
+.profile-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 3vw;
 }
 
 .profile-tab {
-  border-bottom: none !important;
+    border-bottom: none !important;
 }
 
 /* Uncomment this to add a separator between the tabs and the content 
@@ -34,5 +29,9 @@
 
 */
 
-
-  
+.profile-loading-message {
+    padding: 24px;
+    background-color: #e3e0ff;
+    min-height: 100vh;
+    font-size: 20px;
+}

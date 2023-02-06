@@ -3,7 +3,6 @@
 import {
   addNewUser,
   clearDatabase,
-  getNewMessageKey,
   signInWithGoogle,
   useAuthState,
 } from "../utilities/firebase";
@@ -29,10 +28,11 @@ const SignInButton = () => {
         variant="light"
         className="sign-in-button"
         size="lg"
-        aria-label="Sign in"
+        aria-label="Sign in with google"
         onClick={signInWithGoogle}
       >
-        Sign In
+        <FcGoogle className="google-icon" />
+        <span>Sign in with Google</span>
       </Button>
     </div>
   );
@@ -49,13 +49,6 @@ const SignInButton = () => {
 const Landing = (allUsers) => {
   const user = useAuthState();
   if (user && allUsers && allUsers["allUsers"] && allUsers["allUsers"]) {
-    const newUserMessage = {
-      id: "welcome",
-      title: "Welcome to MatchPoint",
-      content:
-        "Welcome to MatchPoint! MatchPoint lets you seamlessly find open sporting events and sign up for them, allowing you to enjoy your favorite sports activities. Head over to the 'All Events' page now to see what's happening!",
-    };
-
     if (!allUsers["allUsers"][user.uid]) {
       const newUser = {
         displayName: user.displayName,
@@ -65,7 +58,6 @@ const Landing = (allUsers) => {
       };
 
       addNewUser(newUser, user.uid);
-      // addNewMessage(newUserMessage, "welcome");
     }
   }
 

@@ -2,8 +2,8 @@ import React from "react";
 
 export default function UserAvatar({ imgSrc, width, height }) {
   if (!(width && height)) {
-    width = 100
-    height = 100
+    width = 100;
+    height = 100;
   }
   const _styles = {
     img: {
@@ -13,10 +13,7 @@ export default function UserAvatar({ imgSrc, width, height }) {
     },
   };
 
-  return (
-    <img style={_styles.img} src={imgSrc} />
-  );
-
+  return <img style={_styles.img} src={imgSrc} />;
 }
 
 

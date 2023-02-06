@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Alert, Button, Modal, Table, Row } from "react-bootstrap";
+import React from "react";
+import { Modal, Table } from "react-bootstrap";
 import "./EventModal.css";
 import logo from "../../assets/small-logo.png";
 

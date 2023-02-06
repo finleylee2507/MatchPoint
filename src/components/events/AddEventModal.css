@@ -1,13 +1,13 @@
 .creating-event-container {
-  display: flex;
-  gap: 2rem;
+    display: flex;
+    gap: 2rem;
 }
 
 .creating-event-text {
-  font-weight: 500;
+    font-weight: 500;
 }
 
-.create-event-button{
-  border-radius: 30px !important;
-  background-color: #271ca1 !important;
+.create-event-button {
+    border-radius: 30px !important;
+    background-color: #271ca1 !important;
 }
