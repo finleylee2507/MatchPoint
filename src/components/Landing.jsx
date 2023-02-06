@@ -10,7 +10,6 @@ import { Button } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import "./Landing.css";
 import Image from "react-bootstrap/Image";
-// import smallLogo from "../assets/MatchPoint.png";
 import img1 from "../assets/1.png";
 import img2 from "../assets/2.png";
 import img3 from "../assets/3.png";
@@ -20,6 +19,7 @@ import img6 from "../assets/6.png";
 import img7 from "../assets/7.png";
 import img8 from "../assets/8.png";
 import logo from "../assets/MatchPoint-1.gif";
+import { FcGoogle } from "react-icons/fc";
 
 const SignInButton = () => {
   return (
