@@ -132,8 +132,8 @@
 
 @media screen and (max-width: 600px) {
     .message-card-title {
-        font-size: 1rem;
-        max-width: 300px;
+        font-size: 15px;
+        max-width: 200px;
     }
 
     .message-upper-container {
@@ -147,10 +147,21 @@
     .delete-message-icon {
         font-size: 15px;
     }
+
+    .date-string {
+        font-size: 10px;
+    }
 }
 
 @media screen and (max-width: 380px) {
     .message-card-title {
-        max-width: 170px;
+        max-width: 180px;
+    }
+}
+
+/*for super small screens*/
+@media screen and (max-width: 320px) {
+    .message-card-title {
+        max-width: 130px;
     }
 }

@@ -1,6 +1,6 @@
 // Event Card
 import { React, useEffect, useState } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Row } from "react-bootstrap";
 import "./UserEventCard.css";
 import ellipsis from "../../assets/ellipsis.jpg";
 
@@ -126,47 +126,39 @@ const UserEventCard = ({
         </div>
       </div>
       <div className="card-footer">
-        <Row>
-          {user && event.owner === user.uid && (
-            <Col>
-              <Button
-                onClick={handleEdit}
-                variant="warning"
-                size="lg"
-                className="event-card-button edit-event-button profile-button"
-              >
-                Edit Event
-              </Button>
-            </Col>
-          )}
+        {user && event.owner === user.uid && (
+          <Button
+            onClick={handleEdit}
+            variant="warning"
+            size="lg"
+            className="event-card-button edit-event-button profile-button"
+          >
+            Edit Event
+          </Button>
+        )}
 
-          {user && event.owner === user.uid && (
-            <Col>
-              <Button
-                onClick={handleDelete}
-                variant="danger"
-                size="lg"
-                className="event-card-button delete-event-button profile-button"
-              >
-                Delete Event
-              </Button>
-            </Col>
-          )}
-          <Col>
-            {event.participants.includes(user.uid) &&
-              event.owner !== user.uid && (
-                <Button
-                  size="lg"
-                  className="event-card-button leave-event-button profile-button"
-                  onClick={() => {
-                    handleLeave(event);
-                  }}
-                >
-                  Leave Event
-                </Button>
-              )}
-          </Col>
-        </Row>
+        {user && event.owner === user.uid && (
+          <Button
+            onClick={handleDelete}
+            variant="danger"
+            size="lg"
+            className="event-card-button delete-event-button profile-button"
+          >
+            Delete Event
+          </Button>
+        )}
+
+        {event.participants.includes(user.uid) && event.owner !== user.uid && (
+          <Button
+            size="lg"
+            className="event-card-button leave-event-button profile-button"
+            onClick={() => {
+              handleLeave(event);
+            }}
+          >
+            Leave Event
+          </Button>
+        )}
       </div>
     </Card>
   );

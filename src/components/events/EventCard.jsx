@@ -71,7 +71,7 @@ const EventCard = ({
       <Col>
         <Row className="card-top">
           <Col sm={3} className="circular-image-wrapper">
-            <img className="image" src={imgSrc} alt="image of event" />
+            <img className="event-image" src={imgSrc} alt="image of event" />
           </Col>
           <Col sm={5} className="card-top-detail-container">
             <Card.Title className="title">{name}</Card.Title>
