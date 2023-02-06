@@ -12,6 +12,7 @@ import {
   remove,
   set,
   update,
+  connectDatabaseEmulator,
 } from "firebase/database";
 
 import {
@@ -20,6 +21,8 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signOut,
+  connectAuthEmulator,
+  signInWithCredential,
 } from "firebase/auth";
 
 import {
@@ -46,6 +49,22 @@ const firebaseConfig = {
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
 const storage = getStorage();
+const auth = getAuth(firebase);
+
+if (!window.EMULATION && import.meta.env.NODE_ENV !== "production") {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+
+  signInWithCredential(
+    auth,
+    GoogleAuthProvider.credential(
+      '{"sub": "InedCpG62t1oWoDRek9AMTMT2lqJ", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+    )
+  );
+
+  // set flag to avoid connecting twice, e.g., because of an editor hot-reload
+  window.EMULATION = true;
+}
 
 /* DATABASE FUNCTIONS */
 
