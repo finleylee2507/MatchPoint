@@ -46,7 +46,13 @@ const SignInButton = () => {
 // };
 
 const Landing = (allUsers) => {
-  const user = useAuthState();
+  // const user = useAuthState();
+  const user = {
+    uid: "Faztbt70x8bKPMV3rJzco7fVvEr2",
+    displayName: "Vedant Apte",
+    photoURL: "",
+  };
+
   if (user && allUsers && allUsers["allUsers"] && allUsers["allUsers"]) {
     if (!allUsers["allUsers"][user.uid]) {
       const newUser = {
@@ -79,7 +85,9 @@ const Landing = (allUsers) => {
             className="small-logo"
             alt="small MatchPoint app gif logo"
           />
-          <h1 className="app-name">MatchPoint</h1>
+          <h1 className="app-name" data-cy="app-name">
+            MatchPoint
+          </h1>
         </div>
 
         <h3 className="blurb">

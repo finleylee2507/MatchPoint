@@ -14,7 +14,12 @@ import Profile from "./components/user/Profile";
 // The initial rendering of our application.
 const App = () => {
   // Get the logged in user
-  const user = useAuthState();
+  // const user = useAuthState();
+  const user = {
+    uid: "Faztbt70x8bKPMV3rJzco7fVvEr2",
+    displayName: "Vedant Apte",
+    photoURL: "",
+  };
 
   // Get the data from each table in the database, and print errors if any
   const [events, eventsError] = useDbData("/events");

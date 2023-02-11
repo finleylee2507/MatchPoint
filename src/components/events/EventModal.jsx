@@ -22,7 +22,9 @@ function EventModal({ show, handleJoin, handleClose, data }) {
         <Modal.Title>{name + " Details"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="modal-details">{desc}</p>
+        <p className="modal-details" data-cy="event-details-description">
+          {desc}
+        </p>
       </Modal.Body>
     </Modal>
   );

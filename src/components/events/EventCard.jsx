@@ -119,6 +119,7 @@ const EventCard = ({
               ></FontAwesomeIcon>
               <a
                 className="subheader"
+                data-cy="see-event-details"
                 onClick={() => {
                   openModal(cardData);
                 }}

@@ -164,7 +164,7 @@ const EventList = ({ eventData, user, allUsers }) => {
               />
             </Stack>
           </Form>
-          <div className="add-event-icon">
+          <div className="add-event-icon" data-cy="add-event-icon">
             <FontAwesomeIcon
               icon={faCalendarPlus}
               size="lg"
@@ -574,7 +574,7 @@ const EventList = ({ eventData, user, allUsers }) => {
             />
           </Stack>
         </Form>
-        <div className="add-event-icon">
+        <div className="add-event-icon" data-cy="add-event-icon">
           <FontAwesomeIcon
             icon={faCalendarPlus}
             size="lg"

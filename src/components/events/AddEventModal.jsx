@@ -169,7 +169,11 @@ const AddEventModal = ({
           onSubmit={createEvent}
           id="create-event-form"
         >
-          <Form.Group data-cy="event-name" className="mb-3" controlId="event-name">
+          <Form.Group
+            data-cy="event-name"
+            className="mb-3"
+            controlId="event-name"
+          >
             <Form.Label>Event Name</Form.Label>
             <Form.Control
               type="text"
@@ -179,9 +183,11 @@ const AddEventModal = ({
               autoFocus
               required
             />
-            <Form.Control.Feedback type="invalid">
-              Please provide an event name.
-            </Form.Control.Feedback>
+            <div data-cy="no-event-name-feedback">
+              <Form.Control.Feedback type="invalid">
+                Please provide an event name.
+              </Form.Control.Feedback>
+            </div>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="event-description">
@@ -318,15 +324,17 @@ const AddEventModal = ({
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="primary"
-          type="submit"
-          form="create-event-form"
-          className="create-event-button"
-          disabled={submissionStatus !== 0}
-        >
-          Create Event
-        </Button>
+        <div data-cy="create-event-button">
+          <Button
+            variant="primary"
+            type="submit"
+            form="create-event-form"
+            className="create-event-button"
+            disabled={submissionStatus !== 0}
+          >
+            Create Event
+          </Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );

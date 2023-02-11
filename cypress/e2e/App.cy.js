@@ -20,10 +20,10 @@ describe("Test App", () => {
 });
 
 // Test for interaction
-describe ('Test App', () => {
-  it('signs out', () => {
-    cy.visit('/');
-    cy.get('[data-cy=sign-out]').click();
-    cy.get('[data-cy=app-name]').should('contain' ,'MatchPoint');
+describe("Test App", () => {
+  it("signs out", () => {
+    cy.visit("/");
+    cy.get("[data-cy=sign-out]").click();
+    cy.get("[data-cy=app-name]").should("contain", "MatchPoint");
   });
 });
