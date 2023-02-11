@@ -15,6 +15,8 @@ import Profile from "./components/user/Profile";
 const App = () => {
   // Get the logged in user
   // const user = useAuthState();
+
+  // CHANGE UID AND DISPLAYNAME FOR CYPRESS TESTS
   const user = {
     uid: "Faztbt70x8bKPMV3rJzco7fVvEr2",
     displayName: "Vedant Apte",
