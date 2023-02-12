@@ -1,3 +1,11 @@
+describe("Tests to make sure after clicking the add event button a modal will pop up", () => {
+  it("verifies that a modal pops up after clicking the add event button", () => {
+    cy.visit("/");
+    cy.get("[data-cy=add-event-icon]").click();
+    cy.get("[data-cy=add-event-modal]").should("be.visible");
+  });
+});
+
 describe("Tests to make sure adding an event will increase the inbox message count by 1", () => {
   it("launches, clicks the add event button, creates an event, and ", () => {
     cy.visit("/inbox");

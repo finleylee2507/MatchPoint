@@ -158,6 +158,7 @@ const AddEventModal = ({
       backdrop="static"
       fullscreen="sm-down"
       scrollable="true"
+      data-cy="add-event-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title>Create an event</Modal.Title>
