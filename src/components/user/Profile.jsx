@@ -65,7 +65,11 @@ const Profile = ({ allUsers, user, allEvents }) => {
           <p className="user-profile-title">{allUsers[user.uid].displayName}</p>
         </div>
         <Tabs defaultActiveKey="upcoming" className="mb-3 profile-tabs">
-          <Tab className="profile-tab" eventKey="upcoming" title="Upcoming">
+          <Tab
+            className="profile-tab-upcoming"
+            eventKey="upcoming"
+            title="Upcoming"
+          >
             {upcomingEvents.length === 0 ? (
               <div>
                 <ToastContainer autoClose={2000} />
@@ -87,7 +91,7 @@ const Profile = ({ allUsers, user, allEvents }) => {
               </div>
             )}
           </Tab>
-          <Tab className="profile-tab" eventKey="past" title="Past">
+          <Tab className="profile-tab-past" eventKey="past" title="Past">
             {pastEvents.length === 0 ? (
               <div>
                 <ToastContainer autoClose={2000} />
