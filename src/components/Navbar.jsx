@@ -54,7 +54,7 @@ const NavBar = ({ numberOfUnread }) => {
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 {/* <Nav.Link href="#action1">Profile</Nav.Link> */}
                 <Nav.Link
-                  className={`nav-link ${
+                  className={`nav-link-events${
                     activeLink === "/allEvents" ? "active" : ""
                   }`}
                   href="/allEvents"
@@ -63,7 +63,7 @@ const NavBar = ({ numberOfUnread }) => {
                   All Events
                 </Nav.Link>
                 <Nav.Link
-                  className={`nav-link ${
+                  className={`nav-link-inbox ${
                     activeLink === "/inbox" ? "active" : ""
                   }`}
                   href="/inbox"
@@ -78,7 +78,7 @@ const NavBar = ({ numberOfUnread }) => {
                 </Nav.Link>
 
                 <Nav.Link
-                  className={`nav-link ${
+                  className={`nav-link-profile ${
                     activeLink === "/profile" ? "active" : ""
                   }`}
                   href="/profile"
