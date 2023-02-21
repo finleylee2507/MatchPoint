@@ -46,14 +46,14 @@ const SignInButton = () => {
 // };
 
 const Landing = (allUsers) => {
-  // const user = useAuthState();
+  const user = useAuthState();
 
-  // CHANGE UID AND DISPLAYNAME FOR CYPRESS TESTS
-  const user = {
-    uid: "Faztbt70x8bKPMV3rJzco7fVvEr2",
-    displayName: "Vedant Apte",
-    photoURL: "",
-  };
+  // // CHANGE UID AND DISPLAYNAME FOR CYPRESS TESTS
+  // const user = {
+  //   uid: "Faztbt70x8bKPMV3rJzco7fVvEr2",
+  //   displayName: "Vedant Apte",
+  //   photoURL: "",
+  // };
 
   if (user && allUsers && allUsers["allUsers"] && allUsers["allUsers"]) {
     if (!allUsers["allUsers"][user.uid]) {
