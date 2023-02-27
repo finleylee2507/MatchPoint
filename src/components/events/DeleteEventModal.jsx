@@ -19,7 +19,13 @@ const DeleteEventModal = ({ show, handleClose, handleDelete }) => {
     handleClose();
   };
   return (
-    <Modal show={show} centered backdrop="static" onHide={handleClose}>
+    <Modal
+      show={show}
+      centered
+      backdrop="static"
+      onHide={handleClose}
+      data-cy="delete-event-modal"
+    >
       <Modal.Header closeButton>
         <Modal.Title>Are you sure you want to delete this event?</Modal.Title>
       </Modal.Header>
@@ -31,14 +37,16 @@ const DeleteEventModal = ({ show, handleClose, handleDelete }) => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button
-          variant="primary"
-          onClick={yesButtonHandler}
-          disabled={deletionStatus !== 0}
-          className="delete-confirm-button"
-        >
-          Yes
-        </Button>
+        <div data-cy="delete-confirm-button">
+          <Button
+            variant="primary"
+            onClick={yesButtonHandler}
+            disabled={deletionStatus !== 0}
+            className="delete-confirm-button"
+          >
+            Yes
+          </Button>
+        </div>
         <Button
           variant="outline-secondary"
           onClick={handleClose}

@@ -266,14 +266,16 @@ const EventCard = ({
           )}
 
           {owner === user.uid && (
-            <Button
-              onClick={handleDelete}
-              variant="danger"
-              size="lg"
-              className="event-card-button delete-event-button"
-            >
-              Delete Event
-            </Button>
+            <div data-cy="delete-event-button">
+              <Button
+                onClick={handleDelete}
+                variant="danger"
+                size="lg"
+                className="event-card-button delete-event-button"
+              >
+                Delete Event
+              </Button>
+            </div>
           )}
 
           {cardData.participants.includes(user.uid) &&

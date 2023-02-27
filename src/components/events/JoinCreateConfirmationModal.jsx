@@ -26,13 +26,16 @@ const JoinCreateConfirmationModal = ({
       to {actionItem}?
     </Modal.Body>
     <Modal.Footer>
-      <Button
-        variant="primary"
-        className="confirmation-modal-confirm-button"
-        onClick={() => onResolve(true)}
-      >
-        Confirm
-      </Button>
+      <div data-cy="modal-confirm-button">
+        <Button
+          variant="primary"
+          className="confirmation-modal-confirm-button"
+          onClick={() => onResolve(true)}
+        >
+          Confirm
+        </Button>
+      </div>
+
       <Button
         variant="outline-secondary"
         className="confirmation-modal-close-button"
