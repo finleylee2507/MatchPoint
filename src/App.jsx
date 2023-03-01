@@ -17,11 +17,12 @@ const App = () => {
   // const user = useAuthState();
 
   // CHANGE UID AND DISPLAYNAME FOR CYPRESS TESTS
-  const user = {
-    uid: "Faztbt70x8bKPMV3rJzco7fVvEr2",
-    displayName: "Vedant Apte",
-    photoURL: "",
-  };
+  // const user = {
+  //   uid: "Faztbt70x8bKPMV3rJzco7fVvEr2",
+  //   displayName: "Vedant Apte",
+  //   photoURL: "",
+  // };
+  const user = null;
 
   // Get the data from each table in the database, and print errors if any
   const [events, eventsError] = useDbData("/events");

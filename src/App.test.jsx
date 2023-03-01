@@ -1,15 +1,19 @@
 import { describe, expect, test } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import Landing from "./App";
+import App from "./App";
 
 describe("Home Page Tests", () => {
   test("Promotional message text should display", () => {
-    render(<Landing />);
-    expect(screen.getByText("Sporting events that pique their interests!"));
+    render(<App />);
+    expect(
+      screen.getByText(
+        "We help NU students create or join sporting events that pique their interests!"
+      )
+    );
   });
 
   test("MATCHPOINT text should display", () => {
-    render(<Landing />);
-    expect(screen.getByText("MATCHPOINT"));
+    render(<App />);
+    expect(screen.getByText("MatchPoint"));
   });
 });
