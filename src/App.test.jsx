@@ -16,4 +16,10 @@ describe("Home Page Tests", () => {
     render(<App />);
     expect(screen.getByText("MatchPoint"));
   });
+
+  // test that fails with no authenticated user
+  test("Inbox tab should display with user", () => {
+    render(<App />);
+    expect(screen.getByText("Inbox"));
+  });
 });
