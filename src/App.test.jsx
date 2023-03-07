@@ -1,7 +1,12 @@
-import { describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test, vi, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { useAuthState, useDbData } from "./firebase";
+import {useProfile} from './utilities/userProfile'
+
 import App from "./App";
 
+vi.mock('./utilities/userProfile')
+// vi.mock('./utilities/firebase.js')
 describe("Home Page Tests", () => {
   test("Promotional message text should display", () => {
     render(<App />);
@@ -23,3 +28,25 @@ describe("Home Page Tests", () => {
     expect(screen.getByText("Inbox"));
   });
 });
+
+// Test without authentication
+describe("without authentication", () => {
+  beforeEach(()=>{
+    useProfile.mockReturnValue(null)
+  })
+
+  it("shows the login page", async () => {
+    render(<App />);
+  });
+})
+
+
+describe("after authentication", () => {
+  beforeEach(()=>{
+    useAuthState.mockReturnValue(null)
+  })
+
+  it("shows the login page", async () => {
+    render(<App />);
+  });
+})

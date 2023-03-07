@@ -16,6 +16,7 @@ const Profile = ({ allUsers, user, allEvents }) => {
     setShowEventModal(isShow);
     setEventData(eventData);
   };
+  console.log(user)
 
   const handleClose = () => {
     setShowEventModal(false);
