@@ -31,6 +31,7 @@ const EventCard = ({
   const [currStartDate, setCurrStartDate] = useState(null);
   const [currEndDate, setCurrEndDate] = useState(null);
   const [participantsToShow, setParticipantsToShow] = useState([]);
+  console.log("Current user: ",user);
   useEffect(() => {
     if (cardData && allUsers) {
       let tempList = [];

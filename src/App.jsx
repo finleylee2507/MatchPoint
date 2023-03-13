@@ -22,7 +22,8 @@ const App = () => {
   //   displayName: "Vedant Apte",
   //   photoURL: "",
   // };
-  const user = null;
+  const user = useAuthState();
+  // const user=null;
 
   // Get the data from each table in the database, and print errors if any
   const [events, eventsError] = useDbData("/events");

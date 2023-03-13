@@ -46,7 +46,7 @@ const SignInButton = () => {
 // };
 
 const Landing = (allUsers) => {
-  // const user = useAuthState();
+  const user = useAuthState();
 
   // CHANGE UID AND DISPLAYNAME FOR CYPRESS TESTS
   // const user = {
@@ -54,7 +54,6 @@ const Landing = (allUsers) => {
   //   displayName: "Vedant Apte",
   //   photoURL: "",
   // };
-  const user = null;
 
   if (user && allUsers && allUsers["allUsers"] && allUsers["allUsers"]) {
     if (!allUsers["allUsers"][user.uid]) {
