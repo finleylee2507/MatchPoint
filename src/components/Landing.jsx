@@ -1,9 +1,9 @@
 // Landing Page
 
 import {
-  addNewUser,
-  signInWithGoogle,
-  useAuthState,
+    addNewUser, clearDatabase,
+    signInWithGoogle,
+    useAuthState,
 } from "../utilities/firebase";
 import { Button } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
@@ -37,13 +37,13 @@ const SignInButton = () => {
   );
 };
 
-// const ClearDBButton = () => {
-//   return (
-//     <button className="btn btn-dark" onClick={clearDatabase}>
-//       Clear Database
-//     </button>
-//   );
-// };
+const ClearDBButton = () => {
+  return (
+    <button className="btn btn-dark" onClick={clearDatabase}>
+      Clear Database
+    </button>
+  );
+};
 
 const Landing = (allUsers) => {
   const user = useAuthState();
@@ -97,7 +97,7 @@ const Landing = (allUsers) => {
           interests!
         </h3>
         <SignInButton />
-        {/* <ClearDBButton /> */}
+         {/*<ClearDBButton />*/}
       </div>
     </div>
   );
