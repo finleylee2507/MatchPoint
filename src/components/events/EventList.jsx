@@ -590,6 +590,7 @@ const EventList = ({ eventData, user, allUsers }) => {
         handleClose={handleCloseSeeMoreModal}
         data={modalDataSeeMore}
         allUsers={allUsers}
+        data-testid="event-modal"
       />
       <AddEventModal
         show={showAddEventModal}
