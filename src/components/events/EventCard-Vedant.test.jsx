@@ -47,25 +47,16 @@ describe("Clicking See Event Details on the Event Card", () => {
       />
     );
 
-    // Wait for the events state variable to become non-empty
-    // await waitFor(() => {
-    //   expect(getByTestId("event-list")).to.exist;
-    // });
-
     const seeEventDetailsButton = getByTestId("see-event-details");
-
     const isVisibleBeforeClick = queryByTestId("event-modal");
 
-    // // modal should not be present initially
-
+    // Modal should not be present initially
     expect(isVisibleBeforeClick).toBeFalsy();
 
-    // click the delete event button
-
+    // Click the see event details button
     fireEvent.click(seeEventDetailsButton);
 
-    // wait for the modal to be visible within a 5 second timeout period
-
+    // Wait for the modal to be visible within a 5 second timeout period
     await waitFor(
       () => {
         const isVisibleAfterClick = queryByTestId("event-modal");
