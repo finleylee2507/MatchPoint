@@ -247,6 +247,7 @@ const EventCard = ({
             !cardData.participants.includes(user.uid) && (
               <Button
                 className="event-card-button join-event-button"
+                data-testid="join-event"
                 onClick={handleJoinEvent}
                 variant="primary"
                 size="lg"
@@ -283,6 +284,7 @@ const EventCard = ({
             cardData.owner !== user.uid && (
               <Button
                 size="lg"
+                data-testid="leave-event"
                 className="event-card-button leave-event-button"
                 onClick={() => {
                   handleLeave(cardData);
