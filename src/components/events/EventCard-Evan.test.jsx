@@ -1,6 +1,7 @@
 import { describe, it, vi } from "vitest";
 import { fireEvent, render, waitFor, findByText } from "@testing-library/react";
 import EventList from "./EventList.jsx";
+import { screen } from "@testing-library/dom";
 
 vi.mock("./utilities/userProfile");
 const mockEventData = {
@@ -61,7 +62,7 @@ describe("Clicking See Event Details on the Event Card", () => {
     // Wait for the modal to be visible within a 5 second timeout period
     await waitFor(
       () => {
-        const leaveEventButton = findByText("Successfully joined event!");
+        expect(screen.findByText("Successfully joined event!"));
       },
       { timeout: 5000 }
     );
