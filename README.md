@@ -193,7 +193,7 @@ Evan Waite - evanwaite2024@u.northwestern.edu
 Vincent Wei - vincentwei2024@u.northwestern.edu
 
 
-<p align="right">(<a href="#kidsync">back to top</a>)</p>
+<p align="right">(<a href="#matchpoint">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 
@@ -204,7 +204,7 @@ A special shoutout to the following resources/libraries that have been instrumen
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [Font Awesome](https://fontawesome.com)
 
-<p align="right">(<a href="#kidsync">back to top</a>)</p>
+<p align="right">(<a href="#matchpoint">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
