@@ -34,7 +34,7 @@
 
 ![MatchPoint Landing Page](./src/assets/landing_screenshot.png)
 
-MatchPoint is built for Northwestern University students who want to organize and participate in pickup sports
+MatchPoint is built for students who want to organize and participate in pickup sports
 games. It offers a variety of sports to choose from and allows users to join games based on their skill level. With this
 app, students can discover games beyond their usual social circles and make new connections while having fun.
 
