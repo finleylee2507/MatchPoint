@@ -178,7 +178,14 @@ Don't forget to give the project a star! Thanks again!
 
 ## Developers
 
-Finley Li, Vedant Apte, Rawan Mohamed, Hongle Che, Shiyuan Duan, Elina Rawat, Evan Waite, Vincent Wei
+* Finley Li
+* Vedant Apte 
+* Rawan Mohamed
+* Hongle Che
+* Shiyuan Duan 
+* Elina Rawat 
+* Evan Waite
+* Vincent Wei
 
 
 <p align="right">(<a href="#matchpoint">back to top</a>)</p>
