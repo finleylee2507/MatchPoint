@@ -23,7 +23,7 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#known-bugs">Known Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact">Developers</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -52,10 +52,11 @@ app, students can discover games beyond their usual social circles and make new 
 
 ## Demo
 
-Check out our app in action at: https://matchpoint-9d3b2.web.app!
+Check out our app in action at:  https://matchpoint-2a22e.web.app!
 
 To explore the app, you can sign in with your own Google account (we plan to add support for more sign-in methods in the
-future). For security, we've turned off write access for the database, which means the users can't create or join events. If you want
+future). For security, we've turned off write access for the database, which means the users can't create or join
+events. If you want
 to explore these features, please contact us.
 
 Note that this app was developed in a short timeframe of 3 weeks and may still contain some bugs. If you encounter any
@@ -140,10 +141,11 @@ with the latest event details.
 ## Roadmap
 
 A few features we'd love to add in the future:
+
 - [ ] Create teams and join events as a team
 - [ ] "Favorite" events or save for later
 - [ ] Share events with people outside of MatchPoint
-- [ ] Message event organizer and participants 
+- [ ] Message event organizer and participants
 - [ ] Event filtering (tags, full/open events)
 
 <p align="right">(<a href="#matchpoint">back to top</a>)</p>
@@ -174,23 +176,9 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- CONTACT -->
 
-## Contact
+## Developers
 
-Finley Li - fenglieli2024@u.northwestern.edu
-
-Vedant Apte - vedantapte2023@u.northwestern.edu
-
-Rawan Mohamed - rawanmohamed2023@u.northwestern.edu
-
-Hongle Che - HongleChe2024@u.northwestern.edu
-
-Shiyuan Duan - shiyuanduan2023@u.northwestern.edu
-
-Elina Rawat - elinarawat2024@u.northwestern.edu
-
-Evan Waite - evanwaite2024@u.northwestern.edu
-
-Vincent Wei - vincentwei2024@u.northwestern.edu
+Finley Li, Vedant Apte, Rawan Mohamed, Hongle Che, Shiyuan Duan, Elina Rawat, Evan Waite, Vincent Wei
 
 
 <p align="right">(<a href="#matchpoint">back to top</a>)</p>

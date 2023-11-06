@@ -1,16 +1,16 @@
 .landing-page-container {
-  display: flex;
-  position: relative;
-  justify-content: space-evenly;
-  background-color: #c3beff;
-  min-height: 100vh;
-  flex-direction: row;
-  overflow: hidden;
+    display: flex;
+    position: relative;
+    justify-content: space-evenly;
+    background-color: #c3beff;
+    min-height: 100vh;
+    flex-direction: row;
+    overflow: hidden;
 }
 
 .sign-in-button {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .col-left {
@@ -36,92 +36,92 @@
 }
 
 .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
-  position: absolute;
-  height: 10rem !important;
-  width: 10rem !important;
+    position: absolute;
+    height: 10rem !important;
+    width: 10rem !important;
 }
 
-.landing-img5{
-  top: -2%;
-  left: 45%;
+.landing-img5 {
+    top: -2%;
+    left: 45%;
 }
 
-.landing-img2{
-  top: -3%;
-  left: 0%;
+.landing-img2 {
+    top: -3%;
+    left: 0%;
 }
 
-.landing-img3{
-  top: 45%;
-  right: -2%;
+.landing-img3 {
+    top: 45%;
+    right: -2%;
 }
 
-.landing-img4{
-  bottom: 0%;
-  right: -3%;
-  height: 10rem !important;
-  width: 10rem !important;
+.landing-img4 {
+    bottom: 0%;
+    right: -3%;
+    height: 10rem !important;
+    width: 10rem !important;
 
 }
 
-.landing-img1{
-  top: 45%;
-  left: -2%;
+.landing-img1 {
+    top: 45%;
+    left: -2%;
 }
 
-.landing-img6{
-  bottom: -5%;
-  left: 45%;
+.landing-img6 {
+    bottom: -5%;
+    left: 45%;
 }
 
-.landing-img7{
-  top: 0%;
-  right: 0%;
+.landing-img7 {
+    top: 0%;
+    right: 0%;
 }
 
-.landing-img8{
-  bottom: 0%;  
-  left: -2%;
+.landing-img8 {
+    bottom: 0%;
+    left: -2%;
 }
 
 .landing-img1:hover {
-  transform: scale(1.2);
-  animation: jiggle 1s infinite linear;
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
 }
 
 .landing-img2:hover {
-  transform: scale(1.2);
-  animation: jiggle 1s infinite linear;
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
 }
 
 .landing-img3:hover {
-  transform: scale(1.2);
-  animation: jiggle 1s infinite linear;
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
 }
 
 .landing-img4:hover {
-  transform: scale(1.2);
-  animation: jiggle 1s infinite linear;
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
 }
 
 .landing-img5:hover {
-  transform: scale(1.2);
-  animation: jiggle 1s infinite linear;
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
 }
 
 .landing-img6:hover {
-  transform: scale(1.2);
-  animation: jiggle 1s infinite linear;
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
 }
 
 .landing-img7:hover {
-  transform: scale(1.2);
-  animation: jiggle 1s infinite linear;
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
 }
 
 .landing-img8:hover {
-  transform: scale(1.2);
-  animation: jiggle 1s infinite linear;
+    transform: scale(1.2);
+    animation: jiggle 1s infinite linear;
 }
 
 
@@ -152,54 +152,53 @@
 }
 
 
-
 .app-name {
-  font-family: "Graduate", cursive;
-  font-weight: bold;
-  color: #6c60ff;
-  font-size: 3rem;
-  font-family: "Graduate", cursive;
-  align-self: center;
+    font-family: "Graduate", cursive;
+    font-weight: bold;
+    color: #6c60ff;
+    font-size: 3rem;
+    font-family: "Graduate", cursive;
+    align-self: center;
 }
 
-.small-logo{
-  display: none;
+.small-logo {
+    display: none;
 }
 
-.blurb{
-  font-size: 2rem;
-  font-family: "Montserrat", sans-serif;
-  font-weight: bold;
-  align-self: center;
-  margin-top: 1rem;
+.blurb {
+    font-size: 2rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    align-self: center;
+    margin-top: 1rem;
 }
 
 .sign-in-button {
-  color: white !important;
-  border: none !important;
-  background-color: #271ca1 !important;
-  border-radius: 15px;
-  font-size: 1.2rem;
-  font-family: "Montserrat", sans-serif !important;
-  font-weight: bold;
+    color: white !important;
+    border: none !important;
+    background-color: #271ca1 !important;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-family: "Montserrat", sans-serif !important;
+    font-weight: bold;
 }
 
 .sign-in-button:hover {
-  cursor: pointer;
-  background-color: #6c60ff !important;
-  transition: 0.3s;
+    cursor: pointer;
+    background-color: #6c60ff !important;
+    transition: 0.3s;
 }
 
 .logo-container {
-  display: flex;
-  justify-content: center;
-  /* gap: 2rem; */
+    display: flex;
+    justify-content: center;
+    /* gap: 2rem; */
 }
 
-.sign-in-btn-container{
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
+.sign-in-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
 /* @media (max-width:1000px) {
@@ -214,51 +213,50 @@
 } */
 
 @media (max-width: 1000px) {
-  .landing-page-container {
-    flex-direction: column;
-  }
+    .landing-page-container {
+        flex-direction: column;
+    }
 
-  .app-image {
-    display: none;
-  }
+    .app-image {
+        display: none;
+    }
 
-  .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
-    display: none;
-  }
+    .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
+        display: none;
+    }
 
-  /* .app-name {
-    font-size: 8vw;
-  } */
+    /* .app-name {
+      font-size: 8vw;
+    } */
+    .small-logo {
+        height: 160px;
+    }
 
-  .small-logo {
-    height: 160px;
-  }
+    .col-right {
+        width: auto;
+        padding: 20px;
+    }
 
-  .col-right {
-    width: auto;
-    padding: 20px;
-  }
+    .small-logo {
+        display: block;
+        width: 250px;
+        height: 250px;
+    }
 
-  .small-logo {
-    display: block;
-    width: 250px;
-    height: 250px;
-  }
-
-  .logo-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* gap: 2rem; */
-  }
+    .logo-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* gap: 2rem; */
+    }
 
 
 }
 
 @media (max-height: 590px) {
 
-  .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
-    display: none;
-  }
+    .landing-img1, .landing-img2, .landing-img3, .landing-img4, .landing-img5, .landing-img6, .landing-img7, .landing-img8 {
+        display: none;
+    }
 
 }

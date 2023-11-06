@@ -1,99 +1,99 @@
-import React, { useState } from "react";
-import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
-import { signOut } from "../utilities/firebase";
+import React, {useState} from "react";
+import {Container, Nav, Navbar, Offcanvas} from "react-bootstrap";
+import {useLocation, useNavigate} from "react-router-dom";
+import {signOut} from "../utilities/firebase";
 import "./Navbar.css";
 
 const SignOutButton = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  async function signOutUser() {
-    await signOut();
-    navigate("/");
-  }
+    async function signOutUser() {
+        await signOut();
+        navigate("/");
+    }
 
-  return (
-    <button data-cy="sign-out" className="nav-button" onClick={signOutUser}>
-      Sign out
-    </button>
-  );
+    return (
+        <button data-cy="sign-out" className="nav-button" onClick={signOutUser}>
+            Sign out
+        </button>
+    );
 };
 
 const AuthButton = () => {
-  return <SignOutButton />;
+    return <SignOutButton/>;
 };
 
-const NavBar = ({ numberOfUnread }) => {
-  const [activeLink, setActiveLink] = useState(location.pathname);
+const NavBar = ({numberOfUnread}) => {
+    const [activeLink, setActiveLink] = useState(location.pathname);
 
-  const handleClick = (link) => {
-    setActiveLink(link);
-  };
+    const handleClick = (link) => {
+        setActiveLink(link);
+    };
 
-  return (
-    <>
-      <Navbar expand="false" className="bar navbar-expand-lg navbar-light">
-        <Container fluid>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar`} />
-          <Navbar.Brand className="logo" href="/allEvents">
-            MatchPoint
-          </Navbar.Brand>
-          <Navbar.Offcanvas
-            id={`offcanvasNavbar`}
-            aria-labelledby={`offcanvasNavbarLabel`}
-            placement="start"
-            className="burger-menu"
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel`}>
-                MatchPoint
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
-                {/* <Nav.Link href="#action1">Profile</Nav.Link> */}
-                <Nav.Link
-                  className={`nav-link-events${
-                    activeLink === "/allEvents" ? "active" : ""
-                  }`}
-                  href="/allEvents"
-                  onClick={() => handleClick("allEvents")}
-                >
-                  All Events
-                </Nav.Link>
-                <Nav.Link
-                  className={`nav-link-inbox ${
-                    activeLink === "/inbox" ? "active" : ""
-                  }`}
-                  href="/inbox"
-                  onClick={() => handleClick("inbox")}
-                >
-                  Inbox
-                  {numberOfUnread !== 0 ? (
-                    <span className="number-of-unread">{numberOfUnread}</span>
-                  ) : (
-                    <span></span>
-                  )}
-                </Nav.Link>
+    return (
+        <>
+            <Navbar expand="false" className="bar navbar-expand-lg navbar-light">
+                <Container fluid>
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar`}/>
+                    <Navbar.Brand className="logo" href="/allEvents">
+                        MatchPoint
+                    </Navbar.Brand>
+                    <Navbar.Offcanvas
+                        id={`offcanvasNavbar`}
+                        aria-labelledby={`offcanvasNavbarLabel`}
+                        placement="start"
+                        className="burger-menu"
+                    >
+                        <Offcanvas.Header closeButton>
+                            <Offcanvas.Title id={`offcanvasNavbarLabel`}>
+                                MatchPoint
+                            </Offcanvas.Title>
+                        </Offcanvas.Header>
+                        <Offcanvas.Body>
+                            <Nav className="justify-content-end flex-grow-1 pe-3">
+                                {/* <Nav.Link href="#action1">Profile</Nav.Link> */}
+                                <Nav.Link
+                                    className={`nav-link-events${
+                                        activeLink === "/allEvents" ? "active" : ""
+                                    }`}
+                                    href="/allEvents"
+                                    onClick={() => handleClick("allEvents")}
+                                >
+                                    All Events
+                                </Nav.Link>
+                                <Nav.Link
+                                    className={`nav-link-inbox ${
+                                        activeLink === "/inbox" ? "active" : ""
+                                    }`}
+                                    href="/inbox"
+                                    onClick={() => handleClick("inbox")}
+                                >
+                                    Inbox
+                                    {numberOfUnread !== 0 ? (
+                                        <span className="number-of-unread">{numberOfUnread}</span>
+                                    ) : (
+                                        <span></span>
+                                    )}
+                                </Nav.Link>
 
-                <Nav.Link
-                  className={`nav-link-profile ${
-                    activeLink === "/profile" ? "active" : ""
-                  }`}
-                  href="/profile"
-                  onClick={() => handleClick("profile")}
-                >
-                  Profile
-                </Nav.Link>
-              </Nav>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
-          <AuthButton />
-        </Container>
-      </Navbar>
-    </>
-  );
+                                <Nav.Link
+                                    className={`nav-link-profile ${
+                                        activeLink === "/profile" ? "active" : ""
+                                    }`}
+                                    href="/profile"
+                                    onClick={() => handleClick("profile")}
+                                >
+                                    Profile
+                                </Nav.Link>
+                            </Nav>
+                        </Offcanvas.Body>
+                    </Navbar.Offcanvas>
+                    <AuthButton/>
+                </Container>
+            </Navbar>
+        </>
+    );
 };
 
 export default NavBar;

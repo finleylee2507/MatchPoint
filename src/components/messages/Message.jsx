@@ -1,175 +1,170 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./Message.css";
-import { updateReadAndUnreadMessages } from "../../utilities/firebase";
-import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { parseDateTimeString } from "../../utilities/dateTime";
+import {updateReadAndUnreadMessages} from "../../utilities/firebase";
+import {faTrashCan} from "@fortawesome/free-regular-svg-icons";
+import {faCircle} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {parseDateTimeString} from "../../utilities/dateTime";
 
 const Message = ({
-  message,
-  allUsers,
-  user,
-  showModal,
-  setCurrentMessageToDisplay,
-  isRead,
-  displayDeletedMesasge,
-}) => {
-  if (message === undefined || allUsers === undefined || user === undefined) {
-    return "";
-  }
-
-  const [dateTimeObject, setDateTimeObject] = useState(null);
-
-  useEffect(() => {
-    if (message !== undefined && message.timeStamp !== "undated") {
-      //don't parse date for welcome message
-      let { month, day, year, hours, minutes, seconds, weekday } =
-        parseDateTimeString(message.timeStamp);
-      setDateTimeObject({
-        month: month,
-        day: day,
-        year: year,
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds,
-        weekday: weekday,
-      });
+                     message,
+                     allUsers,
+                     user,
+                     showModal,
+                     setCurrentMessageToDisplay,
+                     isRead,
+                     displayDeletedMesasge,
+                 }) => {
+    if (message === undefined || allUsers === undefined || user === undefined) {
+        return "";
     }
-  }, [message]);
-  console.log(dateTimeObject);
-  const handleMessageClick = () => {
-    markAsRead();
-    setCurrentMessageToDisplay(message);
-    showModal();
-  };
-  const markAsRead = () => {
-    console.log("message clicked");
-    console.log("Is read? ", isRead);
-    console.log(message.id);
-    if (message.id === "welcome") {
-      return;
-    }
-    let updatedMessageData = {};
 
-    if (!allUsers[user.uid].readMessages) {
-      //user has no read messages
-      // Update the list of unread messages
-      let userUnreadMessages = allUsers[user.uid].unreadMessages;
+    const [dateTimeObject, setDateTimeObject] = useState(null);
 
-      userUnreadMessages = userUnreadMessages.filter(
-        (messageId) => messageId !== message.id
-      );
-      updatedMessageData.unreadMessages = userUnreadMessages;
-      updatedMessageData.readMessages = [message.id];
+    useEffect(() => {
+        if (message !== undefined && message.timeStamp !== "undated") {
+            //don't parse date for welcome message
+            let {month, day, year, hours, minutes, seconds, weekday} =
+                parseDateTimeString(message.timeStamp);
+            setDateTimeObject({
+                month: month,
+                day: day,
+                year: year,
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds,
+                weekday: weekday,
+            });
+        }
+    }, [message]);
+    const handleMessageClick = () => {
+        markAsRead();
+        setCurrentMessageToDisplay(message);
+        showModal();
+    };
+    const markAsRead = () => {
+        if (message.id === "welcome") {
+            return;
+        }
+        let updatedMessageData = {};
 
-      // Call firebase function to update read and unread messages
-      updateReadAndUnreadMessages(updatedMessageData, user.uid);
-    } else {
-      //user has read messages
+        if (!allUsers[user.uid].readMessages) {
+            //user has no read messages
+            // Update the list of unread messages
+            let userUnreadMessages = allUsers[user.uid].unreadMessages;
 
-      if (!allUsers[user.uid].readMessages.includes(message.id)) {
-        //make sure the message is not already in the read message list
+            userUnreadMessages = userUnreadMessages.filter(
+                (messageId) => messageId !== message.id
+            );
+            updatedMessageData.unreadMessages = userUnreadMessages;
+            updatedMessageData.readMessages = [message.id];
 
-        // Update the list of unread messages
-        let userUnreadMessages = allUsers[user.uid].unreadMessages;
+            // Call firebase function to update read and unread messages
+            updateReadAndUnreadMessages(updatedMessageData, user.uid);
+        } else {
+            //user has read messages
 
-        userUnreadMessages = userUnreadMessages.filter(
-          (messageId) => messageId !== message.id
-        );
-        updatedMessageData.unreadMessages = userUnreadMessages;
-        updatedMessageData.readMessages = [
-          ...allUsers[user.uid].readMessages,
-          message.id,
-        ];
+            if (!allUsers[user.uid].readMessages.includes(message.id)) {
+                //make sure the message is not already in the read message list
 
-        // Call firebase function to update read and unread messages
-        updateReadAndUnreadMessages(updatedMessageData, user.uid);
-      }
-    }
-  };
+                // Update the list of unread messages
+                let userUnreadMessages = allUsers[user.uid].unreadMessages;
 
-  const deleteMessage = (e) => {
-    console.log("Deleting message...");
-    e.stopPropagation();
+                userUnreadMessages = userUnreadMessages.filter(
+                    (messageId) => messageId !== message.id
+                );
+                updatedMessageData.unreadMessages = userUnreadMessages;
+                updatedMessageData.readMessages = [
+                    ...allUsers[user.uid].readMessages,
+                    message.id,
+                ];
 
-    let updatedMessageData = {};
+                // Call firebase function to update read and unread messages
+                updateReadAndUnreadMessages(updatedMessageData, user.uid);
+            }
+        }
+    };
 
-    if (!allUsers[user.uid].readMessages) {
-      //user has no read messages
-      // Update the list of unread messages
-      let userUnreadMessages = allUsers[user.uid].unreadMessages;
+    const deleteMessage = (e) => {
+        e.stopPropagation();
 
-      userUnreadMessages = userUnreadMessages.filter(
-        (messageId) => messageId !== message.id
-      );
-      updatedMessageData.unreadMessages = userUnreadMessages;
-      updatedMessageData.readMessages = [];
+        let updatedMessageData = {};
 
-      // Call firebase function to update read and unread messages
-      updateReadAndUnreadMessages(updatedMessageData, user.uid);
-    } else {
-      //user has read messages
+        if (!allUsers[user.uid].readMessages) {
+            //user has no read messages
+            // Update the list of unread messages
+            let userUnreadMessages = allUsers[user.uid].unreadMessages;
 
-      // Update the list of unread messages
-      let userUnreadMessages = allUsers[user.uid].unreadMessages;
-      let userReadMessages = allUsers[user.uid].readMessages;
-      userUnreadMessages = userUnreadMessages.filter(
-        (messageId) => messageId !== message.id
-      );
+            userUnreadMessages = userUnreadMessages.filter(
+                (messageId) => messageId !== message.id
+            );
+            updatedMessageData.unreadMessages = userUnreadMessages;
+            updatedMessageData.readMessages = [];
 
-      userReadMessages = userReadMessages.filter(
-        (messageId) => messageId !== message.id
-      );
+            // Call firebase function to update read and unread messages
+            updateReadAndUnreadMessages(updatedMessageData, user.uid);
+        } else {
+            //user has read messages
 
-      updatedMessageData.unreadMessages = userUnreadMessages;
-      updatedMessageData.readMessages = userReadMessages;
-      // Call firebase function to update read and unread messages
-      updateReadAndUnreadMessages(updatedMessageData, user.uid);
-      displayDeletedMesasge();
-    }
-  };
+            // Update the list of unread messages
+            let userUnreadMessages = allUsers[user.uid].unreadMessages;
+            let userReadMessages = allUsers[user.uid].readMessages;
+            userUnreadMessages = userUnreadMessages.filter(
+                (messageId) => messageId !== message.id
+            );
 
-  return (
-    <div
-      className={
-        "message" +
-        (isRead ? " read" : "") +
-        (message.id === "welcome" ? " default" : " custom")
-      }
-      onClick={handleMessageClick}
-    >
-      <div className="message-upper-container">
-        <FontAwesomeIcon
-          icon={faCircle}
-          className={"unread-dot" + (isRead ? " read" : "")}
-        />
+            userReadMessages = userReadMessages.filter(
+                (messageId) => messageId !== message.id
+            );
 
-        <h2 className={"message-card-title" + (isRead ? " read" : "")}>
-          {message.title}
-        </h2>
+            updatedMessageData.unreadMessages = userUnreadMessages;
+            updatedMessageData.readMessages = userReadMessages;
+            // Call firebase function to update read and unread messages
+            updateReadAndUnreadMessages(updatedMessageData, user.uid);
+            displayDeletedMesasge();
+        }
+    };
 
-        <div className="date-and-delete-container">
-          {dateTimeObject && (
-            <span className={"date-string" + (isRead ? " read" : "")}>
+    return (
+        <div
+            className={
+                "message" +
+                (isRead ? " read" : "") +
+                (message.id === "welcome" ? " default" : " custom")
+            }
+            onClick={handleMessageClick}
+        >
+            <div className="message-upper-container">
+                <FontAwesomeIcon
+                    icon={faCircle}
+                    className={"unread-dot" + (isRead ? " read" : "")}
+                />
+
+                <h2 className={"message-card-title" + (isRead ? " read" : "")}>
+                    {message.title}
+                </h2>
+
+                <div className="date-and-delete-container">
+                    {dateTimeObject && (
+                        <span className={"date-string" + (isRead ? " read" : "")}>
               {dateTimeObject.year != new Date().getFullYear()
-                ? `${dateTimeObject.month}/${dateTimeObject.day}/${dateTimeObject.year}`
-                : `${dateTimeObject.weekday} ${dateTimeObject.month}/${dateTimeObject.day}`}
+                  ? `${dateTimeObject.month}/${dateTimeObject.day}/${dateTimeObject.year}`
+                  : `${dateTimeObject.weekday} ${dateTimeObject.month}/${dateTimeObject.day}`}
             </span>
-          )}
+                    )}
 
-          {message.id !== "welcome" && (
-            <FontAwesomeIcon
-              icon={faTrashCan}
-              className="delete-message-icon"
-              size="lg"
-              onClick={deleteMessage}
-            />
-          )}
+                    {message.id !== "welcome" && (
+                        <FontAwesomeIcon
+                            icon={faTrashCan}
+                            className="delete-message-icon"
+                            size="lg"
+                            onClick={deleteMessage}
+                        />
+                    )}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Message;

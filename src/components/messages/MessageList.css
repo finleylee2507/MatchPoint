@@ -1,4 +1,4 @@
-.inbox-wrapper{
+.inbox-wrapper {
     background-color: #e3e0ff;
     width: 100%;
     height: 100vh;
@@ -13,12 +13,13 @@
     background-color: #e3e0ff;
 }
 
-.message-list-tabs{
+.message-list-tabs {
     display: flex;
     justify-content: center;
 
 }
-.message-list-tab{
+
+.message-list-tab {
     border-bottom: none !important;
 }
 
@@ -26,15 +27,17 @@
     font-size: 20px !important;
 }
 
-.empty-message-container{
+.empty-message-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.no-message-img{
+
+.no-message-img {
     height: 200px;
 }
-.loading-container{
+
+.loading-container {
     margin-top: 5rem;
     height: 100vh;
     display: flex;

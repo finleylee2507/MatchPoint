@@ -239,11 +239,12 @@ hr.solid {
 }
 
 @media screen and (max-width: 617px) {
-    .event-image{
+    .event-image {
         width: 15vw;
         height: 15vw;
         border-radius: 50%;
     }
+
     .title {
         font-size: 28px !important;
     }
@@ -303,11 +304,12 @@ hr.solid {
 
 @media screen and (max-width: 570px) {
 
-    .event-image{
+    .event-image {
         width: 20vw;
         height: 20vw;
         border-radius: 50%;
     }
+
     .details-header {
         font-size: 11px;
     }
