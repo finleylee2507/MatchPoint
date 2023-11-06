@@ -55,7 +55,7 @@ app, students can discover games beyond their usual social circles and make new 
 Check out our app in action at:  https://matchpoint-2a22e.web.app!
 
 To explore the app, you can sign in with your own Google account (we plan to add support for more sign-in methods in the
-future). For security, we've turned off write access for the database, which means the users can't create or join
+future). For security, we've **turned off write access** for the database, which means the users can't create or join
 events. If you want
 to explore these features, please contact us.
 
